@@ -28,7 +28,6 @@ install:
 - nvm install 6
 - npm install electron-builder@next
 - npm install
-- bower install
 - npm prune
 script:
 - ember test
