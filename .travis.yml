@@ -28,9 +28,12 @@ install:
 - nvm install 6
 - npm install electron-builder@next
 - npm install
+- bower install
 - npm prune
 script:
-- npm run release
+- ember test
+- ember electron:test
+- ember electron:make
 branches:
   except:
   - "/^v\\d+\\.\\d+\\.\\d+$/"
