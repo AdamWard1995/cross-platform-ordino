@@ -51,15 +51,31 @@
         }}
         {{#bs-tooltip placement='right' triggerElement="#password-box"}}
           <div class='sign-up-form-password-tooltip'>
-            Password must have at least:<br/>
-            {{#if passwordHas6Characters}}{{fa-icon 'check'}}{{else}}{{fa-icon 'close'}}{{/if}}
-            Six characters<br/>
-            {{#if passwordHasDigit}}{{fa-icon 'check'}}{{else}}{{fa-icon 'close'}}{{/if}}
-            One digit<br/>
-            {{#if passwordHasUppercaseLetter}}{{fa-icon 'check'}}{{else}}{{fa-icon 'close'}}{{/if}}
-            One uppercase letter<br/>
-            {{#if passwordHasLowercaseLetter}}{{fa-icon 'check'}}{{else}}{{fa-icon 'close'}}{{/if}}
-            One lowercase letter<br/>
+            Password must have at least:<br>
+            {{#if passwordHas6Characters}}
+              {{fa-icon 'check'}}
+            {{else}}
+              {{fa-icon 'close'}}
+            {{/if}}
+            Six characters<br>
+            {{#if passwordHasDigit}}
+              {{fa-icon 'check'}}
+            {{else}}
+              {{fa-icon 'close'}}
+            {{/if}}
+            One digit<br>
+            {{#if passwordHasUppercaseLetter}}
+              {{fa-icon 'check'}}
+            {{else}}
+              {{fa-icon 'close'}}
+            {{/if}}
+            One uppercase letter<br>
+            {{#if passwordHasLowercaseLetter}}
+              {{fa-icon 'check'}}
+            {{else}}
+              {{fa-icon 'close'}}
+            {{/if}}
+            One lowercase letter<br>
           </div>
         {{/bs-tooltip}}
         {{input

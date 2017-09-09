@@ -1,17 +1,19 @@
 .sign-in {
   display: flex;
-  height: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
 
   &-form {
     display: inline-block;
     position: relative;
     flex: 0 0 auto;
 
-    .ember-text-field:nth-child(1) {
-      margin-top: 40px;
+    .ember-text-field {
+      &:nth-child(1) {
+        margin-top: 40px;
+      }
     }
 
     &-button {
@@ -24,9 +26,9 @@
     }
 
     &-label {
+      padding-bottom: 5px;
       font-size: $font-size-s;
       font-weight: bold;
-      padding-bottom: 5px;
     }
 
     &-credentials {

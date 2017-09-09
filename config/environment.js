@@ -56,8 +56,10 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
 
+  /*eslint-disable */
   if (environment === 'production') {
   }
+  /*eslint-enable */
 
   return ENV;
 };

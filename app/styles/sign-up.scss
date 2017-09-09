@@ -1,9 +1,9 @@
 .sign-up {
   display: flex;
-  height: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
 
   &-success {
     &-button-container {
@@ -28,9 +28,9 @@
     }
 
     &-label {
+      padding-bottom: 5px;
       font-size: $font-size-s;
       font-weight: bold;
-      padding-bottom: 5px;
     }
 
     &-name {

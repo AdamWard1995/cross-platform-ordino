@@ -1,6 +1,14 @@
 $color-primary: #87a6c5;
 $color-primary-light: #9fb7d0;
-$color-highlight: #00CED1;
-$color-light-accent: #E7EDF3;
+$color-highlight: #00ced1;
+$color-light-accent: #e7edf3;
 $color-dark-accent: #4f6d8b;
-$color-label-text: white;
+$color-label-text: #fff;
+
+$color-black: #000;
+$color-white: #000;
+$color-grey: #808080;
+$color-light-grey: #eaeaea;
+
+$color-disabled-background: rgba($color-light-grey, .1);
+$color-disabled-text: #ddd;

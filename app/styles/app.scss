@@ -12,7 +12,7 @@ $side-menu-width-closed: 50px;
   position: absolute;
   left: 0;
   height: 100%;
-  border-right: 1px solid grey;
+  border-right: 1px solid $color-grey;
 
   &.is-open {
     width: $side-menu-width-open;
@@ -27,30 +27,30 @@ $side-menu-width-closed: 50px;
 
   .close-drawer,
   .open-drawer {
-    color: black;
-    font-size: 2em;
     margin-top: 5px;
+    color: $color-black;
+    font-size: 2em;
 
     &:hover {
-      cursor: pointer;
       color: $color-dark-accent;
+      cursor: pointer;
     }
 
     &:active {
-      cursor: pointer;
       color: $color-light-accent;
+      cursor: pointer;
     }
   }
 
   .nav-view {
     display: flex;
-    width: 100%;
-    height: 200px;
     flex-direction: column;
     justify-content: space-between;
+    width: 100%;
+    height: 200px;
+    border-bottom: 1px solid $color-grey;
     background-color: $color-primary;
     color: $color-label-text;
-    border-bottom: 1px solid grey;
 
     .buttons {
       display: flex;
@@ -79,22 +79,22 @@ $side-menu-width-closed: 50px;
 
   .list-group {
     &-item {
-      font-size: $font-size-m;
-      border-top: 0;
-      border-left: 0;
-      border-right: 0;
-      border-radius: 0;
       margin-bottom: 0;
+      border-top: 0;
+      border-right: 0;
+      border-left: 0;
+      border-radius: 0;
+      font-size: $font-size-m;
 
       &.disabled {
-        background-color: rgba(#eaeaea, 0.1);
-        color: #ddd;
+        background-color: $color-disabled-background;
+        color: $color-disabled-text;
       }
 
       &:not(.disabled) {
         &:hover {
           background-color: $color-primary;
-          color: white;
+          color: $color-white;
           cursor: pointer;
         }
 
@@ -132,23 +132,23 @@ $side-menu-width-closed: 50px;
   .action-buttons {
     display: flex;
     flex: 1 0 auto;
-    height: 40px;
     align-items: center;
     justify-content: flex-end;
+    height: 40px;
 
     .fa {
-      color: $color-primary;
       margin: 5px;
+      color: $color-primary;
       font-size: 2em;
 
       &:hover {
-        cursor: pointer;
         color: $color-dark-accent;
+        cursor: pointer;
       }
 
       &:active {
-        cursor: pointer;
         color: $color-light-accent;
+        cursor: pointer;
       }
     }
   }
@@ -156,10 +156,10 @@ $side-menu-width-closed: 50px;
   .authentication {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     height: 100%;
-    justify-content: center;
-    align-items: center;
 
     &-header {
       display: inline-block;
@@ -177,8 +177,8 @@ $side-menu-width-closed: 50px;
 }
 
 .instructions {
+  color: $color-grey;
   font-size: $font-size-m;
-  color: grey;
 }
 
 .is-visible {
