@@ -1,0 +1,40 @@
+<div class='sign-in'>
+  <form class='sign-in-form'>
+    <div class='page-header sign-in-header'>
+      <h1>Sign In</h1>
+    </div>
+    <div class='instructions'>Please enter your <strong>E-mail</strong> address and <strong>password</strong>.</div>
+    <div class='sign-in-form-credentials'>
+      {{input
+        type='text'
+        class='form-control'
+        value=email
+        placeholder='E-mail'
+      }}
+      {{input
+        id='password-box'
+        type='password'
+        class='form-control'
+        value=password
+        placeholder='Password'
+      }}
+    </div>
+    <div class='sign-in-form-button-container'>
+      {{#if session.isWorking}}
+        <button class='btn btn-primary' disabled='disabled'>
+            {{fa-icon 'spinner' spin=true}} Signing in...
+        </button>
+      {{else}}
+        <input type='submit' class='btn btn-primary' value='Sign In' {{action 'signIn' email password}}>
+      {{/if}}
+    </div>
+  </form>
+  <div class='alert alert-danger {{errorMessageClass}}'>
+    <strong>Error!</strong> {{errorMessage}}
+  </div>
+  {{#if emailNotVerified}}
+    <button class='btn btn-link {{sendVerificationClass}}' {{action 'signIn' email password true}}>
+      Re-send Verification E-mail
+    </button>
+  {{/if}}
+</div>

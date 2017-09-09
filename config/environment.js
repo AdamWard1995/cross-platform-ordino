@@ -21,6 +21,19 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+    },
+
+    firebase: {
+      apiKey: 'AIzaSyBYyuJ-1E3ufujlzdKhj8gE9I6QH8TreJE',
+      authDomain: 'ordino-b5acf.firebaseapp.com',
+      databaseURL: 'https://ordino-b5acf.firebaseio.com',
+      projectId: 'ordino-b5acf',
+      storageBucket: 'ordino-b5acf.appspot.com',
+      messagingSenderId: '465139490006'
+    },
+
+    torii: {
+      sessionServiceName: 'session'
     }
   };
 
@@ -44,7 +57,6 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
   }
 
   return ENV;

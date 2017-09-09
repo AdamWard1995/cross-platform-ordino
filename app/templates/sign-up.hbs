@@ -1,0 +1,80 @@
+<div class='sign-up'>
+  {{#if signedUp}}
+    <div class='sign-up-success'>
+      <div class='page-header sign-up-header'>
+        <h1>Success!</h1>
+      </div>
+      <div class='instructions'>You will receive an E-mail shortly to verify you account.</div>
+      <div class='sign-up-success-button-container'>
+        {{#link-to 'sign-in'}}
+          <button type="button" class="btn btn-primary">Sign In</button>
+        {{/link-to}}
+      </div>
+    </div>
+  {{else}}
+    <form class='sign-up-form'>
+      <div class='page-header sign-up-header'>
+        <h1>Sign Up</h1>
+      </div>
+      <div class='instructions'>Please enter the following information to create your account.</div>
+      <div class='sign-up-form-name'>
+        <div class='sign-up-form-label'>Your name</div>
+        <div class='sign-up-form-name-fields'>
+          {{input
+            type='text'
+            class='form-control'
+            value=first-name
+            placeholder='First name'
+          }}
+          {{input
+            type='text'
+            class='form-control'
+            value=last-name
+            placeholder='Last name'
+          }}
+        </div>
+      </div>
+      <div class='sign-up-form-credentials'>
+        <div class='sign-up-form-label'>Credentials</div>
+        {{input
+          type='text'
+          class='form-control'
+          value=email
+          placeholder='E-mail'
+        }}
+        {{input
+          id='password-box'
+          type='password'
+          class='form-control'
+          value=password
+          placeholder='Password'
+        }}
+        {{#bs-tooltip placement='right' triggerElement="#password-box"}}
+          <div class='sign-up-form-password-tooltip'>
+            Password must have at least:<br/>
+            {{#if passwordHas6Characters}}{{fa-icon 'check'}}{{else}}{{fa-icon 'close'}}{{/if}}
+            Six characters<br/>
+            {{#if passwordHasDigit}}{{fa-icon 'check'}}{{else}}{{fa-icon 'close'}}{{/if}}
+            One digit<br/>
+            {{#if passwordHasUppercaseLetter}}{{fa-icon 'check'}}{{else}}{{fa-icon 'close'}}{{/if}}
+            One uppercase letter<br/>
+            {{#if passwordHasLowercaseLetter}}{{fa-icon 'check'}}{{else}}{{fa-icon 'close'}}{{/if}}
+            One lowercase letter<br/>
+          </div>
+        {{/bs-tooltip}}
+        {{input
+          type='password'
+          class='form-control'
+          value=confirm-password
+          placeholder='Confirm password'
+        }}
+      </div>
+      <div class='sign-up-form-button-container'>
+        <input type='submit' class='btn btn-primary' value='Sign Up' {{action 'signUp'}}>
+      </div>
+    </form>
+  {{/if}}
+  <div class='alert alert-danger {{errorMessageClass}}'>
+    <strong>Error!</strong> {{errorMessage}}
+  </div>
+</div>

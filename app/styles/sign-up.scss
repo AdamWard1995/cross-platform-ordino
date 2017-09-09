@@ -1,0 +1,70 @@
+.sign-up {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &-success {
+    &-button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+  }
+
+  &-form {
+    display: inline-block;
+    position: relative;
+    flex: 0 0 auto;
+
+    &-button {
+      margin-top: 10px;
+
+      &-container {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+
+    &-label {
+      font-size: $font-size-s;
+      font-weight: bold;
+      padding-bottom: 5px;
+    }
+
+    &-name {
+      margin-top: 40px;
+
+      &-fields {
+        display: flex;
+
+        .ember-text-field {
+          &:nth-child(1) {
+            margin-right: 10px;
+          }
+
+          &:nth-last-child(1) {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+
+    &-credentials {
+      margin-top: 20px;
+
+      .ember-text-field {
+        margin-bottom: 10px;
+      }
+    }
+
+    &-password-tooltip {
+      text-align: left;
+    }
+  }
+
+  .alert {
+    margin-top: 20px;
+  }
+}
