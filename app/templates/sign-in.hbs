@@ -20,7 +20,7 @@
       }}
     </div>
     <div class='sign-in-form-button-container'>
-      {{#if session.isWorking}}
+      {{#if (and session.isWorking (not sendingVerification))}}
         <button class='btn btn-primary' disabled='disabled'>
           {{fa-icon 'spinner' spin=true}} Signing in...
         </button>
@@ -33,8 +33,14 @@
     <strong>Error!</strong> {{errorMessage}}
   </div>
   {{#if emailNotVerified}}
-    <button class='btn btn-link {{sendVerificationClass}}' {{action 'signIn' email password true}}>
-      Re-send Verification E-mail
-    </button>
+    {{#if (and session.isWorking sendingVerification)}}
+      <button class='btn btn-link' disabled='disabled'>
+        {{fa-icon 'spinner' spin=true}} Re-send Verification E-mail...
+      </button>
+    {{else}}
+      <button class='btn btn-link {{sendVerificationClass}}' {{action 'sendVerification' email password}}>
+        Re-send Verification E-mail
+      </button>
+    {{/if}}
   {{/if}}
 </div>

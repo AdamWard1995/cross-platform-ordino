@@ -10,8 +10,10 @@ export default Ember.Controller.extend({
   sendVerificationClass: Ember.computed('emailNotVerified', function() {
     return this.get('emailNotVerified') ?  'is-visible' : 'is-hidden';
   }),
+  sendingVerification: false,
   actions: {
-    signIn: function(email, password, sendVerification = false) {
+    signIn (email, password) {
+      this.set('sendingVerification', false);
       if (this.get('session').get('isAuthenticated')) {
         this.set('errorMessage', 'An account session is already open. Please sign out before signing in to a different account.');
       } else {
@@ -20,12 +22,9 @@ export default Ember.Controller.extend({
           email,
           password
         }).then((data) => {
-          if (!sendVerification && !data.currentUser.emailVerified) {
+          if (!data.currentUser.emailVerified) {
             this.set('errorMessage', 'The E-mail address for this account has not been verified.');
             this.set('emailNotVerified', true);
-            this.get('session').close();
-          } else if (sendVerification) {
-            data.currentUser.sendEmailVerification();
             this.get('session').close();
           } else {
             this.transitionToRoute('user', data.currentUser.uid);
@@ -34,6 +33,20 @@ export default Ember.Controller.extend({
           this.set('errorMessage', error.message);
         });
       }
+    },
+    sendVerification (email, password) {
+      this.set('sendingVerification', true);
+      this.get('session').open('firebase', {
+        provider: 'password',
+        email,
+        password
+      }).then((data) => {
+        data.currentUser.sendEmailVerification();
+        this.set('emailNotVerified', false);
+        this.get('session').close();
+      }, (error) => {
+        this.set('errorMessage', error.message);
+      });
     }
   }
 });

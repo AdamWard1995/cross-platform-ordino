@@ -26,9 +26,10 @@ export default Ember.Controller.extend({
     const regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
     return email && regex.test(email);
   }),
-  validPassword () {
+  validPassword: Ember.computed('passwordHas6Characters', 'passwordHasDigit',
+    'passwordHasLowercaseLetter', 'passwordHasUppercaseLetter', function () {
     return this.get('passwordHas6Characters') && this.get('passwordHasDigit') && this.get('passwordHasLowercaseLetter') && this.get('passwordHasUppercaseLetter');
-  },
+  }),
   actions: {
     signUp () {
       if (!(this.get('first-name') && this.get('first-name').trim())) {
@@ -39,7 +40,7 @@ export default Ember.Controller.extend({
         this.set('errorMessage', 'The email address format you entered is invalid.');
       } else if (this.get('password') !== this.get('confirm-password')) {
         this.set('errorMessage', 'The passwords you entered do not match.');
-      } else if (!this.validPassword()) {
+      } else if (!this.get('validPassword')) {
         this.set('errorMessage', 'The password you entered does not contain at least one uppercase letter, one lowercase letter, and one number.');
       } else {
         this.get('firebaseApp').auth().createUserWithEmailAndPassword(this.get('email'), this.get('password')).then((userResponse) => {
