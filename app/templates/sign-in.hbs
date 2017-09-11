@@ -22,11 +22,14 @@
     <div class='sign-in-form-button-container'>
       {{#if (and session.isWorking (not sendingVerification))}}
         <button class='btn btn-primary' disabled='disabled'>
-          {{fa-icon 'spinner' spin=true}} Signing in...
+          {{fa-icon 'spinner' spin=true}} Signing In...
         </button>
       {{else}}
         <input type='submit' class='btn btn-primary' value='Sign In' {{action 'signIn' email password}}>
       {{/if}}
+      {{#link-to 'reset-password'}}
+        <button class='btn btn-link'>Forgot your password?</button>
+      {{/link-to}}
     </div>
   </form>
   <div class='alert alert-danger {{errorMessageClass}}'>

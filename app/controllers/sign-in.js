@@ -13,7 +13,6 @@ export default Ember.Controller.extend({
   sendingVerification: false,
   actions: {
     signIn (email, password) {
-      this.set('sendingVerification', false);
       if (this.get('session').get('isAuthenticated')) {
         this.set('errorMessage', 'An account session is already open. Please sign out before signing in to a different account.');
       } else {
@@ -44,8 +43,10 @@ export default Ember.Controller.extend({
         data.currentUser.sendEmailVerification();
         this.set('emailNotVerified', false);
         this.get('session').close();
+        this.set('sendingVerification', false);
       }, (error) => {
         this.set('errorMessage', error.message);
+        this.set('sendingVerification', false);
       });
     }
   }

@@ -16,12 +16,15 @@
       }
     }
 
-    &-button {
+    &-button-container {
+      display: flex;
+      flex-direction: row-reverse;
       margin-top: 10px;
 
-      &-container {
-        display: flex;
-        justify-content: flex-end;
+      .btn {
+        &:nth-child(1) {
+          margin-right: 5px;
+        }
       }
     }
 

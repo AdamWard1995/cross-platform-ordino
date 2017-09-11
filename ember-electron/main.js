@@ -1,17 +1,21 @@
 /* eslint-env node */
-const { app, BrowserWindow, protocol } = require('electron');
+const { app, BrowserWindow, /*protocol*/ } = require('electron');
 const { dirname, join, resolve } = require('path');
-const protocolServe = require('electron-protocol-serve');
+// const protocolServe = require('electron-protocol-serve');
+const connect = require('connect'); // connect server
+const serveStatic = require('serve-static'); // serve static files
 
 let mainWindow = null;
+let server = null;
 
 // Registering a protocol & schema to serve our Ember application
-protocol.registerStandardSchemes(['serve'], { secure: true });
-protocolServe({
-  cwd: join(__dirname || resolve(dirname('')), '..', 'ember'),
-  app,
-  protocol,
-});
+// protocol.registerStandardSchemes(['http'], { secure: false });
+// protocolServe({
+//   cwd: join(__dirname || resolve(dirname('')), '..', 'ember'),
+//   app,
+//   protocol,
+//   name: 'http'
+// });
 
 // Uncomment the lines below to enable Electron's crash reporter
 // For more information, see http://electron.atom.io/docs/api/crash-reporter/
@@ -37,7 +41,12 @@ app.on('ready', () => {
   // If you want to open up dev tools programmatically, call
   // mainWindow.openDevTools();
 
-  const emberAppLocation = 'serve://dist';
+  if (!server) {
+    server = connect()
+      .use(serveStatic(join(__dirname || resolve(dirname('')), '..', 'ember'))).listen(4200);
+  }
+
+  const emberAppLocation = 'http://localhost:4200/';
 
   // Load the ember application using our custom protocol/scheme
   mainWindow.loadURL(emberAppLocation);

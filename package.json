@@ -13,7 +13,7 @@
     "build": "ember build",
     "start": "ember server",
     "lint": "lint-all-the-things",
-    "test": "npm run lint && ember test"
+    "test": "npm run lint && ember test && ember electron:test"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
@@ -21,6 +21,7 @@
     "babel-preset-react": "^6.24.1",
     "bootstrap-sass": "^3.3.7",
     "broccoli-asset-rev": "^2.4.5",
+    "connect": "^3.6.3",
     "devtron": "^1.4.0",
     "electron-prebuilt-compile": "1.7.5",
     "ember-ajax": "^3.0.0",
@@ -51,6 +52,7 @@
     "ember-truth-helpers": "^1.3.0",
     "emberfire": "^2.0.8",
     "loader.js": "^4.2.3",
+    "serve-static": "^1.12.4",
     "sinon-chai": "^2.13.0",
     "torii": "^0.9.6"
   },
