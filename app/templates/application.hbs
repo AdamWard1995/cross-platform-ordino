@@ -1,60 +1,40 @@
-<div class={{concat 'side-menu ' (if drawerOpen 'is-open' 'is-closed')}}>
-  {{#if drawerOpen}}
-    <div class='nav-view'>
-      <div class='buttons'>
-        {{fa-icon 'times-circle' class='close-drawer' click=(action 'toggleDrawerState')}}
-      </div>
-      <div class='title'>Ordino</div>
-      <div class={{if session.isAuthenticated 'logged-in-as' 'is-hidden'}}>
-        <div>You are logged in as <strong>{{session.currentUser.email}}</strong></div>
-        <button type='button' class='btn btn-primary btn-xs'  {{action 'signOut'}}>
-          Sign Out
-        </button>
-      </div>
-    </div>
-    <ul class='list-group'>
-      <li class={{concat 'list-group-item' (if (not session.isAuthenticated) ' disabled')}}>
-        {{fa-icon 'graduation-cap'}}Terms
-      </li>
-      <li class={{concat 'list-group-item' (if (not session.isAuthenticated) ' disabled')}}>
-        {{fa-icon 'list'}}Courses
-      </li>
-      <li class={{concat 'list-group-item' (if (not session.isAuthenticated) ' disabled')}}>
-        {{fa-icon 'image'}}Categories
-      </li>
-      <li class={{concat 'list-group-item' (if (not session.isAuthenticated) ' disabled')}}>
-        {{fa-icon 'file-text-o'}}WorkFlow
-      </li>
-      <li class={{concat 'list-group-item' (if (not session.isAuthenticated) ' disabled')}}>
-        {{fa-icon 'calendar'}}TimeTable
-      </li>
-    </ul>
-  {{else}}
-    {{fa-icon 'navicon' class='open-drawer' click=(action 'toggleDrawerState')}}
-  {{/if}}
-</div>
-<div class='content'>
-  <div class='action-buttons'>
+<div class='application'>
+  {{#app-menu}}
     {{#if session.isAuthenticated}}
-      {{fa-icon 'user' click=(action 'goToAccountPage')}}
-    {{/if}}
-    {{fa-icon 'info-circle'}}
-  </div>
-  {{#if (or session.isAuthenticated forceShowContent)}}
-    {{outlet}}
-  {{else}}
-    <div class='authentication'>
-      <div class='authentication-header page-header'>
-        <h1>You must be signed in to use Ordino</h1>
-      </div>
-      <div class='authentication-buttons'>
-        {{#link-to 'sign-up'}}
-          <button type="button" class="btn btn-primary">Sign Up</button>
-        {{/link-to}}
+      <ul class='list-group'>
+        <li class='list-group-item'>
+          {{fa-icon 'graduation-cap'}}Terms
+        </li>
+        <li class='list-group-item'>
+          {{fa-icon 'list'}}Courses
+        </li>
+        <li class='list-group-item'>
+          {{fa-icon 'image'}}Categories
+        </li>
+        <li class='list-group-item'>
+          {{fa-icon 'file-text-o'}}WorkFlow
+        </li>
+        <li class='list-group-item'>
+          {{fa-icon 'calendar'}}TimeTable
+        </li>
+      </ul>
+    {{else}}
+      <div class='app-menu-sign-in'>
         {{#link-to 'sign-in'}}
-          <button type="button" class="btn btn-primary">Sign In</button>
+          <button type='button' class='btn btn-primary'>
+            Sign In
+          </button>
         {{/link-to}}
       </div>
+    {{/if}}
+  {{/app-menu}}
+  <div class='content'>
+    <div class='action-buttons'>
+      {{#if session.isAuthenticated}}
+        {{fa-icon 'user' click=(action 'goToAccountDetails')}}
+      {{/if}}
+      {{fa-icon 'info-circle'}}
     </div>
-  {{/if}}
+    {{outlet}}
+  </div>
 </div>

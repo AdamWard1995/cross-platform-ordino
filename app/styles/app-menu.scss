@@ -1,0 +1,81 @@
+$drawer-width: 275px;
+$side-bar-width: 50px;
+$side-menu-nav-view-height: 90px;
+
+$drawer-border-color: #ddd;
+
+.app-menu {
+  display: flex;
+  height: 100%;
+
+  &-side-bar {
+    width: $side-bar-width;
+    height: 100%;
+    background-color: $color-primary;
+    color: $color-label-text;
+    text-align: center;
+
+    &-icon {
+      margin-top: 5px;
+      color: $color-white;
+      font-size: 2em;
+
+      &:hover {
+        color: $color-dark-accent;
+        cursor: pointer;
+      }
+
+      &:active {
+        color: $color-light-accent;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &-drawer {
+    display: flex;
+    flex-direction: column;
+    width: $drawer-width;
+    height: 100%;
+    border: 1px solid $drawer-border-color;
+    box-shadow: inset 2px 0 10px $color-grey;
+
+    &-nav-view {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: $side-menu-nav-view-height;
+      background-color: $color-primary;
+      color: $color-label-text;
+      font-family: 'Segoe UI', 'Helvetica', Garuda, Arial, sans-serif;
+      font-size: $font-size-xxl;
+
+      .buttons {
+        display: flex;
+        height: 40px;
+
+        .close-drawer {
+          margin-left: 10px;
+        }
+      }
+
+      &-logo {
+        width: 65px;
+        height: 65px;
+      }
+    }
+
+    &-content {
+      position: relative;
+      flex: 1 0 auto;
+    }
+  }
+
+  &.is-open {
+    .app-menu-side-bar {
+      box-shadow: 0 2px 15px $color-black;
+      z-index: 1;
+    }
+  }
+}

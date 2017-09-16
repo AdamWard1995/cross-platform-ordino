@@ -1,0 +1,14 @@
+<div class='app-menu-side-bar'>
+  {{fa-icon 'navicon' class='app-menu-side-bar-icon' click=(action 'toggleDrawerState')}}
+</div>
+<div class='app-menu-drawer'>
+  <div class='app-menu-drawer-nav-view'>
+    <img class='app-menu-drawer-nav-view-logo' src='assets/images/logo.png' alt='O'>
+    <div class='app-menu-drawer-nav-view-name-remainder'>
+      rdino
+    </div>
+  </div>
+  <div class='app-menu-drawer-content'>
+    {{yield}}
+  </div>
+</div>

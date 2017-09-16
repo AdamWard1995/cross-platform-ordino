@@ -25,7 +25,7 @@
           {{fa-icon 'spinner' spin=true}} Signing In...
         </button>
       {{else}}
-        <input type='submit' class='btn btn-primary' value='Sign In' {{action 'signIn' email password}}>
+        <input type='submit' class='btn btn-primary' value='Sign In' {{action 'signIn'}}>
       {{/if}}
       {{#link-to 'reset-password'}}
         <button class='btn btn-link'>Forgot your password?</button>

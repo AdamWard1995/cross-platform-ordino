@@ -8,12 +8,14 @@ export default Ember.Controller.extend({
   }),
   emailSent: false,
   actions: {
-    sendPasswordReset (email) {
+    sendPasswordReset () {
+      const email = this.get('email');
       this.get('firebaseApp').auth().sendPasswordResetEmail(email).then(() => {
         if (this.get('session').get('isAuthenticated')) {
           this.get('session').close();
         }
         this.set('emailSent', true);
+        this.set('email', null);
       }, (error) => {
         this.set('errorMessage', error.message);
       });

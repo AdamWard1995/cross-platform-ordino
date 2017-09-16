@@ -13,31 +13,7 @@ describe(test.label, function () {
   });
 
   describe('Actions', function () {
-    describe('toggleDrawerState()', function () {
-      describe('drawerOpen initially false', function () {
-        beforeEach(function () {
-          controller.set('drawerOpen', false);
-          controller.actions.toggleDrawerState.apply(controller);
-        });
-
-        it('should set drawerOpen to true', function () {
-          expect(controller.get('drawerOpen')).to.eql(true);
-        });
-      });
-
-      describe('drawerOpen initially true', function () {
-        beforeEach(function () {
-          controller.set('drawerOpen', true);
-          controller.actions.toggleDrawerState.apply(controller);
-        });
-
-        it('should set drawerOpen to false', function () {
-          expect(controller.get('drawerOpen')).to.eql(false);
-        });
-      });
-    });
-
-    describe('goToAccountPage()', function () {
+    describe('goToAccountDashboard()', function () {
       let transitionToStub;
       beforeEach(function () {
         transitionToStub = sinon.stub();
@@ -49,11 +25,31 @@ describe(test.label, function () {
         sessionStub.get.withArgs('currentUser').returns(currentUser);
         controller.set('session', sessionStub);
         controller.transitionToRoute = transitionToStub;
-        controller.actions.goToAccountPage.apply(controller);
+        controller.actions.goToAccountDashboard.apply(controller);
       });
 
-      it('should call to transition to user\'s account page', function () {
+      it('should call to transition to user\'s account dashboard page', function () {
         expect(transitionToStub).to.have.been.calledWithExactly('user', 'abc123');
+      });
+    });
+
+    describe('goToAccountDetails()', function () {
+      let transitionToStub;
+      beforeEach(function () {
+        transitionToStub = sinon.stub();
+        const sessionStub = sinon.stub();
+        const currentUser = {
+          uid: 'abc123'
+        };
+        sessionStub.get = sinon.stub();
+        sessionStub.get.withArgs('currentUser').returns(currentUser);
+        controller.set('session', sessionStub);
+        controller.transitionToRoute = transitionToStub;
+        controller.actions.goToAccountDetails.apply(controller);
+      });
+
+      it('should call to transition to user\'s account details page', function () {
+        expect(transitionToStub).to.have.been.calledWithExactly('user.account', 'abc123');
       });
     });
   });

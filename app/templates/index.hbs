@@ -1,1 +1,15 @@
 {{!-- app/templates/index.hbs --}}
+
+<div class='authentication'>
+  <div class='authentication-header page-header'>
+    <h1>You must be signed in to use Ordino</h1>
+  </div>
+  <div class='authentication-buttons'>
+    {{#link-to 'sign-up'}}
+      <button type="button" class="btn btn-primary">Sign Up</button>
+    {{/link-to}}
+    {{#link-to 'sign-in'}}
+      <button type="button" class="btn btn-primary">Sign In</button>
+    {{/link-to}}
+  </div>
+</div>

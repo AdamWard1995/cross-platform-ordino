@@ -1,0 +1,35 @@
+<div class='account'>
+  <div class='account-container'>
+    <div class='page-header account-header'>
+      <h1>Account Details</h1>
+    </div>
+    <div class='account-details'>
+      <div class='account-details-labels'>
+        <h4><div class='label label-primary'>E-mail</div></h4>
+        <h4><div class='label label-primary'>First Name</div></h4>
+        <h4><div class='label label-primary'>Last Name</div></h4>
+        <h4><div class='label label-primary'>Joined</div></h4>
+      </div>
+      <div class='account-details-values'>
+        <div class='account-detail'>
+          {{model.email}}
+        </div>
+        <div class='account-detail'>
+          {{model.first-name}}
+        </div>
+        <div class='account-detail'>
+          {{model.last-name}}
+        </div>
+        <div class='account-detail'>
+          {{moment-format model.joined 'MMMM Do YYYY, h:mm:ss a'}}
+        </div>
+      </div>
+    </div>
+    <div class='account-buttons'>
+      {{#link-to 'reset-password'}}
+        <button type="button" class="btn btn-primary">Reset Password</button>
+      {{/link-to}}
+      <button type="button" class="btn btn-primary" {{action 'signOut'}}>Sign Out</button>
+    </div>
+  </div>
+</div>

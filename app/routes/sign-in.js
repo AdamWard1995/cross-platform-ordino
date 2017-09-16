@@ -1,19 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  parentController: Ember.computed(function() {
-    return this.controllerFor('application');
-  }),
-
-  setupController (controller, model) {
-    this._super(controller, model);
-    this.get('parentController').set('forceShowContent', true);
+  model () {
+    return {};
   },
-
-  actions: {
-    willTransition () {
-      this.get('parentController').set('forceShowContent', false);
-      return true;
-    }
+  resetController (controller) {
+    controller.set('email', null);
+    controller.set('password', null);
+    controller.set('errorMessage', null);
+    controller.set('emailNotVerified', false);
   }
 });

@@ -189,8 +189,20 @@ describe(test.label, function () {
 
   describe('Actions', function () {
     describe('signUp()', function () {
+      describe('a session is already open', function () {
+        beforeEach(function () {
+          controller.set('session', Ember.Object.create({isAuthenticated: true}));
+          controller.actions.signUp.apply(controller);
+        });
+
+        it('should have set correct error message', function () {
+          expect(controller.get('errorMessage')).to.eql('An account session is already open. Please sign out before creating a new account.');
+        })
+      });
+
       describe('no first name entered', function () {
         beforeEach(function () {
+          controller.set('session', Ember.Object.create({isAuthenticated: false}));
           controller.set('first-name', '');
           controller.set('last-name', 'Ward');
           controller.set('email', 'adam@ward.ca');
@@ -206,6 +218,7 @@ describe(test.label, function () {
 
       describe('no last name entered', function () {
         beforeEach(function () {
+          controller.set('session', Ember.Object.create({isAuthenticated: false}));
           controller.set('first-name', 'Adam');
           controller.set('last-name', '');
           controller.set('email', 'adam@ward.ca');
@@ -221,6 +234,7 @@ describe(test.label, function () {
 
       describe('no email entered', function () {
         beforeEach(function () {
+          controller.set('session', Ember.Object.create({isAuthenticated: false}));
           controller.set('first-name', 'Adam');
           controller.set('last-name', 'Ward');
           controller.set('email', '');
@@ -236,6 +250,7 @@ describe(test.label, function () {
 
       describe('passwords don\'t match', function () {
         beforeEach(function () {
+          controller.set('session', Ember.Object.create({isAuthenticated: false}));
           controller.set('first-name', 'Adam');
           controller.set('last-name', 'Ward');
           controller.set('email', 'adam@ward.ca');
@@ -251,6 +266,7 @@ describe(test.label, function () {
 
       describe('passwords format invalid ', function () {
         beforeEach(function () {
+          controller.set('session', Ember.Object.create({isAuthenticated: false}));
           controller.set('first-name', 'Adam');
           controller.set('last-name', 'Ward');
           controller.set('email', 'adam@ward.ca');
@@ -269,6 +285,7 @@ describe(test.label, function () {
         beforeEach(function () {
           createUserStub = sinon.stub();
           authStub.returns({createUserWithEmailAndPassword: createUserStub});
+          controller.set('session', Ember.Object.create({isAuthenticated: false}));
           controller.set('first-name', 'Adam');
           controller.set('last-name', 'Ward');
           controller.set('email', 'adam@ward.ca');

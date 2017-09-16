@@ -2,95 +2,56 @@
 @import 'colors';
 @import 'typography';
 
+@import 'account';
+@import 'app-menu';
 @import 'reset-password';
 @import 'sign-in';
 @import 'sign-up';
 
-$side-menu-width-open: 300px;
-$side-menu-width-closed: 50px;
+$action-buttons-height: 40px;
 
-.side-menu {
-  position: absolute;
-  left: 0;
+html,
+body {
   height: 100%;
-  border-right: 1px solid $color-grey;
+  margin: 0;
+}
 
-  &.is-open {
-    width: $side-menu-width-open;
-  }
+body > .ember-view {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 
-  &.is-closed {
-    width: $side-menu-width-closed;
-    background-color: $color-primary;
-    color: $color-label-text;
-    text-align: center;
-  }
+.application {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
 
-  .close-drawer,
-  .open-drawer {
-    margin-top: 5px;
-    color: $color-black;
-    font-size: 2em;
-
-    &:hover {
-      color: $color-dark-accent;
-      cursor: pointer;
-    }
-
-    &:active {
-      color: $color-light-accent;
-      cursor: pointer;
-    }
-  }
-
-  .nav-view {
+.app-menu {
+  &-sign-in {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    position: absolute;
+    justify-content: center;
     width: 100%;
-    height: 200px;
-    border-bottom: 1px solid $color-grey;
-    background-color: $color-primary;
-    color: $color-label-text;
-
-    .buttons {
-      display: flex;
-      height: 40px;
-
-      .close-drawer {
-        margin-left: 10px;
-      }
-    }
-
-    .title {
-      display: flex;
-      flex: 1 0 auto;
-      align-items: center;
-      justify-content: center;
-      font-family: $font-family-base;
-      font-size: $font-size-xxl;
-    }
-
-    .logged-in-as {
-      display: flex;
-      justify-content: space-between;
-      padding: 5px;
-    }
+    height: 100%;
+    padding-top: 50px;
+    background-color: $color-disabled-background;
   }
 
   .list-group {
     &-item {
+      display: flex;
+      align-items: center;
       margin-bottom: 0;
       border-top: 0;
       border-right: 0;
       border-left: 0;
       border-radius: 0;
+      background-color: initial;
       font-size: $font-size-m;
-
-      &.disabled {
-        background-color: $color-disabled-background;
-        color: $color-disabled-text;
-      }
+      text-overflow: clip;
+      overflow: hidden;
 
       &:not(.disabled) {
         &:hover {
@@ -105,28 +66,14 @@ $side-menu-width-closed: 50px;
       }
 
       .fa {
-        width: 60px;
+        flex: 0 0 60px;
       }
     }
   }
 }
 
-.is-open {
-  + .content {
-    left: $side-menu-width-open;
-    width: calc(100% - #{$side-menu-width-open});
-  }
-}
-
-.is-closed {
-  + .content {
-    left: $side-menu-width-closed;
-    width: calc(100% - #{$side-menu-width-closed});
-  }
-}
-
 .content {
-  position: absolute;
+  flex: 1 0 auto;
   height: 100%;
   padding: 15px;
 
@@ -160,7 +107,7 @@ $side-menu-width-closed: 50px;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 100%;
+    height: calc(100% - #{$action-buttons-height});
 
     &-header {
       display: inline-block;

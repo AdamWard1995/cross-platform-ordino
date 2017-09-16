@@ -32,7 +32,9 @@ export default Ember.Controller.extend({
   }),
   actions: {
     signUp () {
-      if (!(this.get('first-name') && this.get('first-name').trim())) {
+      if (this.get('session').get('isAuthenticated')) {
+        this.set('errorMessage', 'An account session is already open. Please sign out before creating a new account.');
+      } else if (!(this.get('first-name') && this.get('first-name').trim())) {
         this.set('errorMessage', 'The \'First name\' field is empty.');
       } else if (!(this.get('last-name') && this.get('last-name').trim())) {
         this.set('errorMessage', 'The \'Last name\' field is empty.');

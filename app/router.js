@@ -9,11 +9,13 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('sign-up');
   this.route('sign-in');
-
-  this.route('user', {
-    path: ':user'
-  });
   this.route('reset-password');
+
+  this.authenticatedRoute('user', {
+    path: ':user'
+  }, function() {
+    this.route('account');
+  });
 });
 
 export default Router;

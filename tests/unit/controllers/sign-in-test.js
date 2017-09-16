@@ -93,7 +93,9 @@ describe(test.label, function () {
             sessionStub.open.returns({
               then: sinon.stub()
             });
-            controller.actions.signIn.apply(controller, ['adam@ward.ca', 'abc123']);
+            controller.set('email', 'adam@ward.ca');
+            controller.set('password', 'abc123');
+            controller.actions.signIn.apply(controller);
           });
 
           it('should have called open with right parameters', function () {
@@ -126,6 +128,14 @@ describe(test.label, function () {
           it('should have closed off session', function () {
             expect(sessionStub.close).to.have.callCount(1);
           });
+
+          it('should have cleared entered email', function () {
+            expect(controller.get('email')).to.eql(null);
+          });
+
+          it('should have cleared entered password', function () {
+            expect(controller.get('password')).to.eql(null);
+          });
         });
 
         describe('successfully signed in', function () {
@@ -141,6 +151,14 @@ describe(test.label, function () {
 
           it('should have transitioned to user account page', function () {
             expect(controller.transitionToRoute).to.be.calledWithExactly('user', 12345);
+          });
+
+          it('should have cleared entered email', function () {
+            expect(controller.get('email')).to.eql(null);
+          });
+
+          it('should have cleared entered password', function () {
+            expect(controller.get('password')).to.eql(null);
           });
         });
 
