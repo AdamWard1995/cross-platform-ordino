@@ -1,3 +1,9 @@
+[ci-img]: https://img.shields.io/travis/AdamWard1995/cross-platform-ordino.svg "Travis CI Build Status"
+[ci-url]: https://travis-ci.org/AdamWard1995/cross-platform-ordino
+
+[cov-img]: https://img.shields.io/coveralls/AdamWard1995/cross-platform-ordino.svg "Coveralls Code Coverage"
+[cov-url]: https://coveralls.io/github/AdamWard1995/cross-platform-ordino
+
 # cross-platform-ordino
 
 This README outlines the details of collaborating on this Ember application.
