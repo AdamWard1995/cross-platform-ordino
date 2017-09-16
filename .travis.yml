@@ -37,4 +37,8 @@ install:
 
 before_script:
   - npm install -g bower
+  - npm install -g coveralls
   - bower install
+
+after_success:
+  - cat coverage/lcov.info | coveralls
