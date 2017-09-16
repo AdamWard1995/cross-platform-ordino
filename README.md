@@ -1,8 +1,6 @@
-[ci-img]: https://img.shields.io/travis/AdamWard1995/cross-platform-ordino.svg "Travis CI Build Status"
-[ci-url]: https://travis-ci.org/AdamWard1995/cross-platform-ordino
+[![Build Status](https://travis-ci.org/AdamWard1995/cross-platform-ordino.svg?branch=master)](https://travis-ci.org/AdamWard1995/cross-platform-ordino)
 
-[cov-img]: https://img.shields.io/coveralls/AdamWard1995/cross-platform-ordino.svg "Coveralls Code Coverage"
-[cov-url]: https://coveralls.io/github/AdamWard1995/cross-platform-ordino
+[![Coverage Status](https://coveralls.io/repos/github/AdamWard1995/cross-platform-ordino/badge.svg?branch=master)](https://coveralls.io/github/AdamWard1995/cross-platform-ordino?branch=master)
 
 # cross-platform-ordino
 
