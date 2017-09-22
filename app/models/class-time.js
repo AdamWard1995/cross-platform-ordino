@@ -6,5 +6,5 @@ export default DS.Model.extend({
   'location': DS.attr('string'),
   'start-time': DS.attr('string'),
   'end-time': DS.attr('string'),
-  'days': DS.hasMany('number')
+  'day': DS.attr('string')
 });
