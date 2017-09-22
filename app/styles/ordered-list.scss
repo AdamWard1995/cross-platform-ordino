@@ -1,0 +1,67 @@
+.ordered-list {
+
+  .list-group-item {
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+
+    &:hover {
+      cursor: pointer;
+      color: $color-white;
+      background-color: $color-primary;
+    }
+
+    &:active {
+      background-color: $color-primary-light;
+    }
+
+    .ordered-item {
+      flex: 1 0 auto;
+    }
+
+    .delete-icon {
+      color: $color-primary-light;
+      font-size: 2em;
+      margin-left: 10px;
+      margin-right: 20px;
+
+      &:hover {
+        color: $color-dark-accent;
+      }
+
+      &:active {
+        color: $color-light-accent;
+      }
+    }
+
+    .order-buttons {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 auto;
+
+      .fa {
+        color: $color-primary-light;
+        font-size: 2em;
+
+        &:hover {
+          color: $color-dark-accent;
+          cursor: pointer;
+        }
+
+        &:active {
+          color: $color-light-accent;
+        }
+
+        &:nth-child(1) {
+          margin-bottom: -3px;
+          transform: rotate(-90deg) scaleX(.7);
+        }
+
+        &:nth-last-child(1) {
+          margin-top: -3px;
+          transform: rotate(90deg) scaleX(.7);
+        }
+      }
+    }
+  }
+}

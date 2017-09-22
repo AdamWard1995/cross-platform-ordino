@@ -1,0 +1,14 @@
+<div class='list-group item-list'>
+  {{#each orderedItems as |item|}}
+    <div class='list-group-item' onclick={{action 'itemSelected' item}}>
+      {{#if itemRenderer}}
+        {{component itemRenderer class='ordered-item' item=item}}
+      {{/if}}
+      {{fa-icon 'trash' class='delete-icon' click=(action 'deleteItem' item)}}
+      <div class='order-buttons'>
+        {{fa-icon 'play' class='decrement-icon' click=(action 'decrementIndex' item)}}
+        {{fa-icon 'play' class='increment-icon' click=(action 'incrementIndex' item)}}
+      </div>
+    </div>
+  {{/each}}
+</div>
