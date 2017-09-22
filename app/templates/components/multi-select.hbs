@@ -1,0 +1,15 @@
+<label for='selections' class='selections-label'>{{label}}</label>
+<div id='selections' class='selections'>
+  {{#each items as |item|}}
+    <label for={{concat item '-checkbox'}} class='selectable'>
+      {{input
+        id=(concat item '-checkbox')
+        type='checkbox'
+        checked=(contains selectedItems item)
+        on='change'
+        action=(action 'toggleSelection' item)
+      }}
+      {{item}}
+    </label>
+  {{/each}}
+</div>

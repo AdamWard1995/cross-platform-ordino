@@ -1,0 +1,11 @@
+.multi-select {
+  .selections {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin-top: 0;
+      margin-left: 20px;
+    }
+  }
+}
