@@ -1,0 +1,12 @@
+{{#bs-modal onSubmit=(action 'confirm') onHide=(action 'close') open=open as |modal|}}
+  {{#modal.header}}
+    <h2 class="modal-title">{{title}}</h2>
+  {{/modal.header}}
+  {{#modal.body}}
+    {{confirmationMessage}}
+  {{/modal.body}}
+  {{#modal.footer as |footer|}}
+    {{#bs-button onClick=(action modal.close) type="danger"}}No{{/bs-button}}
+    {{#bs-button onClick=(action modal.submit) type="success"}}Yes{{/bs-button}}
+  {{/modal.footer}}
+{{/bs-modal}}
