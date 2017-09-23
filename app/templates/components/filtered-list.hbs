@@ -1,0 +1,28 @@
+<div class='list-group item-list'>
+  {{#each filteredItems as |group|}}
+    <div class='list-group-item group-label'>
+      {{#if group-renderer}}
+        {{component group-renderer item=group.group}}
+      {{else}}
+        {{group.group}}
+      {{/if}}
+    </div>
+    {{#each group.items as |item|}}
+      <div class='list-group-item' onclick={{action 'itemSelected' item}}>
+        {{#if item-renderer}}
+          {{component item-renderer item=item}}
+        {{else}}
+          {{item}}
+        {{/if}}
+      </div>
+    {{/each}}
+  {{/each}}
+</div>
+<div class='filter-list'>
+  <div class='page-header filter-list-header'>
+    <h4>Filter</h4>
+  </div>
+  {{#each filterViews as |view|}}
+    {{component view}}
+  {{/each}}
+</div>

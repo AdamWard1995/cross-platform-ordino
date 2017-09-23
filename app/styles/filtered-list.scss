@@ -1,0 +1,39 @@
+.filtered-list {
+  display: flex;
+
+  .group-label {
+    font-size: $font-size-l;
+    color: $color-white;
+    background-color: $color-primary;
+  }
+
+  .item-list {
+    flex: 1 0 auto;
+    margin-right: 20px;
+  }
+
+  .filter-list {
+    flex: 0 0 auto;
+
+    &-header {
+      margin: 0;
+      padding: 0;
+    }
+
+    &-view {
+      margin-top: 10px;
+    }
+  }
+
+  .list-group-item {
+    &:hover {
+      background-color: $color-primary;
+      color: $color-white;
+      cursor: pointer;
+    }
+
+    &:active {
+      background-color: $color-primary-light;
+    }
+  }
+}
