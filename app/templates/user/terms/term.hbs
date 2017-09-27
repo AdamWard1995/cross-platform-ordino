@@ -1,0 +1,49 @@
+<div class='term'>
+  <div class='page-header term-header'>
+    {{fa-icon 'arrow-left' class='back-arrow' click=(action 'goToTermsRoute')}}
+    <h1 class='terms-header-title'>{{model.term.semester}}&thinsp;{{model.term.year}}</h1>
+    <button class='btn btn-link term-header-create-button' {{action 'showEditModal'}}>
+      {{fa-icon 'pencil'}} Edit...
+    </button>
+    <button class='btn btn-link term-header-create-button' {{action 'showDeleteModal'}}>
+      {{fa-icon 'trash'}} Delete...
+    </button>
+  </div>
+  <div class='courses'>
+    <button class='btn btn-link courses-create-button' {{action 'showCreateCourseModal'}}>
+      {{fa-icon 'plus'}} Create course...
+    </button>
+  </div>
+  {{ordered-list
+    items=model.courses
+    itemRenderer=(component 'course-renderer')
+    onItemSelected=(action 'goToCourseRoute')
+    onItemDeleted=(action 'showDeleteCourseModal')
+  }}
+  {{create-term-modal
+    open=editTerm
+    title='Edit term'
+    semester=(readonly model.term.semester)
+    year=(readonly model.term.year)
+    current=(readonly model.term.current)
+    onClose=(action 'hideEditModal')
+    onSubmit=(action 'editTerm')
+  }}
+  {{confirm-modal
+    open=deleteTerm
+    confirmationMessage=deleteConfirmationMessage
+    onClose=(action 'hideDeleteModal')
+    onConfirm=(action 'deleteTerm')
+  }}
+  {{create-course-modal
+    open=createCourse
+    onClose=(action 'hideCreateCourseModal')
+    onSubmit=(action 'createCourse')
+  }}
+  {{confirm-modal
+    open=deleteCourse
+    confirmationMessage=deleteCourseConfirmationMessage
+    onClose=(action 'hideDeleteCourseModal')
+    onConfirm=(action 'deleteCourse')
+  }}
+</div>
