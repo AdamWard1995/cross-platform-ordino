@@ -1,0 +1,38 @@
+{{#bs-modal class='create-term-modal' onSubmit=(action 'submit') onHide=(action 'close') open=open as |modal|}}
+  {{#modal.header}}
+    <h2 class='modal-title'>{{title}}</h2>
+  {{/modal.header}}
+  {{#modal.body}}
+    <div class='form-group'>
+      <label for='select-semester'>Semester</label>
+      <select class='form-control semester' id='select-semester' onchange={{action (mut semester) value='target.value'}}>
+        {{#each semesters as |sem|}}
+          <option value={{sem.value}} selected={{eq sem.value semester}}>{{sem.label}}</option>
+        {{/each}}
+      </select>
+      <label for='year-box'>Year</label>
+      {{input
+        id='year-box'
+        type='number'
+        class='form-control year'
+        value=year
+      }}
+      <label>
+        {{input
+          id='current-checkbox'
+          type='checkbox'
+          class='current'
+          checked=current
+        }}
+        Current term?
+      </label>
+    </div>
+    <div class='alert alert-danger {{errorMessageClass}}'>
+      <strong>Error!</strong> {{errorMessage}}
+    </div>
+  {{/modal.body}}
+  {{#modal.footer as |footer|}}
+    {{#bs-button onClick=(action modal.close) type='danger'}}Cancel{{/bs-button}}
+    {{#bs-button onClick=(action modal.submit) type='primary'}}Submit{{/bs-button}}
+  {{/modal.footer}}
+{{/bs-modal}}

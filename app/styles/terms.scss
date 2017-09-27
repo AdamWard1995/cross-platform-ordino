@@ -1,0 +1,29 @@
+.terms {
+  margin: 0 20px;
+
+  &-header {
+    display: flex;
+    align-items:flex-end;
+
+    &-title {
+      flex: 1 0 auto;
+    }
+
+    &-create-button {
+      flex: 0 0 auto;
+      padding: 6px;
+      font-size: 1.5em;
+      color: $color-primary;
+
+      &:hover
+      &:active {
+        color: $color-dark-accent;
+        text-decoration: none;
+      }
+    }
+  }
+
+  &-sub-header {
+    padding: 5px;
+  }
+}
