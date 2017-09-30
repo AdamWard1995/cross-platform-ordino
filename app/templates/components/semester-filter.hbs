@@ -1,0 +1,5 @@
+<select class='form-control' id='select-semester' onchange={{action (mut value) value='target.value'}}>
+  {{#each semesters as |sem|}}
+    <option value={{sem.value}} selected={{eq sem.value value}}>{{sem.label}}</option>
+  {{/each}}
+</select>

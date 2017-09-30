@@ -1,0 +1,8 @@
+.course-list {
+  height: calc(100% - #{$action-buttons-height} - #{$header-vertical-margin});
+  margin: 15px;
+
+  .courses-sub-header {
+    padding: 5px;
+  }
+}
