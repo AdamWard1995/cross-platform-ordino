@@ -1,14 +1,30 @@
+$action-buttons-height: 40px !global;
+$header-vertical-margin: 40px !global;
+
 @import 'ember-bootstrap/bootstrap';
 @import 'colors';
 @import 'typography';
 
 @import 'account';
 @import 'app-menu';
+@import 'course';
+@import 'course-list';
+@import 'course-renderer';
+@import 'course-report';
+@import 'course-work-renderer';
+@import 'create-course-modal';
+@import 'create-term-modal';
+@import 'filtered-list';
+@import 'multi-select';
+@import 'ordered-list';
 @import 'reset-password';
 @import 'sign-in';
 @import 'sign-up';
-
-$action-buttons-height: 40px;
+@import 'term-renderer';
+@import 'term';
+@import 'terms';
+@import 'workflow-course-work-renderer';
+@import 'workflow';
 
 html,
 body {
@@ -40,6 +56,17 @@ body > .ember-view {
   }
 
   .list-group {
+    width: 100%;
+
+    a {
+      color: $color-black;
+
+      &:hover,
+      &.active {
+        text-decoration: none;
+      }
+    }
+
     &-item {
       display: flex;
       align-items: center;
@@ -70,12 +97,19 @@ body > .ember-view {
       }
     }
   }
+
+  &-drawer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .content {
   flex: 1 0 auto;
   height: 100%;
   padding: 15px;
+  overflow-y: auto;
 
   .action-buttons {
     display: flex;
@@ -121,6 +155,26 @@ body > .ember-view {
         margin: 10px;
       }
     }
+  }
+}
+
+.back-arrow {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  color: $color-primary;
+  font-size: 2em;
+
+  &:hover {
+    color: $color-dark-accent;
+    cursor: pointer;
+  }
+
+  &:active {
+    color: $color-light-accent;
   }
 }
 
