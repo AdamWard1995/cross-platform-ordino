@@ -15,6 +15,18 @@ Router.map(function() {
     path: ':user'
   }, function() {
     this.route('account');
+    this.route('workflow');
+    this.route('terms', function() {
+      this.route('index', {path: '/'});
+      this.route('term', {path: ':term'});
+    });
+    this.route('courses', function() {
+      this.route('index', {path: '/'});
+      this.route('course', {path: ':course'}, function() {
+        this.route('index', {path: '/'});
+        this.route('report');
+      });
+    });
   });
 });
 

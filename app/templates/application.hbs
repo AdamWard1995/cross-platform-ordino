@@ -2,22 +2,31 @@
   {{#app-menu}}
     {{#if session.isAuthenticated}}
       <ul class='list-group'>
-        <li class='list-group-item'>
-          {{fa-icon 'graduation-cap'}}Terms
-        </li>
-        <li class='list-group-item'>
-          {{fa-icon 'list'}}Courses
-        </li>
+        {{#link-to 'user.terms'}}
+          <li class='list-group-item'>
+            {{fa-icon 'graduation-cap'}}Terms
+          </li>
+        {{/link-to}}
+        {{#link-to 'user.courses'}}
+          <li class='list-group-item'>
+            {{fa-icon 'list'}}Courses
+          </li>
+        {{/link-to}}
         <li class='list-group-item'>
           {{fa-icon 'image'}}Categories
         </li>
-        <li class='list-group-item'>
-          {{fa-icon 'file-text-o'}}WorkFlow
-        </li>
+        {{#link-to 'user.workflow'}}
+          <li class='list-group-item'>
+            {{fa-icon 'file-text-o'}}WorkFlow
+          </li>
+        {{/link-to}}
         <li class='list-group-item'>
           {{fa-icon 'calendar'}}TimeTable
         </li>
       </ul>
+      <button type='button' class='btn btn-primary' {{action 'signOut'}}>
+        Sign Out
+      </button>
     {{else}}
       <div class='app-menu-sign-in'>
         {{#link-to 'sign-in'}}
