@@ -54,7 +54,7 @@
       <strong>Error!</strong> {{errorMessage}}
     </div>
   {{/modal.body}}
-  {{#modal.footer as |footer|}}
+  {{#modal.footer}}
     {{#bs-button onClick=(action modal.close) type='danger'}}Cancel{{/bs-button}}
     {{#bs-button onClick=(action modal.submit) type='primary'}}Submit{{/bs-button}}
   {{/modal.footer}}

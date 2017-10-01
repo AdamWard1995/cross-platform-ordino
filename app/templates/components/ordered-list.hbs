@@ -1,6 +1,6 @@
 <div class='list-group item-list'>
   {{#each orderedItems as |item|}}
-    <div class='list-group-item' onclick={{action 'itemSelected' item}}>
+    <div class='list-group-item' {{action 'itemSelected' item}} role='button'>
       {{#if itemRenderer}}
         {{component itemRenderer class='ordered-item' item=item}}
       {{/if}}
