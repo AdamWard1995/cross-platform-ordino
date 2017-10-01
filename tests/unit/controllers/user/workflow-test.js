@@ -197,7 +197,7 @@ describe(test.label, function () {
       beforeEach(function () {
         sandbox.stub(controller, 'send');
         controller.set('itemToEdit', work2);
-        controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pm', 'MMMM Do yyyy, h:mm a').toISOString()]);
+        controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString()]);
       });
 
       it('should have set the item label', function () {
@@ -213,7 +213,7 @@ describe(test.label, function () {
       });
 
       it('should have set the item due', function () {
-        expect(work2.get('due')).to.eql('2017-10-01T02:30:00.000Z');
+        expect(work2.get('due')).to.eql('2017-09-30T22:30:00.000Z');
       });
 
       it('should have hidden edit course work modal', function () {

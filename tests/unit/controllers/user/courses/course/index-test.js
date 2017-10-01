@@ -421,12 +421,12 @@ describe(test.label, function () {
         saveNewRecordStub.returns(new Ember.RSVP.Promise(function (resolve){resolve();}));
         sandbox.stub(controller, 'send');
         controller.store.createRecord.returns({save: saveNewRecordStub});
-        controller.actions.createCourseWork.apply(controller, ['Midterm', 40, 90, moment('September 30th 2017, 10:30 pm', 'MMMM Do yyyy, h:mm a').toISOString()]);
+        controller.actions.createCourseWork.apply(controller, ['Midterm', 40, 90, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString()]);
       });
 
       it('should have created new course work', function () {
         expect(controller.store.createRecord).to.have.been.calledWithExactly('course-work',
-          {uid: 680, cid: 12345, index: 3, label: 'Midterm', weight: 40, grade: 90, due: '2017-10-01T02:30:00.000Z'}
+          {uid: 680, cid: 12345, index: 3, label: 'Midterm', weight: 40, grade: 90, due: '2017-09-30T22:30:00.000Z'}
         );
       });
 
@@ -447,7 +447,7 @@ describe(test.label, function () {
       beforeEach(function () {
         sandbox.stub(controller, 'send');
         controller.set('itemToEdit', work1);
-        controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pm', 'MMMM Do yyyy, h:mm a').toISOString()]);
+        controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString()]);
       });
 
       it('should have set the item label', function () {
@@ -463,7 +463,7 @@ describe(test.label, function () {
       });
 
       it('should have set the item due', function () {
-        expect(work1.get('due')).to.eql('2017-10-01T02:30:00.000Z');
+        expect(work1.get('due')).to.eql('2017-09-30T22:30:00.000Z');
       });
 
       it('should have hidden edit course work modal', function () {

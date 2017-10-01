@@ -241,7 +241,7 @@ describe(test.label, function () {
 
     describe('all values are provided', function () {
       beforeEach(function () {
-        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pm' 'MMMM Do YYYY, h:mm a')}}`);
+        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pmZ' 'MMMM Do YYYY, h:mm aZ')}}`);
         return wait().then(() => {
           this.$('.btn-primary').click();
           return wait();
@@ -253,7 +253,7 @@ describe(test.label, function () {
       });
 
       it('should have passed correct parameters to submit handler', function() {
-        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-29T03:59:00.000Z');
+        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-28T23:59:00.000Z');
       });
     });
   });

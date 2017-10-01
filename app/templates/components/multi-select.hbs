@@ -6,8 +6,7 @@
         id=(concat item '-checkbox')
         type='checkbox'
         checked=(contains selectedItems item)
-        on='change'
-        action=(action 'toggleSelection' item)
+        change=(action 'toggleSelection' item)
       }}
       {{item}}
     </label>
