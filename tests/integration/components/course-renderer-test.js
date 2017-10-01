@@ -21,7 +21,7 @@ describe(test.label, function () {
       expect(this.$()).to.have.length(1);
     });
 
-    it('should have term-renderer class set', function() {
+    it('should have course-renderer class set', function() {
       expect(this.$('.course-renderer')).to.have.length(1);
     });
 

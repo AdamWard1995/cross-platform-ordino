@@ -232,7 +232,7 @@ describe(test.label, function () {
     });
 
     it('should not be visible', function() {
-      expect(this.$('.create-term-modal .modal:visible')).to.have.length(0);
+      expect(this.$('.create-course-modal .modal:visible')).to.have.length(0);
     });
   });
 
