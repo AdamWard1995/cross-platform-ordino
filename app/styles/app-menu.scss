@@ -46,6 +46,7 @@ $drawer-border-color: #ddd;
       justify-content: center;
       width: 100%;
       height: $side-menu-nav-view-height;
+      border-bottom: 1px solid $drawer-border-color;
       background-color: $color-primary;
       color: $color-label-text;
       font-family: 'Segoe UI', 'Helvetica', Garuda, Arial, sans-serif;
