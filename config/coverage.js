@@ -8,5 +8,13 @@ module.exports = {
     'html',
     'lcov',
     'text-summary'
+  ],
+  excludes: [
+    '*/vendor/*',
+    '*/tests/**/*',
+    '*/public/**/*',
+    '*/ember-electron/**/*',
+    '*/config/**/*',
+    '*/app/enums/*'
   ]
 }
