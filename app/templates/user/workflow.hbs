@@ -1,0 +1,42 @@
+<div class='workflow'>
+  <div class='page-header workflow-header'>
+    <h1 class='workflow-header-title'>WorkFlow</h1>
+  </div>
+  {{filtered-list
+    groups=listItems
+    item-renderer=(component 'workflow-course-work-renderer')
+    filters=(array
+      (hash
+        value=dueAfterToFilter
+        view=(component 'due-after-filter' value=dueAfterToFilter)
+        passes=dueAfterValidator
+      )
+      (hash
+        value=dueBeforeToFilter
+        view=(component 'due-before-filter' value=dueBeforeToFilter)
+        passes=dueBeforeValidator
+      )
+      (hash
+        value=minWeightToFilter
+        view=(component 'min-weight-filter' value=minWeightToFilter)
+        passes=minWeightValidator
+      )
+      (hash
+        value=maxWeightToFilter
+        view=(component 'max-weight-filter' value=maxWeightToFilter)
+        passes=maxWeightValidator
+      )
+    )
+    onItemSelected=(action 'showEditCourseWorkModal')
+  }}
+  {{create-course-work-modal
+    open=editCourseWork
+    title='Edit course work'
+    label=(readonly itemToEdit.label)
+    weight=(readonly itemToEdit.weight)
+    grade=(readonly itemToEdit.grade)
+    due=(readonly (moment itemToEdit.due))
+    onClose=(action 'hideEditCourseWorkModal')
+    onSubmit=(action 'editCourseWork')
+  }}
+</div>

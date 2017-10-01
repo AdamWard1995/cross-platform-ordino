@@ -1,0 +1,12 @@
+.workflow {
+  .due-after-filter,
+  .due-before-filter {
+    .ember-text-field {
+      width: auto;
+    }
+
+    .input-group-addon {
+      width: auto;
+    }
+  }
+}

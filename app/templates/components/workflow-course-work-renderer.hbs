@@ -1,0 +1,20 @@
+<div class='left-portion'>
+  <div class='label'>
+    {{item.work.label}}
+  </div>
+  <div class='work-course'>
+    {{item.course.course-code}}
+  </div>
+</div>
+<div class='weight'>
+  <strong>Weight</strong>
+  <div class='weight-value'>
+    {{if item.work.weight (round item.work.weight 1) '---'}}%
+  </div>
+</div>
+<div class='due'>
+  <strong>Time</strong>
+  <div class='due-value'>
+    {{if item.work.due (moment-format item.work.due 'h:mm a') 'No due date'}}
+  </div>
+</div>

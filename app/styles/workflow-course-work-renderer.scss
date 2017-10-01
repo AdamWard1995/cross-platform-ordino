@@ -1,0 +1,27 @@
+.workflow-course-work-renderer {
+  display: flex;
+  align-items: center;
+
+  .left-portion {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .label {
+      padding: 0;
+      color: inherit;
+      font-size: $font-size-m;
+    }
+  }
+
+  .due,
+  .weight {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 80px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
