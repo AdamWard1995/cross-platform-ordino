@@ -52,14 +52,14 @@ describe(test.label, function () {
         model = route.model();
       });
 
-      it('should have queried for all user terms', function () {
+      it('should have queried for all user courses', function () {
         expect(route.store.query).to.have.been.calledWithExactly('course', {
           orderBy: 'uid',
           equalTo: 12345
         });
       });
 
-      it('should have returned all the reponse terms', function () {
+      it('should have returned all the reponse courses', function () {
         expect(model._result).to.eql(['foo', 'bar', 'qux']);
       });
     });
