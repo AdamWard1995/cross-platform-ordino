@@ -1,0 +1,45 @@
+{{#bs-modal class='create-course-work-modal' onSubmit=(action 'submit') onHide=(action 'close') open=open as |modal|}}
+  {{#modal.header}}
+    <h2 class='modal-title'>{{title}}</h2>
+  {{/modal.header}}
+  {{#modal.body}}
+    <div class='form-group'>
+      <label for='label-box'>Label</label>
+      {{input
+        id='label-box'
+        type='text'
+        class='form-control work-label'
+        value=label
+      }}
+      <label for='weight-box'>Weight (%)</label>
+      {{input
+        id='weight-box'
+        type='number'
+        class='form-control weight'
+        value=weight
+      }}
+      <label for='grade-box'>Grade (%)</label>
+      {{input
+        id='grade-box'
+        type='number'
+        class='form-control grade'
+        value=grade
+      }}
+      <label for='due-time-picker'>Due</label>
+      {{bs-datetimepicker
+        class='due-time-picker'
+        id='due-time-picker'
+        date=due
+        updateDate=(action (mut due))
+        format='MMMM Do YYYY, h:mm a'
+      }}
+    </div>
+    <div class='alert alert-danger {{errorMessageClass}}'>
+      <strong>Error!</strong> {{errorMessage}}
+    </div>
+  {{/modal.body}}
+  {{#modal.footer}}
+    {{#bs-button onClick=(action modal.close) type='danger'}}Cancel{{/bs-button}}
+    {{#bs-button onClick=(action modal.submit) type='primary'}}Submit{{/bs-button}}
+  {{/modal.footer}}
+{{/bs-modal}}

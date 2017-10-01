@@ -1,0 +1,70 @@
+<div class='course'>
+  <div class='page-header course-header'>
+    {{fa-icon 'arrow-left' class='back-arrow' click=(action 'goToTermRoute')}}
+    <h1 class='course-header-title'>{{model.course.course-code}}</h1>
+    <button class='btn btn-link course-header-create-button' {{action 'goToCourseReport'}}>
+      {{fa-icon 'pie-chart'}} View report
+    </button>
+    <button class='btn btn-link course-header-create-button' {{action 'showEditModal'}}>
+      {{fa-icon 'pencil'}} Edit...
+    </button>
+    <button class='btn btn-link course-header-create-button' {{action 'showDeleteModal'}}>
+      {{fa-icon 'trash'}} Delete...
+    </button>
+  </div>
+  <div class='course-sub-header'>
+    <button class='btn btn-link course-work-create-button' {{action 'showCreateCourseWorkModal'}}>
+      {{fa-icon 'plus'}} Create course work...
+    </button>
+  </div>
+  {{ordered-list
+    items=model.courseWork
+    itemRenderer=(component 'course-work-renderer')
+    onItemSelected=(action 'showEditCourseWorkModal')
+    onItemDeleted=(action 'showDeleteCourseWorkModal')
+  }}
+  {{create-course-modal
+    open=editCourse
+    title='Edit course'
+    course-code=(readonly model.course.course-code)
+    createClassTimes=(readonly createClassTimes)
+    start-time=(readonly startTime)
+    selectedDays=(readonly classDays)
+    location=(readonly location)
+    end-time=(readonly endTime)
+    start-time=(readonly startTime)
+    onClose=(action 'hideEditModal')
+    onSubmit=(action 'editCourse')
+  }}
+  {{confirm-modal
+    open=deleteCourse
+    confirmationMessage=deleteConfirmationMessage
+    onClose=(action 'hideDeleteModal')
+    onConfirm=(action 'deleteCourse')
+  }}
+  {{confirm-modal
+    open=deleteCourseWork
+    confirmationMessage=deleteCourseWorkConfirmationMessage
+    onClose=(action 'hideDeleteCourseWorkModal')
+    onConfirm=(action 'deleteCourseWork')
+  }}
+  {{#if createCourseWork}}
+    {{create-course-work-modal
+      open=true
+      onClose=(action 'hideCreateCourseWorkModal')
+      onSubmit=(action 'createCourseWork')
+    }}
+  {{/if}}
+  {{#if editCourseWork}}
+    {{create-course-work-modal
+      open=true
+      title='Edit course work'
+      label=(readonly itemToEdit.label)
+      weight=(readonly itemToEdit.weight)
+      grade=(readonly itemToEdit.grade)
+      due=(readonly (moment itemToEdit.due))
+      onClose=(action 'hideEditCourseWorkModal')
+      onSubmit=(action 'editCourseWork')
+    }}
+  {{/if}}
+</div>
