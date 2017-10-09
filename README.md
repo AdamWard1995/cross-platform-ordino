@@ -30,14 +30,10 @@ You will need the following things properly installed on your computer.
 
 ### Running Tests
 
-* Web App
-** npm run test-web-app
-* Electron
-** npm run test-electron
-* Lint
-** npm runt lint
-* Run all web app, Electron, and lint tests
-** npm test
+* Web App `npm run test-web-app`
+* Electron `npm run test-electron`
+* Lint `npm runt lint`
+* Run all web app, Electron, and lint tests `npm test`
 
 ### Building
 
