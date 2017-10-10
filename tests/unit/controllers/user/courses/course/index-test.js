@@ -51,12 +51,24 @@ describe(test.label, function () {
     });
 
     describe('deleteCourseWorkConfirmationMessage', function () {
-      beforeEach(function () {
-        controller.set('itemToDelete', work1);
+      describe('is item to delete', function () {
+        beforeEach(function () {
+          controller.set('itemToDelete', work1);
+        });
+
+        it('should have the correct confirmation message' , function () {
+          expect(controller.get('deleteCourseWorkConfirmationMessage')).to.eql('Are you sure you want to delete Assignment 2?');
+        });
       });
 
-      it('should have the correct confirmation message' , function () {
-        expect(controller.get('deleteCourseWorkConfirmationMessage')).to.eql('Are you sure you want to delete Assignment 2?');
+      describe('no item to delete', function () {
+        beforeEach(function () {
+          controller.set('itemToDelete', undefined);
+        });
+
+        it('should have the correct confirmation message' , function () {
+          expect(controller.get('deleteCourseWorkConfirmationMessage')).to.eql(undefined);
+        });
       });
     });
 
@@ -297,6 +309,59 @@ describe(test.label, function () {
 
         it('should not have created any new records', function () {
           expect(controller.store.createRecord).to.have.callCount(0);
+        });
+
+        it('should have refreshed the model', function () {
+          expect(controller.send).to.have.been.calledWithExactly('refreshModel');
+        });
+
+        it('should ensure edit course modal is hidden', function () {
+          expect(controller.send).to.have.been.calledWithExactly('hideEditModal');
+        });
+      });
+
+      describe('remove, add, and keep class times', function () {
+        let saveNewRecordStub;
+        beforeEach(function () {
+          saveNewRecordStub = sinon.stub();
+          saveNewRecordStub.returns(new Ember.RSVP.Promise(function (resolve){resolve();}));
+          sandbox.stub(controller, 'send');
+          controller.store.createRecord.returns({save: saveNewRecordStub});
+          controller.actions.editCourse.apply(controller, ['COMP 4905', 'N/A', '3:00 pm', '4:00 pm', ['Thursday', 'Friday']]);
+        });
+
+        it('should have updated the course code', function () {
+          expect(course.get('course-code')).to.eql('COMP 4905');
+        });
+
+        it('should have saved changes to the course', function () {
+          expect(course.get('save')).to.have.callCount(1);
+        });
+
+        it('should not have destroyed class2', function () {
+          expect(class2.get('destroyRecord')).to.have.callCount(0);
+        });
+
+        it('should have destroyed class1', function () {
+          expect(class1.get('destroyRecord')).to.have.callCount(1);
+        });
+
+        it('should have updated class2 location', function () {
+          expect(class2.get('location')).to.eql('N/A');
+        });
+
+        it('should have saved changes to class2', function () {
+          expect(class2.get('save')).to.have.callCount(1);
+        });
+
+        it('should have created new class time', function () {
+          expect(controller.store.createRecord).to.have.been.calledWithExactly('class-time',
+            {uid: 680, cid: 12345, location: 'N/A', 'start-time': '3:00 pm', 'end-time': '4:00 pm', day: 'Friday'}
+          );
+        });
+
+        it('should have saved new class time', function () {
+          expect(saveNewRecordStub).to.have.callCount(1);
         });
 
         it('should have refreshed the model', function () {

@@ -2,7 +2,7 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  session: Ember.inject.service(),
+  // session: Ember.inject.service(), TODO determine if can delete
   model () {
     return {};
   },

@@ -165,26 +165,40 @@ describe(test.label, function () {
           expect(onSelectStub).to.have.been.calledWithExactly(component.get('items')[0]);
         });
       });
+
+      describe('No selection handler provided', function () {
+        it('should have not thrown a exception', function () {
+          expect(() => component.actions.itemSelected.apply(component)).to.not.throw();
+        });
+      });
     });
 
     describe('deleteItem()', function () {
-      let onDeleteStub;
-      beforeEach(function () {
-        onDeleteStub = sinon.stub();
-        component.set('onItemDeleted', onDeleteStub);
-        component.actions.deleteItem.apply(component, [component.get('items')[0]]);
+      describe('Selection handler provided', function () {
+        let onDeleteStub;
+        beforeEach(function () {
+          onDeleteStub = sinon.stub();
+          component.set('onItemDeleted', onDeleteStub);
+          component.actions.deleteItem.apply(component, [component.get('items')[0]]);
+        });
+
+        it('should have called delete handler', function () {
+          expect(onDeleteStub).to.have.callCount(1);
+        });
+
+        it('should have passed correct item to delete handler', function () {
+          expect(onDeleteStub).to.have.been.calledWithExactly(component.get('items')[0]);
+        });
+
+        it('should have entered the deleting state', function () {
+          expect(component.get('deleting')).to.eql(true);
+        });
       });
 
-      it('should have called delete handler', function () {
-        expect(onDeleteStub).to.have.callCount(1);
-      });
-
-      it('should have passed correct item to delete handler', function () {
-        expect(onDeleteStub).to.have.been.calledWithExactly(component.get('items')[0]);
-      });
-
-      it('should have entered the deleting state', function () {
-        expect(component.get('deleting')).to.eql(true);
+      describe('No selection handler provided', function () {
+        it('should have not thrown a exception', function () {
+          expect(() => component.actions.deleteItem.apply(component)).to.not.throw();
+        });
       });
     });
   });

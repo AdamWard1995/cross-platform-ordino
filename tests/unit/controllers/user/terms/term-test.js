@@ -34,14 +34,26 @@ describe(test.label, function () {
     });
 
     describe('deleteCourseConfirmationMessage', function () {
-      beforeEach(function () {
-        controller.set('itemToDelete', Ember.Object.create({'course-code': 'COMP 4905'}));
+      describe('is item to delete', function () {
+        beforeEach(function () {
+          controller.set('itemToDelete', Ember.Object.create({'course-code': 'COMP 4905'}));
+        });
+
+        it('should return correct confirmation message', function () {
+          expect(controller.get('deleteCourseConfirmationMessage')).to.eql(
+            'Are you sure you want to delete COMP 4905?'
+          );
+        });
       });
 
-      it('should return correct confirmation message', function () {
-        expect(controller.get('deleteCourseConfirmationMessage')).to.eql(
-          'Are you sure you want to delete COMP 4905?'
-        );
+      describe('no item to delete', function () {
+        beforeEach(function () {
+          controller.set('itemToDelete', undefined);
+        });
+
+        it('should return correct confirmation message', function () {
+          expect(controller.get('deleteCourseConfirmationMessage')).to.eql(undefined);
+        });
       });
     });
   });

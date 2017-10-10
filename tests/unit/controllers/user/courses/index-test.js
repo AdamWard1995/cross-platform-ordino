@@ -29,6 +29,26 @@ describe(test.label, function () {
 
   describe('Computed Properties', function () {
     describe('listItems', function () {
+      describe('terms not set', function () {
+        beforeEach(function () {
+          controller.set('terms', undefined);
+        });
+
+        it('should return empty array', function () {
+          expect(controller.get('listItems')).to.have.length(0);
+        });
+      });
+
+      describe('terms not an array', function () {
+        beforeEach(function () {
+          controller.set('terms', {});
+        });
+
+        it('should return empty array', function () {
+          expect(controller.get('listItems')).to.have.length(0);
+        });
+      });
+
       describe('no terms', function () {
         beforeEach(function () {
           controller.set('terms', []);

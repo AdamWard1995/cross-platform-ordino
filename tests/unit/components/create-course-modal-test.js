@@ -44,15 +44,23 @@ describe(test.label, function () {
 
   describe('Actions', function () {
     describe('close()', function () {
-      let onCloseStub;
-      beforeEach(function () {
-        onCloseStub = sinon.stub();
-        component.set('onClose', onCloseStub);
-        component.actions.close.apply(component);
+      describe('Close handler provided', function () {
+        let onCloseStub;
+        beforeEach(function () {
+          onCloseStub = sinon.stub();
+          component.set('onClose', onCloseStub);
+          component.actions.close.apply(component);
+        });
+
+        it('should have called onClose handler', function () {
+          expect(onCloseStub).to.have.callCount(1);
+        });
       });
 
-      it('should have called onClose handler', function () {
-        expect(onCloseStub).to.have.callCount(1);
+      describe('No close handler provided', function () {
+        it('should have not thrown a exception', function () {
+          expect(() => component.actions.close.apply(component)).to.not.throw();
+        });
       });
     });
 
@@ -166,6 +174,18 @@ describe(test.label, function () {
           it('should have passed correct parameters to onSubmit handler', function () {
             expect(onSubmitStub).to.have.been.calledWithExactly('COMP 4004', 'TB 238', '10:05 am', '11:25 am', ['Tuesday', 'Thursday']);
           });
+        });
+      });
+
+      describe('No submit handler provided', function () {
+        beforeEach(function () {
+          component.set('course-code', 'COMP 4004');
+          component.set('createClassTimes', false);
+          component.set('onSubmit', undefined);
+        });
+
+        it('should have not thrown a exception', function () {
+          expect(() => component.actions.submit.apply(component)).to.not.throw();
         });
       });
     });

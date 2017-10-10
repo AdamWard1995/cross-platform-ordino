@@ -22,14 +22,26 @@ describe(test.label, function () {
 
   describe('Computed Properties', function () {
     describe('deleteConfirmationMessage', function () {
-      beforeEach(function () {
-        controller.set('itemToDelete', Ember.Object.create({semester: 'Fall', year: 2017}));
+      describe('is item to delete', function () {
+        beforeEach(function () {
+          controller.set('itemToDelete', Ember.Object.create({semester: 'Fall', year: 2017}));
+        });
+
+        it('should return correct confirmation message', function () {
+          expect(controller.get('deleteConfirmationMessage')).to.eql(
+            'Are you sure you want to delete Fall 2017?'
+          );
+        });
       });
 
-      it('should return correct confirmation message', function () {
-        expect(controller.get('deleteConfirmationMessage')).to.eql(
-          'Are you sure you want to delete Fall 2017?'
-        );
+      describe('no item to delete', function () {
+        beforeEach(function () {
+          controller.set('itemToDelete', undefined);
+        });
+
+        it('should return correct confirmation message', function () {
+          expect(controller.get('deleteConfirmationMessage')).to.eql(undefined);
+        });
       });
     });
   });

@@ -239,6 +239,24 @@ describe(test.label, function () {
       });
     });
 
+    describe('no entered due date', function () {
+      beforeEach(function () {
+        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95}}`);
+        return wait().then(() => {
+          this.$('.btn-primary').click();
+          return wait();
+        });
+      });
+
+      it('should have called submit handler', function() {
+        expect(submitStub).to.have.callCount(1);
+      });
+
+      it('should have passed correct parameters to submit handler', function() {
+        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, null);
+      });
+    });
+
     describe('all values are provided', function () {
       beforeEach(function () {
         this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pmZ' 'MMMM Do YYYY, h:mm aZ')}}`);

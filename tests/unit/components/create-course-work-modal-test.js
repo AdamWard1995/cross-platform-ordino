@@ -44,15 +44,23 @@ describe(test.label, function () {
 
   describe('Actions', function () {
     describe('close()', function () {
-      let onCloseStub;
-      beforeEach(function () {
-        onCloseStub = sinon.stub();
-        component.set('onClose', onCloseStub);
-        component.actions.close.apply(component);
+      describe('Close handler provided', function () {
+        let onCloseStub;
+        beforeEach(function () {
+          onCloseStub = sinon.stub();
+          component.set('onClose', onCloseStub);
+          component.actions.close.apply(component);
+        });
+
+        it('should have called onClose handler', function () {
+          expect(onCloseStub).to.have.callCount(1);
+        });
       });
 
-      it('should have called onClose handler', function () {
-        expect(onCloseStub).to.have.callCount(1);
+      describe('No close handler provided', function () {
+        it('should have not thrown a exception', function () {
+          expect(() => component.actions.close.apply(component)).to.not.throw();
+        });
       });
     });
 
@@ -78,6 +86,23 @@ describe(test.label, function () {
         });
       });
 
+      describe('no due date entered', function () {
+        beforeEach(function () {
+          component.set('label', 'Assignment 1');
+          component.set('weight', 30);
+          component.set('grade', 95);
+          component.actions.submit.apply(component);
+        });
+
+        it('should have called onSubmit handler', function () {
+          expect(onSubmitStub).to.have.callCount(1);
+        });
+
+        it('should have passed correct parameters to onSubmit handler', function () {
+          expect(onSubmitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, null);
+        });
+      });
+
       describe('all values entered', function () {
         beforeEach(function () {
           component.set('label', 'Assignment 1');
@@ -93,6 +118,16 @@ describe(test.label, function () {
 
         it('should have passed correct parameters to onSubmit handler', function () {
           expect(onSubmitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-29T03:59:00.000Z');
+        });
+      });
+
+      describe('No submit handler provided', function () {
+        beforeEach(function () {
+          component.set('onSubmit', undefined);
+        });
+
+        it('should have not thrown a exception', function () {
+          expect(() => component.actions.submit.apply(component)).to.not.throw();
         });
       });
     });
