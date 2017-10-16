@@ -1,0 +1,35 @@
+$scroll-border-color: #ccc;
+
+.create-category-modal {
+  .icon-scroll {
+    height: 110px;
+    margin-top: 10px;
+    border: 1px solid $scroll-border-color;
+    border-radius: 4px;
+
+    .icons {
+      display: flex;
+      flex-flow: wrap;
+    }
+
+    .fa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      margin: 5px;
+      font-size: 2em;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &.selected {
+        border: 1px solid $color-dark-accent;
+        background-color: $color-primary;
+        color: $color-white;
+      }
+    }
+  }
+}

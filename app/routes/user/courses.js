@@ -1,14 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  titleToken: 'Courses',
   model () {
-    const userID = this.modelFor('user').get('id');
-    if (!userID) {
-      this.transitionTo('index');
-      return;
-    }
-    return this.store.query('course', {orderBy: 'uid', equalTo: userID}).then(response => {
-      return response.toArray();
-    });
+    return {
+      courses: this.modelFor('user').courses,
+      terms: this.modelFor('user').terms
+    };
   }
 });

@@ -1,6 +1,10 @@
-$drawer-width: 275px;
+$drawer-width: 225px;
 $side-bar-width: 50px;
 $side-menu-nav-view-height: 90px;
+$side-bar-shadow-color-1: rgba(0, 0, 0, .4);
+$side-bar-shadow-color-2: rgba(0, 0, 0, .36);
+$side-bar-shadow-color-3: rgba(0, 0, 0, .12);
+$side-bat-shadow-inset-color: rgba(0, 0, 0, .46);
 
 $drawer-border-color: #ddd;
 
@@ -10,13 +14,15 @@ $drawer-border-color: #ddd;
 
   &-side-bar {
     width: $side-bar-width;
-    height: 100%;
+    height: calc(100% + 2px);
+    margin-top: -2px;
     background-color: $color-primary;
     color: $color-label-text;
     text-align: center;
+    box-shadow: 3px 0 5px 0 $side-bar-shadow-color-1, 3px 0 10px 0 $side-bar-shadow-color-2, inset 0 0 20px 10px $side-bar-shadow-color-3;
 
     &-icon {
-      margin-top: 5px;
+      margin-top: 10px;
       color: $color-white;
       font-size: 2em;
 
@@ -38,7 +44,7 @@ $drawer-border-color: #ddd;
     width: $drawer-width;
     height: 100%;
     border: 1px solid $drawer-border-color;
-    box-shadow: inset 2px 0 10px $color-grey;
+    box-shadow: inset 2px 0 8px $side-bat-shadow-inset-color;
 
     &-nav-view {
       display: flex;
@@ -75,7 +81,6 @@ $drawer-border-color: #ddd;
 
   &.is-open {
     .app-menu-side-bar {
-      box-shadow: 0 2px 15px $color-black;
       z-index: 1;
     }
   }

@@ -18,14 +18,19 @@ export default Ember.Controller.extend({
           email: this.get('email'),
           password: this.get('password')
         }).then((data) => {
-          this.set('email', null);
-          this.set('password', null);
           if (!data.currentUser.emailVerified) {
             this.set('errorMessage', 'The E-mail address for this account has not been verified.');
             this.set('emailNotVerified', true);
             this.get('session').close();
           } else {
-            this.transitionToRoute('user', data.currentUser.uid);
+            this.store.findRecord('user', data.currentUser.uid).then(user => {
+              if (data.currentUser.email !== user.get('email')) {
+                user.set('email', data.currentUser.email);
+                user.save();
+              }
+              user.set('accountChanged', false);
+              this.transitionToRoute('user', data.currentUser.uid);
+            });
           }
         }, (error) => {
           this.set('errorMessage', error.message);

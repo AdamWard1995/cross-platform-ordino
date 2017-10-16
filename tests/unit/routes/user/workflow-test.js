@@ -1,18 +1,35 @@
 import Ember from 'ember';
-import {expect} from 'chai'
-import {afterEach, beforeEach, describe, it} from 'mocha'
-import sinon from 'sinon'
+import {expect} from 'chai';
+import {afterEach, beforeEach, describe, it} from 'mocha';
+import sinon from 'sinon';
 
-import {route} from 'ember-test-utils/test-support/setup-test'
+import {route} from 'ember-test-utils/test-support/setup-test';
 
-const test = route('user/workflow')
+const test = route('user/workflow');
 describe(test.label, function () {
   test.setup()
 
-  let route, sandbox;
+  let route, sandbox, category1, category2, course1, course2, course3, term1, term2, work1, work2;
   beforeEach(function () {
     sandbox = sinon.sandbox.create();
     route = this.subject();
+
+    term1 = Ember.Object.create({id: 12345, current: true});
+    term2 = Ember.Object.create({id: 67890, current: false});
+    course1 = Ember.Object.create({id: 123, tid: 12345});
+    course2 = Ember.Object.create({id: 456, tid: 12345});
+    course3 = Ember.Object.create({id: 789, tid: 67890});
+    work1 = Ember.Object.create({id: 78, cid: 123});
+    work2 = Ember.Object.create({id: 90, cid: 789});
+    category1 = Ember.Object.create({id: 13579, label: 'Assignment'});
+    category2 = Ember.Object.create({id: 24680, label: 'Reading'});
+    sandbox.stub(route, 'modelFor')
+      .withArgs('user').returns({
+        categories: [category1, category2],
+        courses: [course1, course2, course3],
+        courseWork: [work1, work2],
+        terms: [term1, term2]
+      });
   });
 
   afterEach(function () {
@@ -20,108 +37,31 @@ describe(test.label, function () {
   });
 
   describe('model()', function () {
-    describe('user is not logged in', function () {
-      beforeEach(function () {
-        sandbox.stub(route, 'modelFor')
-          .withArgs('user').returns(Ember.Object.create({}));
-        sandbox.stub(route, 'transitionTo');
-        route.model();
-      });
-
-      it('should have transitioned to home page', function () {
-        expect(route.transitionTo).to.have.been.calledWithExactly('index');
-      });
-    });
-
     describe('no current term', function () {
-      let model, user;
+      let model;
       beforeEach(function () {
-        user = Ember.Object.create({id: 123456789});
-        sandbox.stub(route, 'modelFor')
-          .withArgs('user').returns(user);
-        route.store = {
-          query: sinon.stub()
-        };
-        route.store.query.returns(new Ember.RSVP.Promise(function(resolve) {
-          resolve({
-            toArray: function () {
-              return [Ember.Object.create({current: false})];
-            }
-          });
-        }));
+        term1.set('current', false);
         model = route.model();
       });
 
-      it('should have queried for all user terms', function () {
-        expect(route.store.query).to.have.been.calledWithExactly('term', {
-          orderBy: 'uid',
-          equalTo: 123456789
-        });
-      });
-
-      it('should indicate no current term', function () {
-        expect(model._result).to.eql({'no-current-term': true});
+      it('should have returned no current term flag', function () {
+        expect(model).to.eql({'no-current-term': true});
       });
     });
 
-    describe('is a current term', function () {
-      let model, user, term, course1, course2, course3, work1, work2, work3;
+    describe('have current term', function () {
+      let model;
       beforeEach(function () {
-        user = Ember.Object.create({id: 123456789});
-        course1 = Ember.Object.create({id: 135});
-        course2 = Ember.Object.create({id: 246});
-        course3 = Ember.Object.create({id: 791});
-        work1 = Ember.Object.create({id: 123, cid: 135});
-        work2 = Ember.Object.create({id: 456, cid: 246});
-        work3 = Ember.Object.create({id: 789, cid: 246});
-        term = Ember.Object.create({current: true, id: 12345});
-
-        sandbox.stub(route, 'modelFor')
-          .withArgs('user').returns(user);
-        route.store = {
-          query: sinon.stub()
-        };
-        route.store.query.withArgs('term', sinon.match.any).returns(new Ember.RSVP.Promise(function(resolve) {
-          resolve({
-            toArray: function () {
-              return [term];
-            }
-          });
-        }));
-        route.store.query.withArgs('course', sinon.match.any).returns(new Ember.RSVP.Promise(function(resolve) {
-          resolve({
-            toArray: function () {
-              return [course1, course2, course3];
-            }
-          });
-        }));
-        route.store.query.withArgs('course-work', sinon.match.any).returns(new Ember.RSVP.Promise(function(resolve) {
-          resolve({
-            toArray: function () {
-              return [work1, work2, work3];
-            }
-          });
-        }));
         model = route.model();
       });
 
-      it('should have queried for all user terms', function () {
-        expect(route.store.query).to.have.been.calledWithExactly('term', {
-          orderBy: 'uid',
-          equalTo: 123456789
+      it('should have returned parent route model data', function () {
+        expect(model).to.eql({
+          allCourses: [course1, course2, course3],
+          allWork: [work1, work2],
+          categories: [category1, category2],
+          workByCourse: [{course: course1, courseWork: [work1]}, {course: course2, courseWork: []}]
         });
-      });
-
-      it('should have returned course1 group', function () {
-        expect(model._result[0]).to.eql({course: course1, courseWork: [work1]});
-      });
-
-      it('should have returned course2 group', function () {
-        expect(model._result[1]).to.eql({course: course2, courseWork: [work2, work3]});
-      });
-
-      it('should have returned course3 group', function () {
-        expect(model._result[2]).to.eql({course: course3, courseWork: []});
       });
     });
   });

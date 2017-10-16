@@ -1,0 +1,23 @@
+<div class='header'>
+  <div class='header-cell'></div>
+  {{#each days as |day|}}
+    <div class='header-cell'>{{day.header}}</div>
+  {{/each}}
+</div>
+{{#ember-scrollable}}
+  <div class='body'>
+    <div class='column'>
+      {{#each hours as |hour|}}
+        <div class={{concat 'cell ' (dasherize hour)}}>{{hour}}</div>
+      {{/each}}
+    </div>
+    {{#each days as |day|}}
+      <div class={{concat 'column' (if (eq day.day today) ' today')}}>
+        {{#each hours as |hour|}}
+          <div class={{concat 'cell ' (dasherize hour)}}></div>
+        {{/each}}
+      </div>
+    {{/each}}
+    <div class='timeline'></div>
+  </div>
+{{/ember-scrollable}}

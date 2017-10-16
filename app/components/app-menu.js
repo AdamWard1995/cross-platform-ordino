@@ -3,9 +3,11 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['app-menu'],
   classNameBindings: ['drawerOpen:is-open:is-closed'],
-  didInsertElement () {
+  didRender () {
     this._super(...arguments);
-    this.$('.app-menu-drawer').hide();
+    if (!this.get('drawerOpen') && this.$('.app-menu-drawer:visible').length == 1) {
+      this.$('.app-menu-drawer').hide();
+    }
   },
   actions: {
     toggleDrawerState () {
@@ -17,6 +19,12 @@ export default Ember.Component.extend({
         this.$('.app-menu-drawer').hide('slide', {direction: 'left'}, 250, () => {
           this.set('drawerOpen', opening);
         });
+      }
+    },
+    navViewClicked () {
+      const onNavViewClicked = this.get('onNavViewClicked');
+      if (onNavViewClicked) {
+        onNavViewClicked();
       }
     }
   }

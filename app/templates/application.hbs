@@ -1,49 +1,49 @@
 <div class='application'>
-  {{#app-menu}}
-    {{#if session.isAuthenticated}}
+  {{#app-menu drawerOpen=drawerOpen onNavViewClicked=(action 'goToIndex')}}
+    {{#if (and session.isAuthenticated session.currentUser)}}
       <ul class='list-group'>
-        {{#link-to 'user.terms'}}
+        {{#link-to 'user.terms' session.currentUser.uid}}
           <li class='list-group-item'>
             {{fa-icon 'graduation-cap'}}Terms
           </li>
         {{/link-to}}
-        {{#link-to 'user.courses'}}
+        {{#link-to 'user.courses' session.currentUser.uid}}
           <li class='list-group-item'>
             {{fa-icon 'list'}}Courses
           </li>
         {{/link-to}}
-        <li class='list-group-item'>
-          {{fa-icon 'image'}}Categories
-        </li>
-        {{#link-to 'user.workflow'}}
+        {{#link-to 'user.categories' session.currentUser.uid}}
+          <li class='list-group-item'>
+            {{fa-icon 'image'}}Categories
+          </li>
+        {{/link-to}}
+        {{#link-to 'user.workflow' session.currentUser.uid}}
           <li class='list-group-item'>
             {{fa-icon 'file-text-o'}}WorkFlow
           </li>
         {{/link-to}}
-        <li class='list-group-item'>
-          {{fa-icon 'calendar'}}TimeTable
-        </li>
-      </ul>
-      <button type='button' class='btn btn-primary' {{action 'signOut'}}>
-        Sign Out
-      </button>
-    {{else}}
-      <div class='app-menu-sign-in'>
-        {{#link-to 'sign-in'}}
-          <button type='button' class='btn btn-primary'>
-            Sign In
-          </button>
+        {{#link-to 'user.timetable' session.currentUser.uid}}
+          <li class='list-group-item'>
+            {{fa-icon 'calendar'}}TimeTable
+          </li>
         {{/link-to}}
-      </div>
+      </ul>
+    {{/if}}
+    {{#if (not electron)}}
+      {{fa-icon 'download' class='download'}}
     {{/if}}
   {{/app-menu}}
   <div class='content'>
     <div class='action-buttons'>
       {{#if session.isAuthenticated}}
+        {{fa-icon 'home' click=(action 'goToAccountDashboard')}}
         {{fa-icon 'user' click=(action 'goToAccountDetails')}}
       {{/if}}
-      {{fa-icon 'info-circle'}}
+      {{fa-icon 'info-circle' click=(action 'toggleShowVersionModal')}}
     </div>
     {{outlet}}
   </div>
+  {{#if showVersionModal}}
+    {{version-modal open=true onClose=(action 'toggleShowVersionModal')}}
+  {{/if}}
 </div>

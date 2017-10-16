@@ -6,13 +6,15 @@
     </button>
   </div>
   <div class='terms-sub-header'>** Current term</div>
-  {{ordered-list
-    items=model
-    itemRenderer=(component 'term-renderer')
-    onItemSelected=(action 'goToTermRoute')
-    onItemDeleted=(action 'showDeleteModal')
-  }}
-  {{#if createTerm}}
+  {{#ember-scrollable class='list-scrollable'}}
+    {{ordered-list
+      items=model
+      itemRenderer=(component 'term-renderer')
+      onItemSelected=(action 'goToTermRoute')
+      onItemDeleted=(action 'showDeleteModal')
+    }}
+  {{/ember-scrollable}}
+  {{#if (or createTerm noTerms)}}
     {{create-term-modal
       open=true
       onClose=(action 'hideCreateModal')

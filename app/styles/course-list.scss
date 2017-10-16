@@ -1,8 +1,25 @@
 .course-list {
-  height: calc(100% - #{$action-buttons-height} - #{$header-vertical-margin});
-  margin: 15px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - #{$action-buttons-height});
+  margin: 0 20px;
+
+  .list-scrollable {
+    flex: 1 0 auto;
+    width: 100%;
+    height: auto;
+
+    .scrollable-content {
+      padding-right: 15px;
+    }
+  }
+
+  .course-list-header {
+    flex: 0 0 auto;
+  }
 
   .courses-sub-header {
+    flex: 0 0 auto;
     padding: 5px;
   }
 }

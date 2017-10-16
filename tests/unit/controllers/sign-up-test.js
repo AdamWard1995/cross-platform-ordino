@@ -244,7 +244,7 @@ describe(test.label, function () {
         });
 
         it('should have set correct error message', function () {
-          expect(controller.get('errorMessage')).to.eql('The email address format you entered is invalid.');
+          expect(controller.get('errorMessage')).to.eql('The E-mail address format you entered is invalid.');
         })
       });
 

@@ -8,6 +8,9 @@ export default Ember.Controller.extend({
       return `Are you sure you want to delete ${this.get('itemToDelete').get('semester')} ${this.get('itemToDelete').get('year')}?`
     }
   }),
+  noTerms: Ember.computed('model', function() {
+    return this.get('model').length === 0;
+  }),
   actions: {
     showCreateModal () {
       this.set('createTerm', true);

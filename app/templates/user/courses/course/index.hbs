@@ -17,15 +17,20 @@
       {{fa-icon 'plus'}} Create course work...
     </button>
   </div>
-  {{ordered-list
-    items=model.courseWork
-    itemRenderer=(component 'course-work-renderer')
-    onItemSelected=(action 'showEditCourseWorkModal')
-    onItemDeleted=(action 'showDeleteCourseWorkModal')
-  }}
+  {{#ember-scrollable class='list-scrollable'}}
+    {{ordered-list
+      items=model.courseWork
+      itemRenderer=(component 'course-work-renderer')
+      onItemSelected=(action 'showEditCourseWorkModal')
+      onItemDeleted=(action 'showDeleteCourseWorkModal')
+    }}
+  {{/ember-scrollable}}
+
   {{create-course-modal
     open=editCourse
     title='Edit course'
+    term=(readonly model.course.tid)
+    terms=(sort-by 'semester' 'year' model.terms)
     course-code=(readonly model.course.course-code)
     createClassTimes=(readonly createClassTimes)
     start-time=(readonly startTime)
@@ -51,6 +56,9 @@
   {{#if createCourseWork}}
     {{create-course-work-modal
       open=true
+      course=(readonly model.course.id)
+      courses=(sort-by 'course-code' model.allCourses)
+      categories=(readonly categories)
       onClose=(action 'hideCreateCourseWorkModal')
       onSubmit=(action 'createCourseWork')
     }}
@@ -59,10 +67,14 @@
     {{create-course-work-modal
       open=true
       title='Edit course work'
+      course=(readonly itemToEdit.cid)
+      courses=(sort-by 'course-code' model.allCourses)
+      categories=(readonly categories)
       label=(readonly itemToEdit.label)
       weight=(readonly itemToEdit.weight)
       grade=(readonly itemToEdit.grade)
       due=(readonly (moment itemToEdit.due))
+      category=(readonly itemToEdit.cgyid)
       onClose=(action 'hideEditCourseWorkModal')
       onSubmit=(action 'editCourseWork')
     }}

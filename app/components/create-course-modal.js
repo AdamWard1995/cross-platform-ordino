@@ -23,6 +23,7 @@ export default Ember.Component.extend({
       const location = this.get('location') || 'N/A';
       const startTime = this.get('start-time');
       const endTime = this.get('end-time');
+      const term = this.get('term');
       const days = [];
       if (!courseCode) {
         this.set('errorMessage', 'You need to enter a course code.')
@@ -46,7 +47,7 @@ export default Ember.Component.extend({
 
       const onSubmit = this.get('onSubmit');
       if (onSubmit) {
-        onSubmit(courseCode, location, startTimeStr, endTimeStr, days);
+        onSubmit(courseCode, location, startTimeStr, endTimeStr, days, term);
       }
     }
   }

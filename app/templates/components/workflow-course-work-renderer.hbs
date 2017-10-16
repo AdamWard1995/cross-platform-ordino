@@ -6,6 +6,11 @@
     {{item.course.course-code}}
   </div>
 </div>
+{{#if item.category}}
+  <div class='category'>
+    {{fa-icon item.category.icon}}
+  </div>
+{{/if}}
 <div class='weight'>
   <strong>Weight</strong>
   <div class='weight-value'>

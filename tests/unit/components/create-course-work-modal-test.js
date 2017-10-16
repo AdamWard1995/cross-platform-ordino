@@ -68,6 +68,7 @@ describe(test.label, function () {
       let onSubmitStub;
       beforeEach(function () {
         onSubmitStub = sinon.stub();
+        component.set('course', 12345);
         component.set('onSubmit', onSubmitStub);
       });
 
@@ -88,6 +89,8 @@ describe(test.label, function () {
 
       describe('no due date entered', function () {
         beforeEach(function () {
+          component.set('category', 13579);
+          component.set('course', 12345);
           component.set('label', 'Assignment 1');
           component.set('weight', 30);
           component.set('grade', 95);
@@ -99,12 +102,14 @@ describe(test.label, function () {
         });
 
         it('should have passed correct parameters to onSubmit handler', function () {
-          expect(onSubmitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, null);
+          expect(onSubmitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, null, 13579, 12345);
         });
       });
 
       describe('all values entered', function () {
         beforeEach(function () {
+          component.set('category', 13579);
+          component.set('course', 12345);
           component.set('label', 'Assignment 1');
           component.set('weight', 30);
           component.set('grade', 95);
@@ -117,7 +122,7 @@ describe(test.label, function () {
         });
 
         it('should have passed correct parameters to onSubmit handler', function () {
-          expect(onSubmitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-29T03:59:00.000Z');
+          expect(onSubmitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-29T03:59:00.000Z', 13579, 12345);
         });
       });
 

@@ -5,6 +5,7 @@ export default Ember.Route.extend({
   model () {
     const stats = getStatistics(this.modelFor('user.courses.course').courseWork)
     stats['course'] = this.modelFor('user.courses.course').course;
+    this.set('titleToken', `${stats['course'].get('course-code')} Report`);
     return stats;
   }
 });

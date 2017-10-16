@@ -1,0 +1,39 @@
+.categories {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - #{$action-buttons-height});
+  margin: 0 20px;
+
+  .list-scrollable {
+    flex: 1 0 auto;
+    width: 100%;
+    height: auto;
+
+    .scrollable-content {
+      padding-right: 15px;
+    }
+  }
+
+  &-header {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: flex-end;
+
+    &-title {
+      flex: 1 0 auto;
+    }
+
+    &-create-button {
+      flex: 0 0 auto;
+      padding: 6px;
+      color: $color-primary;
+      font-size: 1.5em;
+
+      &:hover
+      &:active {
+        color: $color-dark-accent;
+        text-decoration: none;
+      }
+    }
+  }
+}

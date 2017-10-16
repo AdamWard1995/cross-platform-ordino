@@ -1,0 +1,156 @@
+$shadow-color-1: rgba(0, 0, 0, .2);
+$shadow-color-2: rgba(0, 0, 0, .19);
+
+$shadow-hover-color-1: rgba($color-dark-accent, .6);
+$shadow-hover-color-2: rgba($color-dark-accent, .59);
+
+.user-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100% - #{$action-buttons-height});
+
+  &-scroll {
+    flex: 1 0 auto;
+  }
+
+  .welcome-message {
+    display: flex;
+    align-items: center;
+    padding-bottom: 10px;
+    font-size: $font-size-xxxl;
+
+    &-logo {
+      height: 75px;
+      margin-right: -5px;
+      margin-left: 5px;
+    }
+  }
+
+  &-row {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%;
+  }
+
+  &-content {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1000px;
+
+    .current {
+      display: flex;
+      flex: 1 0 330px;
+      flex-direction: column;
+
+      .user-dashboard-row {
+        flex: 1 0 auto;
+      }
+    }
+
+    .create-first-term {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      font-size: $font-size-xxxl;
+    }
+
+    .card {
+      margin: 20px;
+      text-align: center;
+      box-shadow: 0 4px 8px 0 $shadow-color-1, 0 6px 20px 0 $shadow-color-2;
+
+      &-header {
+        display: flex;
+        justify-content: flex-start;
+        margin: 10px;
+        color: $color-primary;
+        font-weight: bold;
+      }
+
+      &:hover {
+        flex-grow: 1.1;
+        box-shadow: 0 4px 8px 0 $shadow-hover-color-1, 0 6px 20px 0 $shadow-hover-color-2;
+        cursor: pointer;
+
+        .card-header {
+          color: $color-dark-accent;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .list-group {
+      margin-bottom: 0;
+
+      &-item {
+        border-right: 0;
+        border-left: 0;
+        border-radius: 0;
+      }
+    }
+
+    .due-next-week {
+      flex: 1 0 500px;
+
+      .no-value {
+        margin: 20px 10px;
+        text-align: left;
+      }
+    }
+
+    .number-categories,
+    .number-courses,
+    .number-terms,
+    .current-term,
+    .next-class,
+    .logged-in-as {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .card-value {
+        display: flex;
+        flex: 1 0 auto;
+        align-items: center;
+        justify-content: center;
+        color: $color-primary;
+        font-size: $font-size-xxxl;
+      }
+
+      &:hover {
+        .card-value {
+          color: $color-dark-accent;
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .number-categories,
+    .number-courses,
+    .number-terms,
+    .current-term {
+      flex: 1 0 125px;
+      min-height: 140px;
+    }
+
+    .logged-in-as,
+    .current-term,
+    .next-class {
+      .card-value {
+        font-size: $font-size-xl;
+      }
+    }
+
+    .logged-in-as {
+      flex: 1 0 300px;
+    }
+
+    .next-class {
+      flex: 1 0 500px;
+    }
+  }
+}

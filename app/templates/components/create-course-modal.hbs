@@ -4,6 +4,12 @@
   {{/modal.header}}
   {{#modal.body}}
     <div class='form-group'>
+      <label for='select-term'>Term</label>
+      <select class='form-control select-term' id='select-term' onchange={{action (mut term) value='target.value'}}>
+        {{#each terms as |t|}}
+          <option value={{t.id}} selected={{eq t.id term}}>{{t.semester}}&thinsp;{{t.year}}</option>
+        {{/each}}
+      </select>
       <label for='course-code-box'>Course Code</label>
       {{input
         id='course-code-box'

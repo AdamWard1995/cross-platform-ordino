@@ -14,12 +14,14 @@
       {{fa-icon 'plus'}} Create course...
     </button>
   </div>
-  {{ordered-list
-    items=model.courses
-    itemRenderer=(component 'course-renderer')
-    onItemSelected=(action 'goToCourseRoute')
-    onItemDeleted=(action 'showDeleteCourseModal')
-  }}
+  {{#ember-scrollable class='list-scrollable'}}
+    {{ordered-list
+      items=model.courses
+      itemRenderer=(component 'course-renderer')
+      onItemSelected=(action 'goToCourseRoute')
+      onItemDeleted=(action 'showDeleteCourseModal')
+    }}
+  {{/ember-scrollable}}
   {{create-term-modal
     open=editTerm
     title='Edit term'
@@ -35,11 +37,15 @@
     onClose=(action 'hideDeleteModal')
     onConfirm=(action 'deleteTerm')
   }}
-  {{create-course-modal
-    open=createCourse
-    onClose=(action 'hideCreateCourseModal')
-    onSubmit=(action 'createCourse')
-  }}
+  {{#if createCourse}}
+    {{create-course-modal
+      open=true
+      term=(readonly model.term.id)
+      terms=(sort-by 'semester' 'year' model.terms)
+      onClose=(action 'hideCreateCourseModal')
+      onSubmit=(action 'createCourse')
+    }}
+  {{/if}}
   {{confirm-modal
     open=deleteCourse
     confirmationMessage=deleteCourseConfirmationMessage

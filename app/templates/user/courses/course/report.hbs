@@ -3,60 +3,62 @@
     {{fa-icon 'arrow-left' class='back-arrow' click=(action 'goToCourseRoute')}}
     <h1 class='course-report-header-title'>{{model.course.course-code}} Report</h1>
   </div>
-  <div class='course-report-content'>
-    <div class='course-report-chart' style='width: 400px; height: 400px;'>
-      {{ember-chart type='doughnut' data=chartData}}
-    </div>
-    <div class='course-report-content-stats'>
-      <h2 class='page-header course-report-sub-header'>
-        Chart Details
-      </h2>
-      <div class='course-report-details'>
-        <div class='course-report-details-labels'>
-          <h4><div class='label label-primary'>Total earned</div></h4>
-          <h4><div class='label label-primary'>Total lost</div></h4>
-          <h4><div class='label label-primary'>Total remaining</div></h4>
+  {{#ember-scrollable horizontal=true vertical=true class='list-scrollable'}}
+    <div class='course-report-content'>
+      <div class='course-report-chart' style='width: 400px; height: 400px;'>
+        {{ember-chart type='doughnut' data=chartData}}
+      </div>
+      <div class='course-report-content-stats'>
+        <h2 class='page-header course-report-sub-header'>
+          Chart Details
+        </h2>
+        <div class='course-report-details'>
+          <div class='course-report-details-labels'>
+            <h4><div class='label label-primary'>Total earned</div></h4>
+            <h4><div class='label label-primary'>Total lost</div></h4>
+            <h4><div class='label label-primary'>Total remaining</div></h4>
+          </div>
+          <div class='course-report-details-values'>
+            <div class='value'>
+              {{round model.accumulatedMarks 1}}%
+            </div>
+            <div class='value'>
+              {{round (sub model.completedWeight model.accumulatedMarks) 1}}%
+            </div>
+            <div class='value'>
+              {{round (sub 100 model.completedWeight) 1}}%
+            </div>
+          </div>
         </div>
-        <div class='course-report-details-values'>
-          <div class='value'>
-            {{round model.accumulatedMarks 1}}%
+        <h2 class='page-header course-report-sub-header'>
+          Current Standing
+        </h2>
+        <div class='course-report-details'>
+          <div class='course-report-details-labels'>
+            <h4><div class='label label-primary'>Current average</div></h4>
+            <h4><div class='label label-primary'>Maximum possible final grade</div></h4>
+            <h4><div class='label label-primary'>Guaranteed minimum final grade</div></h4>
           </div>
-          <div class='value'>
-            {{round (sub model.completedWeight model.accumulatedMarks) 1}}%
-          </div>
-          <div class='value'>
-            {{round (sub 100 model.completedWeight) 1}}%
+          <div class='course-report-details-values'>
+            <div class='value'>
+              {{round model.currentAvg 1}}%
+            </div>
+            <div class='value'>
+              {{round (sum model.accumulatedMarks (sub 100 model.completedWeight)) 1}}%
+            </div>
+            <div class='value'>
+              {{round model.accumulatedMarks 1}}%
+            </div>
           </div>
         </div>
       </div>
-      <h2 class='page-header course-report-sub-header'>
-        Current Standing
-      </h2>
-      <div class='course-report-details'>
-        <div class='course-report-details-labels'>
-          <h4><div class='label label-primary'>Current average</div></h4>
-          <h4><div class='label label-primary'>Maximum possible final grade</div></h4>
-          <h4><div class='label label-primary'>Guaranteed minimum final grade</div></h4>
-        </div>
-        <div class='course-report-details-values'>
-          <div class='value'>
-            {{round model.currentAvg 1}}%
-          </div>
-          <div class='value'>
-            {{round (sum model.accumulatedMarks (sub 100 model.completedWeight)) 1}}%
-          </div>
-          <div class='value'>
-            {{round model.accumulatedMarks 1}}%
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
-  <h2 class='page-header course-report-sub-header'>
-    Desired Grade
-  </h2>
-  <div class='course-report-desired-grade'>
-    To get a desired grade of {{input type='number' class='form-control' value=desired-grade}}%,
-    you need to get an average grade of <div class='label label-primary'>{{required-grade}}%</div> over the remaining evaluations.
-  </div>
+    <h2 class='page-header course-report-sub-header'>
+      Desired Grade
+    </h2>
+    <div class='course-report-desired-grade'>
+      To get a desired grade of {{input type='number' class='form-control' value=desired-grade}}%,
+      you need to get an average grade of <div class='label label-primary'>{{required-grade}}%</div> over the remaining evaluations.
+    </div>
+  {{/ember-scrollable}}
 </div>

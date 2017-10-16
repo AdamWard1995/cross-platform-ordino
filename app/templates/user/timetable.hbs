@@ -1,0 +1,12 @@
+<div class='timetable'>
+  <div class='page-header timetable-header'>
+    <h1 class='timetable-header-title'>TimeTable</h1>
+  </div>
+  {{#if haveCurrentTerm}}
+    {{week-schedule timeslots=timeslots itemSelected=(action 'timeSlotSelected')}}
+  {{else}}
+    <div class='alert alert-danger'>
+      <strong>Error!</strong> You have no term selected as your current term.
+    </div>
+  {{/if}}
+</div>

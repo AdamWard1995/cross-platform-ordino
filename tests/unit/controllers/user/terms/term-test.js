@@ -155,8 +155,7 @@ describe(test.label, function () {
         term = Ember.Object.create({current: false, semester: 'Fall', year: 2017, save: sinon.stub()});
         otherTerm1 = Ember.Object.create({current: false, save: sinon.stub()});
         otherTerm2 = Ember.Object.create({current: true, save: sinon.stub()});
-        controller.set('terms', [otherTerm1, otherTerm2]);
-        controller.set('model', {term});
+        controller.set('model', {term, terms: [otherTerm1, otherTerm2]});
         sandbox.stub(controller, 'send');
       });
 
@@ -239,8 +238,7 @@ describe(test.label, function () {
         otherTerm1 = Ember.Object.create({current: false, save: sinon.stub()});
         otherTerm2 = Ember.Object.create({current: true, save: sinon.stub()});
         store = {foo: 'bar'};
-        controller.set('terms', [otherTerm1, otherTerm2]);
-        controller.set('model', {term});
+        controller.set('model', {term, terms: [otherTerm1, otherTerm2]});
         sandbox.stub(controller, 'transitionToRoute');
         sandbox.stub(controller, 'send');
         sandbox.stub(cleanup, 'deleteTerm');
@@ -266,69 +264,130 @@ describe(test.label, function () {
     });
 
     describe('createCourse()', function () {
-      let classTime, course, store;
+      let classTime, course, course2, course3, store;
       beforeEach(function () {
-        course = {save: sinon.stub(), get: sinon.stub()};
+        course = Ember.Object.create({id: 123, tid: 67890});
+        course.save = sinon.stub();
         course.save.returns(new Ember.RSVP.Promise(function(resolve) {
           resolve();
         }));
-        course.get.withArgs('id').returns(13579);
+        course2 = Ember.Object.create({id: 456, tid: 54321});
+        course3 = Ember.Object.create({id: 789, tid: 54321});
         classTime = {save: sinon.stub()};
         store = {createRecord: sinon.stub()};
         store.createRecord.withArgs('course', sinon.match.any).returns(course);
         store.createRecord.withArgs('class-time', sinon.match.any).returns(classTime);
         controller.set('session', Ember.Object.create({currentUser: {uid: 12345}}));
-        controller.set('model', {term: Ember.Object.create({id: 67890}), courses: [{foo: 'bar'}]});
+        controller.set('model', {term: Ember.Object.create({id: 67890}), courses: [course], allCourses: [course, course2, course3]});
         controller.store = store;
+        sandbox.stub(cleanup, 'normalizeIndices');
         sandbox.stub(controller, 'send');
-        controller.actions.createCourse.apply(controller, ['COMP 4004', 'TB 238', '10:05 am', '11:25 am', ['Tuesday', 'Thursday']]);
       });
 
-      it('should have create new course record', function () {
-        expect(store.createRecord).to.have.been.calledWithExactly('course', {
-          uid: 12345,
-          tid: 67890,
-          index: 1,
-          'course-code': 'COMP 4004'
+      describe('create for default term', function () {
+        beforeEach(function () {
+          controller.actions.createCourse.apply(controller, ['COMP 4004', 'TB 238', '10:05 am', '11:25 am', ['Tuesday', 'Thursday'], 67890]);
+        });
+
+        it('should have create new course record', function () {
+          expect(store.createRecord).to.have.been.calledWithExactly('course', {
+            uid: 12345,
+            tid: 67890,
+            index: 1,
+            'course-code': 'COMP 4004'
+          });
+        });
+
+        it('should have saved the new course record', function () {
+          expect(course.save).to.have.callCount(1);
+        });
+
+        it('should have created Tuesday class time', function () {
+          expect(store.createRecord).to.have.been.calledWithExactly('class-time', {
+            uid: 12345,
+            cid: 123,
+            location: 'TB 238',
+            'start-time': '10:05 am',
+            'end-time': '11:25 am',
+            day: 'Tuesday'
+          });
+        });
+
+        it('should have created Thursday class time', function () {
+          expect(store.createRecord).to.have.been.calledWithExactly('class-time', {
+            uid: 12345,
+            cid: 123,
+            location: 'TB 238',
+            'start-time': '10:05 am',
+            'end-time': '11:25 am',
+            day: 'Thursday'
+          });
+        });
+
+        it('should have saved created class times', function () {
+          expect(classTime.save).to.have.callCount(2);
+        });
+
+        it('should have refreshed the model', function () {
+          expect(controller.send).to.have.been.calledWithExactly('refreshModel');
+        });
+
+        it('should closed the create course modal', function () {
+          expect(controller.send).to.have.been.calledWithExactly('hideCreateCourseModal');
         });
       });
 
-      it('should have saved the new course record', function () {
-        expect(course.save).to.have.callCount(1);
-      });
-
-      it('should have created Tuesday class time', function () {
-        expect(store.createRecord).to.have.been.calledWithExactly('class-time', {
-          uid: 12345,
-          cid: 13579,
-          location: 'TB 238',
-          'start-time': '10:05 am',
-          'end-time': '11:25 am',
-          day: 'Tuesday'
+      describe('create for non-default term', function () {
+        beforeEach(function () {
+          controller.actions.createCourse.apply(controller, ['COMP 4004', 'TB 238', '10:05 am', '11:25 am', ['Tuesday', 'Thursday'], 54321]);
         });
-      });
 
-      it('should have created Thursday class time', function () {
-        expect(store.createRecord).to.have.been.calledWithExactly('class-time', {
-          uid: 12345,
-          cid: 13579,
-          location: 'TB 238',
-          'start-time': '10:05 am',
-          'end-time': '11:25 am',
-          day: 'Thursday'
+        it('should have create new course record', function () {
+          expect(store.createRecord).to.have.been.calledWithExactly('course', {
+            uid: 12345,
+            tid: 54321,
+            index: 2,
+            'course-code': 'COMP 4004'
+          });
         });
-      });
 
-      it('should have saved created class times', function () {
-        expect(classTime.save).to.have.callCount(2);
-      });
+        it('should have saved the new course record', function () {
+          expect(course.save).to.have.callCount(1);
+        });
 
-      it('should have refreshed the model', function () {
-        expect(controller.send).to.have.been.calledWithExactly('refreshModel');
-      });
+        it('should have created Tuesday class time', function () {
+          expect(store.createRecord).to.have.been.calledWithExactly('class-time', {
+            uid: 12345,
+            cid: 123,
+            location: 'TB 238',
+            'start-time': '10:05 am',
+            'end-time': '11:25 am',
+            day: 'Tuesday'
+          });
+        });
 
-      it('should closed the create course modal', function () {
-        expect(controller.send).to.have.been.calledWithExactly('hideCreateCourseModal');
+        it('should have created Thursday class time', function () {
+          expect(store.createRecord).to.have.been.calledWithExactly('class-time', {
+            uid: 12345,
+            cid: 123,
+            location: 'TB 238',
+            'start-time': '10:05 am',
+            'end-time': '11:25 am',
+            day: 'Thursday'
+          });
+        });
+
+        it('should have saved created class times', function () {
+          expect(classTime.save).to.have.callCount(2);
+        });
+
+        it('should have refreshed the model', function () {
+          expect(controller.send).to.have.been.calledWithExactly('refreshModel');
+        });
+
+        it('should closed the create course modal', function () {
+          expect(controller.send).to.have.been.calledWithExactly('hideCreateCourseModal');
+        });
       });
     });
 

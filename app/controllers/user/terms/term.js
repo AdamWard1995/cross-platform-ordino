@@ -43,7 +43,7 @@ export default Ember.Controller.extend({
     },
     editTerm (semester, year, current) {
       if (current) {
-        this.get('terms').forEach((term) => {
+        this.get('model').terms.forEach((term) => {
           if (term.get('current')) {
             term.set('current', false);
             term.save();
@@ -59,16 +59,18 @@ export default Ember.Controller.extend({
     },
     deleteTerm () {
       const term = this.get('model').term;
-      deleteTerm(term, this.get('terms'), this.store);
+      deleteTerm(term, this.get('model').terms, this.store);
       this.send('hideDeleteModal');
       this.send('refreshModel');
       this.transitionToRoute('user.terms');
     },
-    createCourse (courseCode, location, startTime, endTime, days) {
+    createCourse (courseCode, location, startTime, endTime, days, tid) {
+      const model = this.get('model');
+      const index = model.term.get('id') === tid ? model.courses.length : model.allCourses.filterBy('tid', tid).length;
       const course = this.store.createRecord('course', {
         'uid': this.get('session').get('currentUser').uid,
-        'tid': this.get('model').term.get('id'),
-        'index': this.get('model').courses.length,
+        'tid': tid,
+        'index': index,
         'course-code': courseCode
       });
       course.save().then(() => {

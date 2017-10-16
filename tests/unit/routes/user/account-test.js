@@ -22,10 +22,10 @@ describe(test.label, function () {
   describe('model()', function () {
     beforeEach(function () {
       sandbox.stub(route, 'modelFor')
-        .withArgs('user').returns({foo: 'bar'});
+        .withArgs('user').returns({user: {foo: 'bar'}});
     });
 
-    it('should return parent route\'s model', function () {
+    it('should return parent route\'s model, user object', function () {
       expect(route.model()).to.eql({foo: 'bar'});
     });
   });

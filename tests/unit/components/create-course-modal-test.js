@@ -73,6 +73,7 @@ describe(test.label, function () {
 
       describe('no course code entered', function () {
         beforeEach(function () {
+          component.set('term', 12345);
           component.set('course-code', undefined);
           component.actions.submit.apply(component);
         });
@@ -88,6 +89,7 @@ describe(test.label, function () {
 
       describe('no start time entered', function () {
         beforeEach(function () {
+          component.set('term', 12345);
           component.set('course-code', 'COMP 4004');
           component.set('createClassTimes', true);
           component.set('start-time', undefined);
@@ -105,6 +107,7 @@ describe(test.label, function () {
 
       describe('no end time entered', function () {
         beforeEach(function () {
+          component.set('term', 12345);
           component.set('course-code', 'COMP 4004');
           component.set('createClassTimes', true);
           component.set('start-time', moment('10:05 am', 'hh:mm a'));
@@ -123,6 +126,7 @@ describe(test.label, function () {
 
       describe('start time is after end time', function () {
         beforeEach(function () {
+          component.set('term', 12345);
           component.set('course-code', 'COMP 4004');
           component.set('createClassTimes', true);
           component.set('start-time', moment('11:25 am', 'hh:mm a'));
@@ -144,6 +148,7 @@ describe(test.label, function () {
           beforeEach(function () {
             component.set('course-code', 'COMP 4004');
             component.set('createClassTimes', false);
+            component.set('term', 12345);
             component.actions.submit.apply(component);
           });
 
@@ -152,12 +157,13 @@ describe(test.label, function () {
           });
 
           it('should have passed correct parameters to onSubmit handler', function () {
-            expect(onSubmitStub).to.have.been.calledWithExactly('COMP 4004', 'N/A', null, null, []);
+            expect(onSubmitStub).to.have.been.calledWithExactly('COMP 4004', 'N/A', null, null, [], 12345);
           });
         });
 
         describe('creating class times', function () {
           beforeEach(function () {
+            component.set('term', 12345);
             component.set('course-code', 'COMP 4004');
             component.set('createClassTimes', true);
             component.set('location', 'TB 238');
@@ -172,13 +178,14 @@ describe(test.label, function () {
           });
 
           it('should have passed correct parameters to onSubmit handler', function () {
-            expect(onSubmitStub).to.have.been.calledWithExactly('COMP 4004', 'TB 238', '10:05 am', '11:25 am', ['Tuesday', 'Thursday']);
+            expect(onSubmitStub).to.have.been.calledWithExactly('COMP 4004', 'TB 238', '10:05 am', '11:25 am', ['Tuesday', 'Thursday'], 12345);
           });
         });
       });
 
       describe('No submit handler provided', function () {
         beforeEach(function () {
+          component.set('term', 12345);
           component.set('course-code', 'COMP 4004');
           component.set('createClassTimes', false);
           component.set('onSubmit', undefined);

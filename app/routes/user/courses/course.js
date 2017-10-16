@@ -2,27 +2,24 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model (params) {
-    const courses = this.modelFor('user.courses').filterBy('id', params.course);
-    if (!this.get('session').get('isAuthenticated')) {
-      this.transitionTo('index');
-    } else if (!courses || courses.length !== 1) {
+    const model = this.modelFor('user');
+    const courses = model.courses.filterBy('id', params.course);
+    if (!courses || courses.length !== 1) {
       this.transitionTo('user.courses');
     } else {
       const course = courses[0];
       const courseID = course.get('id');
-      return this.store.query('course-work', {orderBy: 'cid', equalTo: courseID}).then(work => {
-        return this.store.query('class-time', {orderBy: 'cid', equalTo: courseID}).then(classes => {
-          return {
-            course,
-            courseWork: work.toArray(),
-            classTimes: classes.toArray()
-          };
-        });
-      });
+      this.set('titleToken', course.get('course-code'));
+      return {
+        course,
+        courseWork: model.courseWork.filterBy('cid', courseID),
+        allWork: model.courseWork,
+        classTimes: model.classTimes.filterBy('cid', courseID),
+        categories: model.categories,
+        termCourses: model.courses.filterBy('tid', course.get('tid')),
+        allCourses: model.courses,
+        terms: model.terms
+      };
     }
-  },
-  setupController (controller, model) {
-    controller.set('courses', this.modelFor('user.courses'));
-    this._super(controller, model);
   }
 });

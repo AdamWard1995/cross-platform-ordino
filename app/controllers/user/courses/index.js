@@ -1,9 +1,9 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  listItems: Ember.computed('terms', 'courses', function() {
-    const terms = this.get('terms');
-    const courses = this.get('courses');
+  listItems: Ember.computed('model', function() {
+    const terms = this.get('model').terms;
+    const courses = this.get('model').courses;
     if (terms && terms.map) {
       return terms.sortBy('index').map((term) => {
         return {

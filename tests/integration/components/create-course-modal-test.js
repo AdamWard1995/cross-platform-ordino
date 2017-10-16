@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {expect} from 'chai';
 import {beforeEach, describe, it} from 'mocha';
 import wait from 'ember-test-helpers/wait';
@@ -28,6 +29,10 @@ describe(test.label, function () {
         expect(this.$('.modal-title').text().trim()).to.eql('Create course');
       });
 
+      it('should have no selected term', function() {
+        expect(this.$('.modal-body .select-term').val()).to.eql(null);
+      });
+
       it('should have no entered course code', function() {
         expect(this.$('.modal-body .course-code').val()).to.eql('');
       });
@@ -56,7 +61,10 @@ describe(test.label, function () {
     describe('values provided', function () {
       describe('no class times', function () {
         beforeEach(function () {
-          this.render(hbs`{{create-course-modal open=true title='Create a new course' course-code='COMP 4004' createClassTimes=false}}`);
+          const term = Ember.Object.create({id: 12345, semester: 'Fall', year: 2017});
+          this.set('term', term.get('id'));
+          this.set('terms', [term]);
+          this.render(hbs`{{create-course-modal open=true title='Create a new course' course-code='COMP 4004' createClassTimes=false term=term terms=terms}}`);
           return wait();
         });
 
@@ -72,7 +80,15 @@ describe(test.label, function () {
           expect(this.$('.modal-title').text().trim()).to.eql('Create a new course');
         });
 
-        it('should have no entered course code', function() {
+        it('should have selected term value', function() {
+          expect(this.$('.select-term').val()).to.eql('12345');
+        });
+
+        it('should have selected term label', function() {
+          expect(this.$('.select-term option[value=\'12345\']').text()).to.eql('Fall 2017');
+        });
+
+        it('should have entered course code', function() {
           expect(this.$('.modal-body .course-code').val()).to.eql('COMP 4004');
         });
 
@@ -99,7 +115,10 @@ describe(test.label, function () {
 
       describe('are selected class times', function () {
         beforeEach(function () {
-          this.render(hbs`{{create-course-modal open=true title='Create a new course' course-code='COMP 4004' createClassTimes=true location='TB 238' start-time='10:05 am' end-time='11:25 am' selectedDays=(array 'Tuesday' 'Thursday')}}`);
+          const term = Ember.Object.create({id: 12345, semester: 'Fall', year: 2017});
+          this.set('term', term.get('id'));
+          this.set('terms', [term]);
+          this.render(hbs`{{create-course-modal open=true title='Create a new course' course-code='COMP 4004' createClassTimes=true location='TB 238' start-time='10:05 am' end-time='11:25 am' selectedDays=(array 'Tuesday' 'Thursday') term=term terms=terms}}`);
           return wait();
         });
 
@@ -113,6 +132,14 @@ describe(test.label, function () {
 
         it('should render default title', function() {
           expect(this.$('.modal-title').text().trim()).to.eql('Create a new course');
+        });
+
+        it('should have selected term value', function() {
+          expect(this.$('.select-term').val()).to.eql('12345');
+        });
+
+        it('should have selected term label', function() {
+          expect(this.$('.select-term option[value=\'12345\']').text()).to.eql('Fall 2017');
         });
 
         it('should have no entered course code', function() {
@@ -233,6 +260,28 @@ describe(test.label, function () {
 
     it('should not be visible', function() {
       expect(this.$('.create-course-modal .modal:visible')).to.have.length(0);
+    });
+  });
+
+  describe('select term', function () {
+    beforeEach(function () {
+      const term1 = Ember.Object.create({id: 12345, semester: 'Fall', year: 2017});
+      const term2 = Ember.Object.create({id: 67890, semester: 'Winter', year: 2018});
+      this.set('term', term1.get('id'));
+      this.set('terms', [term1, term2]);
+      this.render(hbs`{{create-course-modal open=true createClassTimes=true start-time=(moment '10:05 am' 'hh:mm a') end-time=(moment '11:25 am' 'hh:mm a') term=term terms=terms}}`);
+      return wait().then(() => {
+        this.$('.select-term').val('67890').change();
+        return wait();
+      });
+    });
+
+    it('should have selected term value', function() {
+      expect(this.$('.select-term').val()).to.eql('67890');
+    });
+
+    it('should have selected term label', function() {
+      expect(this.$('.select-term option[value=\'67890\']').text()).to.eql('Winter 2018');
     });
   });
 
@@ -372,7 +421,10 @@ describe(test.label, function () {
 
     describe('are selected class times', function () {
       beforeEach(function () {
-        this.render(hbs`{{create-course-modal open=true onSubmit=onSubmit title='Create a new course' course-code='COMP 4004' createClassTimes=true location='TB 238' start-time=(moment '10:05 am' 'hh:mm a') end-time=(moment '11:25 am' 'hh:mm a') selectedDays=(array 'Tuesday' 'Thursday')}}`);
+        const term = Ember.Object.create({id: 12345, semester: 'Fall', year: 2017});
+        this.set('term', term.get('id'));
+        this.set('terms', [term]);
+        this.render(hbs`{{create-course-modal open=true onSubmit=onSubmit title='Create a new course' course-code='COMP 4004' createClassTimes=true location='TB 238' start-time=(moment '10:05 am' 'hh:mm a') end-time=(moment '11:25 am' 'hh:mm a') selectedDays=(array 'Tuesday' 'Thursday') term=term terms=terms}}`);
         return wait().then(() => {
           this.$('.btn-primary').click();
           return wait();
@@ -384,13 +436,16 @@ describe(test.label, function () {
       });
 
       it('should have passed correct parameters to submit handler', function() {
-        expect(submitStub).to.have.been.calledWithExactly('COMP 4004', 'TB 238', '10:05 am', '11:25 am', ['Tuesday', 'Thursday']);
+        expect(submitStub).to.have.been.calledWithExactly('COMP 4004', 'TB 238', '10:05 am', '11:25 am', ['Tuesday', 'Thursday'], 12345);
       });
     });
 
     describe('no entered location', function () {
       beforeEach(function () {
-        this.render(hbs`{{create-course-modal open=true onSubmit=onSubmit title='Create a new course' course-code='COMP 4004' createClassTimes=true start-time=(moment '10:05 am' 'hh:mm a') end-time=(moment '11:25 am' 'hh:mm a') selectedDays=(array 'Tuesday' 'Thursday')}}`);
+        const term = Ember.Object.create({id: 12345, semester: 'Fall', year: 2017});
+        this.set('term', term.get('id'));
+        this.set('terms', [term]);
+        this.render(hbs`{{create-course-modal open=true onSubmit=onSubmit title='Create a new course' course-code='COMP 4004' createClassTimes=true start-time=(moment '10:05 am' 'hh:mm a') end-time=(moment '11:25 am' 'hh:mm a') selectedDays=(array 'Tuesday' 'Thursday') term=term terms=terms}}`);
         return wait().then(() => {
           this.$('.btn-primary').click();
           return wait();
@@ -402,13 +457,16 @@ describe(test.label, function () {
       });
 
       it('should have passed correct parameters to submit handler', function() {
-        expect(submitStub).to.have.been.calledWithExactly('COMP 4004', 'N/A', '10:05 am', '11:25 am', ['Tuesday', 'Thursday']);
+        expect(submitStub).to.have.been.calledWithExactly('COMP 4004', 'N/A', '10:05 am', '11:25 am', ['Tuesday', 'Thursday'], 12345);
       });
     });
 
     describe('no selected class times', function () {
       beforeEach(function () {
-        this.render(hbs`{{create-course-modal open=true onSubmit=onSubmit title='Create a new course' course-code='COMP 4004'}}`);
+        const term = Ember.Object.create({id: 12345, semester: 'Fall', year: 2017});
+        this.set('term', term.get('id'));
+        this.set('terms', [term]);
+        this.render(hbs`{{create-course-modal open=true onSubmit=onSubmit title='Create a new course' course-code='COMP 4004' term=term terms=terms}}`);
         return wait().then(() => {
           this.$('.btn-primary').click();
           return wait();
@@ -420,7 +478,7 @@ describe(test.label, function () {
       });
 
       it('should have passed correct parameters to submit handler', function() {
-        expect(submitStub).to.have.been.calledWithExactly('COMP 4004', 'N/A', null, null, []);
+        expect(submitStub).to.have.been.calledWithExactly('COMP 4004', 'N/A', null, null, [], 12345);
       });
     });
   });

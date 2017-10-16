@@ -1,30 +1,23 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  titleToken: 'WorkFlow',
   model () {
-    const userID = this.modelFor('user').get('id');
-    if (!userID) {
-      this.transitionTo('index');
-      return;
-    }
-    return this.store.query('term', {orderBy: 'uid', equalTo: userID}).then(terms => {
-      const currentTerm = terms.toArray().filterBy('current', true);
-      if (currentTerm.length == 1) {
-        return this.store.query('course', {orderBy: 'tid', equalTo: currentTerm[0].get('id')}).then(courses => {
-          return this.store.query('course-work', {orderBy: 'uid', equalTo: userID}).then(work => {
-            const data = [];
-            const workArr = work.toArray();
-            courses.toArray().forEach((course) => {
-              data.push({
-                course,
-                courseWork: workArr.filterBy('cid', course.get('id'))
-              });
-            });
-            return data;
-          });
+    const model = this.modelFor('user');
+    const currentTerm = model.terms.filterBy('current', true);
+    if (currentTerm.length == 1) {
+      const courses = model.courses.filterBy('tid', currentTerm[0].get('id'));
+      const work = model.courseWork;
+      const categories = model.categories;
+      const workByCourse = [];
+      courses.forEach((course) => {
+        workByCourse.push({
+          course,
+          courseWork: work.filterBy('cid', course.get('id'))
         });
-      }
-      return {'no-current-term': true}
-    });
+      });
+      return {workByCourse, categories, allWork: model.courseWork, allCourses: model.courses};
+    }
+    return {'no-current-term': true}
   }
 });

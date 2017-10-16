@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {expect} from 'chai';
 import {beforeEach, describe, it} from 'mocha';
 import wait from 'ember-test-helpers/wait';
@@ -28,6 +29,14 @@ describe(test.label, function () {
         expect(this.$('.modal-title').text().trim()).to.eql('Create course work');
       });
 
+      it('should have no selected course', function() {
+        expect(this.$('.modal-body .select-course').val()).to.eql(null);
+      });
+
+      it('should have no selected category', function() {
+        expect(this.$('.modal-body .category').val()).to.eql(null);
+      });
+
       it('should have no entered label', function() {
         expect(this.$('.modal-body .work-label').val()).to.eql('');
       });
@@ -47,7 +56,13 @@ describe(test.label, function () {
 
     describe('values provided', function () {
       beforeEach(function () {
-        this.render(hbs`{{create-course-work-modal open=true label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pm' 'MMMM Do YYYY, h:mm a')}}`);
+        const category = Ember.Object.create({id: 13579, label: 'Reading'});
+        const course = Ember.Object.create({id: 12345, 'course-code': 'COMP 4107'});
+        this.set('course', course.get('id'));
+        this.set('courses', [course]);
+        this.set('category', category.get('id'));
+        this.set('categories', [category]);
+        this.render(hbs`{{create-course-work-modal open=true label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pm' 'MMMM Do YYYY, h:mm a') category=category categories=categories course=course courses=courses}}`);
         return wait();
       });
 
@@ -61,6 +76,22 @@ describe(test.label, function () {
 
       it('should render default title', function() {
         expect(this.$('.modal-title').text().trim()).to.eql('Create course work');
+      });
+
+      it('should have selected course', function() {
+        expect(this.$('.select-course').val()).to.eql('12345');
+      });
+
+      it('should have selected course label', function() {
+        expect(this.$('.select-course option[value=\'12345\']').text()).to.eql('COMP 4107');
+      });
+
+      it('should have selected category', function() {
+        expect(this.$('.category').val()).to.eql('13579');
+      });
+
+      it('should have selected category label', function() {
+        expect(this.$('.category option[value=\'13579\']').text()).to.eql('Reading');
       });
 
       it('should have no entered label', function() {
@@ -213,13 +244,19 @@ describe(test.label, function () {
   describe('properly submits', function () {
     let submitStub;
     beforeEach(function () {
+      const category = Ember.Object.create({id: 13579, label: 'Reading'});
+      const course = Ember.Object.create({id: 12345, 'course-code': 'COMP 4107'});
+      this.set('course', course.get('id'));
+      this.set('courses', [course]);
+      this.set('category', category.get('id'));
+      this.set('categories', [category]);
       submitStub = sinon.stub();
       this.set('onSubmit', submitStub);
     });
 
     describe('no label is provided', function () {
       beforeEach(function () {
-        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pm' 'MMMM Do YYYY, h:mm a')}}`);
+        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pm' 'MMMM Do YYYY, h:mm a') category=category categories=categories course=course courses=courses}}`);
         return wait().then(() => {
           this.$('.btn-primary').click();
           return wait();
@@ -241,7 +278,7 @@ describe(test.label, function () {
 
     describe('no entered due date', function () {
       beforeEach(function () {
-        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95}}`);
+        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 category=category categories=categories  courses=courses course=course}}`);
         return wait().then(() => {
           this.$('.btn-primary').click();
           return wait();
@@ -253,13 +290,13 @@ describe(test.label, function () {
       });
 
       it('should have passed correct parameters to submit handler', function() {
-        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, null);
+        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, null, 13579, 12345);
       });
     });
 
     describe('all values are provided', function () {
       beforeEach(function () {
-        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pmZ' 'MMMM Do YYYY, h:mm aZ')}}`);
+        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pmZ' 'MMMM Do YYYY, h:mm aZ') category=category categories=categories course=course courses=courses}}`);
         return wait().then(() => {
           this.$('.btn-primary').click();
           return wait();
@@ -271,7 +308,7 @@ describe(test.label, function () {
       });
 
       it('should have passed correct parameters to submit handler', function() {
-        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-28T23:59:00.000Z');
+        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-28T23:59:00.000Z', 13579, 12345);
       });
     });
   });

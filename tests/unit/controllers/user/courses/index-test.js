@@ -19,8 +19,10 @@ describe(test.label, function () {
     course2 = Ember.Object.create({id: 456, tid: 67890, 'course-code': 'SYSC 4903'});
     course3 = Ember.Object.create({id: 789, tid: 67890, 'course-code': 'COMP 3008'});
 
-    controller.set('terms', [term1, term2]);
-    controller.set('courses', [course1, course2, course3]);
+    controller.set('model', {
+      terms: [term1, term2],
+      courses: [course1, course2, course3]
+    });
   });
 
   afterEach(function () {
@@ -31,7 +33,7 @@ describe(test.label, function () {
     describe('listItems', function () {
       describe('terms not set', function () {
         beforeEach(function () {
-          controller.set('terms', undefined);
+          controller.get('model')['terms'] = undefined;
         });
 
         it('should return empty array', function () {
@@ -41,7 +43,7 @@ describe(test.label, function () {
 
       describe('terms not an array', function () {
         beforeEach(function () {
-          controller.set('terms', {});
+          controller.get('model')['terms'] = {};
         });
 
         it('should return empty array', function () {
@@ -51,7 +53,7 @@ describe(test.label, function () {
 
       describe('no terms', function () {
         beforeEach(function () {
-          controller.set('terms', []);
+          controller.get('model')['terms'] = [];
         });
 
         it('should return empty array', function () {

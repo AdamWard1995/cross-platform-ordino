@@ -15,6 +15,20 @@
     }
   }
 
+  .category {
+    .fa {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      border: 1px solid $color-grey;
+      border-radius: 2px;
+      font-size: 1.5em;
+    }
+  }
+
   .due,
   .weight {
     display: flex;

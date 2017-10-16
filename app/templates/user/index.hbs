@@ -1,0 +1,88 @@
+<div class='user-dashboard'>
+  <h1 class='welcome-message'>
+    Welcome to
+    <img class='welcome-message-logo' src='/assets/images/logo.png' alt='O'>rdino!
+  </h1>
+  <div class='user-dashboard-content'>
+    {{#if createFirstTerm}}
+      {{#link-to 'user.terms' session.currentUser.uid class='create-first-term'}}Create your first term{{/link-to}}
+    {{else}}
+      {{#ember-scrollable horizontal=true vertical=true class='user-dashboard-scroll'}}
+        <div class='user-dashboard-row'>
+          <div class='card due-next-week' {{action 'goToWorkFlow'}} role='button'>
+            <h3 class='card-header'>Due this week</h3>
+            {{#if (gt dueNextWeek.length 0)}}
+              <div class='list-group due-list'>
+                {{#each dueNextWeek as |due|}}
+                  <div class='list-group-item'>
+                    {{workflow-course-work-renderer item=due}}
+                  </div>
+                {{/each}}
+              </div>
+            {{else}}
+              <h4 class='no-value'>No deadlines this week</h4>
+            {{/if}}
+          </div>
+          <div class='current'>
+            <div class='user-dashboard-row'>
+              <div class='card number-terms' {{action 'goToTerms'}} role='button'>
+                <h3 class='card-header'>Terms</h3>
+                <div class='card-value'>
+                  {{numTerms}}
+                </div>
+              </div>
+              <div class='card number-courses'  {{action 'goToCourses'}} role='button'>
+                <h3 class='card-header'>Courses</h3>
+                <div class='card-value'>
+                  {{numCourses}}
+                </div>
+              </div>
+            </div>
+            <div class='user-dashboard-row'>
+              <div class='card number-categories'  {{action 'goToCategories'}} role='button'>
+                <h3 class='card-header'>Categories</h3>
+                <div class='card-value'>
+                  {{numCategories}}
+                </div>
+              </div>
+              <div class='card current-term'  {{action 'goToCurrentTerm' currentTerm}} role='button'>
+                <h3 class='card-header'>Current term</h3>
+                <div class='card-value'>
+                  {{#if currentTerm}}
+                    {{currentTerm.semester}}&thinsp;{{currentTerm.year}}
+                  {{else}}
+                    No current term
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='user-dashboard-row'>
+          <div class='card next-class'  {{action 'goToTimeTable'}} role='button'>
+            <h3 class='card-header'>Next class</h3>
+            <div class='card-value'>
+              {{#if nextClass}}
+                {{nextClass.course.course-code}},
+                <br>
+                {{nextClass.classTime.day}}
+                &thinsp;
+                {{nextClass.classTime.start-time}}
+                &thinsp;-&thinsp;
+                {{nextClass.classTime.end-time}}
+              {{else}}
+                No upcoming class
+              {{/if}}
+            </div>
+          </div>
+          <div class='card logged-in-as'  {{action 'goToUserAccount'}} role='button'>
+            <h3 class='card-header'>Logged in as</h3>
+            <div class='card-value'>
+              {{model.user.first-name}}&thinsp;{{model.user.last-name}}
+            </div>
+          </div>
+        </div>
+      {{/ember-scrollable}}
+    {{/if}}
+  </div>
+</div>

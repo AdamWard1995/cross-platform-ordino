@@ -14,6 +14,7 @@ Router.map(function() {
   this.authenticatedRoute('user', {
     path: ':user'
   }, function() {
+    this.route('index', {path: '/'});
     this.route('account');
     this.route('workflow');
     this.route('terms', function() {
@@ -27,6 +28,8 @@ Router.map(function() {
         this.route('report');
       });
     });
+    this.route('categories');
+    this.route('timetable');
   });
 });
 

@@ -1,0 +1,10 @@
+.timetable {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  height: calc(100% - #{$action-buttons-height});
+
+  .week-schedule {
+    flex: 1 1 auto;
+  }
+}

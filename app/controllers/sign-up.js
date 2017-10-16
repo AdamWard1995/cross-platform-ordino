@@ -1,34 +1,14 @@
 // app/controllers/sign-up.js
 
 import Ember from 'ember';
+import AccountValidatorMixin from 'cross-platform-ordino/mixins/account-validator';
 
-export default Ember.Controller.extend({
+export default Ember.Controller.extend(AccountValidatorMixin, {
   firebaseApp: Ember.inject.service(),
   errorMessage: '',
   signedUp: false,
   errorMessageClass: Ember.computed('errorMessage', function() {
     return this.get('errorMessage') ?  'is-visible' : 'is-hidden';
-  }),
-  passwordHasDigit: Ember.computed('password', function() {
-    return this.get('password') && /\d/.test(this.get('password'));
-  }),
-  passwordHas6Characters: Ember.computed('password', function() {
-    return this.get('password') && this.get('password').length >= 6;
-  }),
-  passwordHasLowercaseLetter: Ember.computed('password', function() {
-    return this.get('password') && /[a-z]/.test(this.get('password'));
-  }),
-  passwordHasUppercaseLetter: Ember.computed('password', function() {
-    return this.get('password') && /[A-Z]/.test(this.get('password'));
-  }),
-  validEmail: Ember.computed('email', function() {
-    const email = this.get('email')
-    const regex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
-    return email && regex.test(email);
-  }),
-  validPassword: Ember.computed('passwordHas6Characters', 'passwordHasDigit',
-    'passwordHasLowercaseLetter', 'passwordHasUppercaseLetter', function () {
-    return this.get('passwordHas6Characters') && this.get('passwordHasDigit') && this.get('passwordHasLowercaseLetter') && this.get('passwordHasUppercaseLetter');
   }),
   actions: {
     signUp () {
@@ -39,7 +19,7 @@ export default Ember.Controller.extend({
       } else if (!(this.get('last-name') && this.get('last-name').trim())) {
         this.set('errorMessage', 'The \'Last name\' field is empty.');
       } else if (!this.get('validEmail')) {
-        this.set('errorMessage', 'The email address format you entered is invalid.');
+        this.set('errorMessage', 'The E-mail address format you entered is invalid.');
       } else if (this.get('password') !== this.get('confirm-password')) {
         this.set('errorMessage', 'The passwords you entered do not match.');
       } else if (!this.get('validPassword')) {

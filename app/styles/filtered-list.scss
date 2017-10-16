@@ -30,6 +30,10 @@
       background-color: $color-primary;
       color: $color-white;
       cursor: pointer;
+
+      .fa {
+        border-color: $color-white;
+      }
     }
 
     &:active {

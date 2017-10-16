@@ -4,6 +4,12 @@
   {{/modal.header}}
   {{#modal.body}}
     <div class='form-group'>
+      <label for='select-course'>Course</label>
+      <select class='form-control select-course' id='select-course' onchange={{action (mut course) value='target.value'}}>
+        {{#each courses as |c|}}
+          <option value={{c.id}} selected={{eq c.id course}}>{{c.course-code}}</option>
+        {{/each}}
+      </select>
       <label for='label-box'>Label</label>
       {{input
         id='label-box'
@@ -33,6 +39,12 @@
         updateDate=(action (mut due))
         format='MMMM Do YYYY, h:mm a'
       }}
+      <label for='select-category'>Category</label>
+      <select class='form-control category' id='select-category' onchange={{action (mut category) value='target.value'}}>
+        {{#each categories as |cat|}}
+          <option value={{cat.id}} selected={{eq cat.id category}}>{{cat.label}}</option>
+        {{/each}}
+      </select>
     </div>
     <div class='alert alert-danger {{errorMessageClass}}'>
       <strong>Error!</strong> {{errorMessage}}

@@ -19,7 +19,7 @@ describe(test.label, function () {
     });
 
     it('should have default option selected', function () {
-      expect(this.$('.semester-filter select :selected').text()).to.eql('Semester');
+      expect(this.$('.semester-filter select :selected').text()).to.eql('-- Semester --');
     });
   });
 

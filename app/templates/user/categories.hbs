@@ -1,0 +1,38 @@
+<div class='categories'>
+  <div class='page-header categories-header'>
+    <h1 class='categories-header-title'>Categories</h1>
+    <button class='btn btn-link categories-header-create-button' {{action 'showCreateModal'}}>
+      {{fa-icon 'plus'}} Create...
+    </button>
+  </div>
+  {{#ember-scrollable class='list-scrollable'}}
+    {{ordered-list
+      items=model.categories
+      itemRenderer=(component 'category-renderer')
+      onItemSelected=(action 'showEditModal')
+      onItemDeleted=(action 'showDeleteModal')
+    }}
+  {{/ember-scrollable}}
+</div>
+{{#if createCategory}}
+  {{create-category-modal
+    open=true
+    onClose=(action 'hideCreateModal')
+    onSubmit=(action 'createCategory')
+  }}
+{{/if}}
+{{#if editCategory}}
+  {{create-category-modal
+    open=true
+    label=(readonly itemToEdit.label)
+    selectedIcon=(readonly itemToEdit.icon)
+    onClose=(action 'hideEditModal')
+    onSubmit=(action 'editCategory')
+  }}
+{{/if}}
+{{confirm-modal
+  open=deleteCategory
+  confirmationMessage=deleteConfirmationMessage
+  onClose=(action 'hideDeleteModal')
+  onConfirm=(action 'deleteCategory')
+}}

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 const {A} = Ember;
-import {deleteCourse, deleteCourseWork} from 'cross-platform-ordino/utils/cleanup';
+import {deleteCourse, deleteCourseWork, normalizeIndices} from 'cross-platform-ordino/utils/cleanup';
 import moment from 'moment';
 
 export default Ember.Controller.extend({
@@ -21,6 +21,11 @@ export default Ember.Controller.extend({
     return this.get('model').classTimes.map((classTime) => {
       return classTime.get('day');
     });
+  }),
+  categories: Ember.computed('model.categories.[]', function() {
+    const categories = A(this.get('model').categories.slice());
+    categories.insertAt(0, Ember.Object.create({label: '-- Select --'}));
+    return categories;
   }),
   createClassTimes: Ember.computed('classDays', function() {
     return this.get('classDays').length > 0;
@@ -75,9 +80,15 @@ export default Ember.Controller.extend({
       this.set('deleteCourseWork', false);
       this.set('itemToDelete', null);
     },
-    editCourse (courseCode, location, startTime, endTime, days) {
-      this.get('model').course.set('course-code', courseCode);
-      this.get('model').course.save();
+    editCourse (courseCode, location, startTime, endTime, days, tid) {
+      const course = this.get('model').course;
+      if (course.get('tid') !== tid) {
+        normalizeIndices(course, this.get('model').termCourses);
+        course.set('index', this.get('model').allCourses.filterBy('tid', tid).length);
+      }
+      course.set('course-code', courseCode);
+      course.set('tid', tid);
+      course.save();
 
       const initialClasses = this.get('model').classTimes;
       const daysSelected = A(days.slice());
@@ -113,33 +124,45 @@ export default Ember.Controller.extend({
       this.send('hideEditModal');
     },
     deleteCourse () {
-      const course = this.get('model').course;
-      deleteCourse(course, this.get('courses'), this.store);
+      const model = this.get('model');
+      const course = model.course;
+      deleteCourse(course, model.termCourses, this.store);
       this.send('hideDeleteModal');
       this.send('refreshModel');
       this.transitionToRoute('user.terms.term', course.get('tid'));
     },
-    createCourseWork (label, weight, grade, due) {
+    createCourseWork (label, weight, grade, due, cgyid, cid) {
+      const model = this.get('model');
+      const index = model.course.get('id') === cid ? model.courseWork.length : model.allWork.filterBy('cid', cid).length;
       this.store.createRecord('course-work', {
         'uid': this.get('session').get('currentUser').uid,
-        'cid': this.get('model').course.get('id'),
-        'index': this.get('model').courseWork.length,
+        'cid': cid,
+        'index': index,
         'label': label,
         'weight': weight,
         'grade': grade,
-        'due': due
+        'due': due,
+        'cgyid': cgyid
       }).save().then(() => {
         this.send('refreshModel');
       });
 
       this.send('hideCreateCourseWorkModal');
     },
-    editCourseWork (label, weight, grade, due) {
+    editCourseWork (label, weight, grade, due, cgyid, cid) {
       const itemToEdit = this.get('itemToEdit');
+      const model = this.get('model');
+      if (itemToEdit.get('cid') !== cid) {
+        const newIndex = model.allWork.filterBy('cid', cid).length
+        itemToEdit.set('cid', cid);
+        normalizeIndices(itemToEdit, this.get('model').courseWork);
+        itemToEdit.set('index', newIndex);
+      }
       itemToEdit.set('label', label);
       itemToEdit.set('weight', weight);
       itemToEdit.set('grade', grade);
       itemToEdit.set('due', due);
+      itemToEdit.set('cgyid', cgyid);
       itemToEdit.save().then(() => {
         this.send('refreshModel');
       });

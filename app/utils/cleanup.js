@@ -42,6 +42,21 @@ const _this = {
     work.destroyRecord();
   },
 
+  deleteCategory (category, otherCategories, works) {
+    _this.normalizeIndices(category, otherCategories);
+    _this.cleanupCategory(category, works);
+  },
+
+  cleanupCategory (category, works) {
+    works.forEach((work) => {
+      if (work.get('cgyid') === category.get('id')) {
+        work.set('cgyid', null);
+        work.save();
+      }
+    });
+    category.destroyRecord();
+  },
+
   normalizeIndices(item, otherItems) {
     const deleteIndex = item.get('index');
     otherItems.forEach((item) => {
@@ -62,4 +77,6 @@ export const cleanupTerm = _this.cleanupTerm;
 export const deleteCourse = _this.deleteCourse;
 export const cleanupCourse = _this.cleanupCourse;
 export const deleteCourseWork = _this.deleteCourseWork;
+export const deleteCategory = _this.deleteCategory;
+export const cleanupCategory = _this.cleanupCategory;
 export const normalizeIndices = _this.normalizeIndices;

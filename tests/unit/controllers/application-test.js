@@ -20,13 +20,28 @@ describe(test.label, function () {
     });
 
     describe('session closing and authenticated', function () {
-      beforeEach(function () {
-        controller.set('session', Ember.Object.create({isClosing: true, isAuthenticated: true}));
-        return wait();
+      describe('on user route', function () {
+        beforeEach(function () {
+          controller.set('router', Ember.Object.create({currentRouteName: 'user.terms'}));
+          controller.set('session', Ember.Object.create({isClosing: true, isAuthenticated: true}));
+          return wait();
+        });
+
+        it('Should have sent accessDenied action', function () {
+          expect(controller.send).to.have.been.calledWithExactly('accessDenied');
+        });
       });
 
-      it('Should have sent accessDenied action', function () {
-        expect(controller.send).to.have.been.calledWithExactly('accessDenied');
+      describe('on non-user route', function () {
+        beforeEach(function () {
+          controller.set('router', Ember.Object.create({currentRouteName: 'sign-in'}));
+          controller.set('session', Ember.Object.create({isClosing: true, isAuthenticated: true}));
+          return wait();
+        });
+
+        it('Should have sent accessDenied action', function () {
+          expect(controller.send).to.have.callCount(0);
+        });
       });
     });
 

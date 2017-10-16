@@ -20,6 +20,8 @@ export default Ember.Component.extend({
       const weight = this.get('weight');
       const grade = this.get('grade');
       const due = this.get('due');
+      const cgyid = this.get('category');
+      const cid = this.get('course');
 
       if (!label) {
         this.set('errorMessage', 'You need to enter a label.')
@@ -29,7 +31,7 @@ export default Ember.Component.extend({
       const dueStr = due ? moment(due).toISOString() : null;
       const onSubmit = this.get('onSubmit');
       if (onSubmit) {
-        onSubmit(label, weight, grade, dueStr);
+        onSubmit(label, weight, grade, dueStr, cgyid, cid);
       }
     }
   }

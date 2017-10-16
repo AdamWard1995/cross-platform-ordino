@@ -3,27 +3,29 @@
     <h1 class='course-list-header-title'>Courses</h1>
   </div>
   <div class='courses-sub-header'>** Current term</div>
-  {{filtered-list
-    groups=listItems
-    group-renderer=(component 'term-renderer')
-    item-renderer=(component 'course-renderer')
-    filters=(array
-      (hash
-        value=semesterToFilter
-        view=(component 'semester-filter' value=semesterToFilter)
-        passes=semesterValidator
+  {{#ember-scrollable class='list-scrollable'}}
+    {{filtered-list
+      groups=listItems
+      group-renderer=(component 'term-renderer')
+      item-renderer=(component 'course-renderer')
+      filters=(array
+        (hash
+          value=semesterToFilter
+          view=(component 'semester-filter' value=semesterToFilter)
+          passes=semesterValidator
+        )
+        (hash
+          value=yearToFilter
+          view=(component 'year-filter' value=yearToFilter)
+          passes=yearValidator
+        )
+        (hash
+          value=courseCodeToFilter
+          view=(component 'course-code-filter' value=courseCodeToFilter)
+          passes=courseCodeValidator
+        )
       )
-      (hash
-        value=yearToFilter
-        view=(component 'year-filter' value=yearToFilter)
-        passes=yearValidator
-      )
-      (hash
-        value=courseCodeToFilter
-        view=(component 'course-code-filter' value=courseCodeToFilter)
-        passes=courseCodeValidator
-      )
-    )
-    onItemSelected=(action 'goToCourseRoute')
-  }}
+      onItemSelected=(action 'goToCourseRoute')
+    }}
+  {{/ember-scrollable}}
 </div>

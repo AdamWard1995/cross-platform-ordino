@@ -1,0 +1,38 @@
+{{#bs-modal class='version-modal' onHide=(action 'close') open=open as |modal|}}
+  {{#modal.header}}
+    <h2 class='modal-title'>{{title}}</h2>
+  {{/modal.header}}
+  {{#modal.body}}
+    <div class='about-version'>
+      <div class='app-name'>
+        <img class='app-name-logo' src='/assets/images/logo.png' alt='O'>
+        <div class='app-name-remainder'>
+          rdino
+        </div>
+      </div>
+      <div class='about-details'>
+        <div class='about-details-labels'>
+          <h4><div class='label label-primary'>Version</div></h4>
+          <h4><div class='label label-primary'>Build</div></h4>
+        </div>
+        <div class='about-details-values'>
+          <div class='about-detail'>
+            {{app-version hideSha=true}}
+          </div>
+          <div class='about-detail'>
+            {{app-version hideVersion=true}}
+          </div>
+        </div>
+      </div>
+    </div>
+    {{! template-lint-disable block-indentation }}
+    <div class='about-description'>
+      &emsp;Ordino is a school organization app, developed by students, to help address the organizational needs of all students. We hope it will help you reach all your educational goals. Please report any issues you have and suggest improvements by clicking on the button below.
+      <br>
+      <br>
+      Ordino, student organization on the go.
+    </div>
+    {{! template-lint-enable block-indentation }}
+    <a class='btn btn-primary' href='mailto:adam.ward@carleton.ca'>Report issue</a>
+  {{/modal.body}}
+{{/bs-modal}}

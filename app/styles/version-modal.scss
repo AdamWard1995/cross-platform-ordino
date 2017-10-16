@@ -1,0 +1,78 @@
+$drawer-width: 275px;
+$side-bar-width: 50px;
+$side-menu-nav-view-height: 90px;
+
+$drawer-border-color: #ddd;
+
+.version-modal {
+  display: flex;
+  height: 100%;
+
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-version {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .app-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: $color-grey;
+    font-family: 'Segoe UI', 'Helvetica', Garuda, Arial, sans-serif;
+    font-size: $font-size-xxxl;
+
+    &-logo {
+      width: 65px;
+      height: 65px;
+    }
+  }
+
+  .about-details {
+    display: flex;
+    margin-left: 30px;
+
+    h4 {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    &-labels {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: space-around;
+      margin-right: 20px;
+      margin-bottom: 5px;
+    }
+
+    &-values {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      margin-bottom: 5px;
+      line-height: 1.5;
+    }
+
+    .about-detail {
+      padding-top: .2em;
+    }
+  }
+
+  .about-description {
+    margin: 10px 20px;
+    color: $color-grey;
+    text-align: justify;
+  }
+
+  .btn {
+    margin: 10px;
+  }
+}

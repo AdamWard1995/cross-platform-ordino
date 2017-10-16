@@ -1,0 +1,30 @@
+{{#bs-modal class='create-category-modal' onSubmit=(action 'submit') onHide=(action 'close') onShown=(action 'show') open=open as |modal|}}
+  {{#modal.header}}
+    <h2 class='modal-title'>{{title}}</h2>
+  {{/modal.header}}
+  {{#modal.body}}
+    <div class='form-group'>
+      <label for='course-code-box'>Label</label>
+      {{input
+        id='label-box'
+        type='text'
+        class='form-control category-label'
+        value=label
+      }}
+      {{#ember-scrollable class='icon-scroll' style='height: 200px;'}}
+        <div class='icons'>
+          {{#each icons as |icon|}}
+            {{fa-icon icon class=(concat 'icon' (if (eq icon selectedIcon) ' selected' '')) click=(action 'iconSelected' icon)}}
+          {{/each}}
+        </div>
+      {{/ember-scrollable}}
+    </div>
+    <div class='alert alert-danger {{errorMessageClass}}'>
+      <strong>Error!</strong> {{errorMessage}}
+    </div>
+  {{/modal.body}}
+  {{#modal.footer}}
+    {{#bs-button onClick=(action modal.close) type='danger'}}Cancel{{/bs-button}}
+    {{#bs-button onClick=(action modal.submit) type='primary'}}Submit{{/bs-button}}
+  {{/modal.footer}}
+{{/bs-modal}}

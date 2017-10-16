@@ -5,7 +5,7 @@ export default Filter.extend({
   classNames: ['semester-filter'],
   semesters: [
     {
-      label: 'Semester',
+      label: '-- Semester --',
       value: ''
     },
     {

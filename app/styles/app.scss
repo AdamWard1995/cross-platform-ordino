@@ -7,11 +7,16 @@ $header-vertical-margin: 40px !global;
 
 @import 'account';
 @import 'app-menu';
+@import 'categories';
+@import 'category-renderer';
+@import 'change-email-modal';
+@import 'change-password-modal';
 @import 'course';
 @import 'course-list';
 @import 'course-renderer';
 @import 'course-report';
 @import 'course-work-renderer';
+@import 'create-category-modal';
 @import 'create-course-modal';
 @import 'create-term-modal';
 @import 'filtered-list';
@@ -23,6 +28,10 @@ $header-vertical-margin: 40px !global;
 @import 'term-renderer';
 @import 'term';
 @import 'terms';
+@import 'timetable';
+@import 'user-dashboard';
+@import 'version-modal';
+@import 'week-schedule';
 @import 'workflow-course-work-renderer';
 @import 'workflow';
 
@@ -44,6 +53,11 @@ body > .ember-view {
   height: 100%;
 }
 
+.page-header {
+  margin-top: 20px;
+  font-family: 'Segoe UI', 'Helvetica', Garuda, Arial, sans-serif;
+}
+
 .app-menu {
   &-sign-in {
     display: flex;
@@ -53,6 +67,21 @@ body > .ember-view {
     height: 100%;
     padding-top: 50px;
     background-color: $color-disabled-background;
+  }
+
+  .download {
+    margin-top: 20px;
+    color: $color-primary;
+    font-size: 3em;
+
+    &:hover {
+      color: $color-dark-accent;
+      cursor: pointer;
+    }
+
+    &:active {
+      color: $color-light-accent;
+    }
   }
 
   .list-group {
@@ -76,7 +105,9 @@ body > .ember-view {
       border-left: 0;
       border-radius: 0;
       background-color: initial;
-      font-size: $font-size-m;
+      font-family: 'Segoe UI', 'Helvetica', Garuda, Arial, sans-serif;
+      font-size: 15px;
+      font-weight: bold;
       text-overflow: clip;
       overflow: hidden;
 
@@ -93,7 +124,8 @@ body > .ember-view {
       }
 
       .fa {
-        flex: 0 0 60px;
+        flex: 0 0 50px;
+        margin-left: 15px;
       }
     }
   }
@@ -106,9 +138,10 @@ body > .ember-view {
 }
 
 .content {
+  position: relative;
   flex: 1 0 auto;
   height: 100%;
-  padding: 15px;
+  padding: 5px 25px 25px;
   overflow-y: auto;
 
   .action-buttons {
@@ -117,6 +150,8 @@ body > .ember-view {
     align-items: center;
     justify-content: flex-end;
     height: 40px;
+    margin: 0 -20px;
+    border-bottom: 1px solid $bootstrap-border-color;
 
     .fa {
       margin: 5px;

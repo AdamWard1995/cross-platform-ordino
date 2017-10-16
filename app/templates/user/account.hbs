@@ -26,10 +26,25 @@
       </div>
     </div>
     <div class='account-buttons'>
-      {{#link-to 'reset-password'}}
-        <button type="button" class="btn btn-primary">Reset Password</button>
-      {{/link-to}}
-      <button type="button" class="btn btn-primary" {{action 'signOut'}}>Sign Out</button>
+      <button type="button" class="btn btn-primary" {{action 'showChangePasswordModal'}}>Change password</button>
+      <button type="button" class="btn btn-primary" {{action 'showChangeEmailModal'}}>Change E-mail</button>
+      <button type="button" class="btn btn-primary" {{action 'signOut'}}>Sign out</button>
     </div>
   </div>
+  {{#if changeEmail}}
+    {{change-email-modal
+      open=true
+      onClose=(action 'hideChangeEmailModal')
+      onSubmit=(action 'submitChangeEmail')
+      errorMessage=errorMessage
+    }}
+  {{/if}}
+  {{#if changePassword}}
+    {{change-password-modal
+      open=true
+      onClose=(action 'hideChangePasswordModal')
+      onSubmit=(action 'submitChangePassword')
+      errorMessage=errorMessage
+    }}
+  {{/if}}
 </div>
