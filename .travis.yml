@@ -44,4 +44,5 @@ before_script:
 after_success:
   - cat coverage/lcov.info | coveralls
   - ember build
+  - firebase login --reauth
   - firebase deploy
