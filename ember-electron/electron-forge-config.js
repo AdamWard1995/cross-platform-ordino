@@ -11,17 +11,41 @@ module.exports = {
       "rpm"
     ]
   },
-  "electronPackagerConfig": {},
+  "electronPackagerConfig": {
+    "name": "Ordino",
+    "icon": "public/icon.ico",
+    "overwrite": true,
+    // "versionString": {
+    //   "CompanyName": "Quadriga",
+    //   "ProductName": "Ordino",
+    //   "InternalName": "Ordino"
+    // },
+  },
   "electronWinstallerConfig": {
-    "name": "ordino"
+    name: 'Ordino',
+    icon: 'public/icon.ico',
+    exe: 'Ordino.exe',
+    setupExe: 'Ordino-Windows-Installer.exe',
+    setupIcon: 'public/icon.ico',
+    loadingGif: 'public/loading.gif',
+    noMsi: true,
+    authors: 'Adam Ward',
+    title: 'Ordino',
+    "win32metadata": {
+      "CompanyName": "Quadriga",
+      "ProductName": "Ordino",
+      "InternalName": "Ordino",
+      "FileDescription": "Ordino",
+      "OriginalFilename": "Ordino.exe"
+    }
   },
   "electronInstallerDebian": {},
   "electronInstallerRedhat": {},
   "github_repository": {
-    "owner": "AdamWard1995",
-    "name": "cross-platform-ordino"
+    "owner": "",
+    "name": ""
   },
   "windowsStoreConfig": {
-    "packageName": "ordino"
+    "packageName": ""
   }
 };
