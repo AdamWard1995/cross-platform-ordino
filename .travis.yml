@@ -39,9 +39,11 @@ before_script:
   - npm install -g bower
   - npm install -g coveralls
   - npm install -g firebase-tools
+  - npm install -g pr-bumper@^2.0.0
   - bower install
 
 after_success:
-  - cat coverage/lcov.info | coveralls
-  - ember build
-  - firebase deploy --token "$FIREBASE_TOKEN"
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then cat coverage/lcov.info | coveralls fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then ember build fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then firebase deploy --token "$FIREBASE_TOKEN" fi'
+  - pr-bumper bump
