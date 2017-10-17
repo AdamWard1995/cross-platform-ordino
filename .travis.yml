@@ -41,8 +41,4 @@ before_script:
   - npm install -g firebase-tools
   - bower install
 
-deploy:
-  provider: script
-  script: .travis/deploy.sh
-  on:
-    branch: master
+after_success: .travis/deploy.sh
