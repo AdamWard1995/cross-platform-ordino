@@ -76,9 +76,14 @@ export default Ember.Controller.extend({
           });
         });
         const days = Object.values(Day);
-        let dayOfWeek = moment().weekday()
-        for (let i = 0; i < 7; ++i) {
-          const dayData = data[days[dayOfWeek++ % 6]];
+        let dayOfWeek = moment().weekday();
+        for (let i = 0; i < 8; ++i) {
+          let dayData = data[days[dayOfWeek++ % 6]];
+          if (i == 0) {
+            dayData = dayData.filter((day) => {
+              return moment(day.classTime.get('start-time'), 'hh:mm a').isAfter(moment());
+            });
+          }
           if (dayData && dayData.length > 0) {
             return dayData.sort((a, b) => {
               return moment(a.classTime.get('start-time'), 'hh:mm a') - moment(b.classTime.get('start-time'), 'hh:mm a');
