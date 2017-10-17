@@ -15,29 +15,26 @@ module.exports = {
     "name": "Ordino",
     "icon": "public/icon.ico",
     "overwrite": true,
-    // "versionString": {
-    //   "CompanyName": "Quadriga",
-    //   "ProductName": "Ordino",
-    //   "InternalName": "Ordino"
-    // },
+    "win32metadata": {
+      "CompanyName": "Quadriga",
+      "ProductName": "Ordino",
+      "InternalName": "Ordino",
+      "FileDescription": "Ordino, student organization on the go.",
+      "LegalCopyright": "",
+      "OriginalFilename": "Ordino.exe"
+    }
   },
   "electronWinstallerConfig": {
     name: 'Ordino',
     icon: 'public/icon.ico',
     exe: 'Ordino.exe',
-    setupExe: 'Ordino-Windows-Installer.exe',
+    setupExe: 'Ordino-Windows-Setup.exe',
     setupIcon: 'public/icon.ico',
     loadingGif: 'public/loading.gif',
+    iconUrl: 'https://firebasestorage.googleapis.com/v0/b/ordino-b5acf.appspot.com/o/icon.ico?alt=media&token=a20a6929-d0e5-4684-b2ed-825b67c52eec',
     noMsi: true,
     authors: 'Adam Ward',
-    title: 'Ordino',
-    "win32metadata": {
-      "CompanyName": "Quadriga",
-      "ProductName": "Ordino",
-      "InternalName": "Ordino",
-      "FileDescription": "Ordino",
-      "OriginalFilename": "Ordino.exe"
-    }
+    title: 'Ordino'
   },
   "electronInstallerDebian": {},
   "electronInstallerRedhat": {},
