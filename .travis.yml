@@ -45,3 +45,9 @@ after_success:
   - cat coverage/lcov.info | coveralls
   - ember build
   - firebase deploy --token "$FIREBASE_TOKEN"
+
+deploy:
+  on:
+    all_branches: true
+    node: '6.11.4'
+    tags: true
