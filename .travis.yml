@@ -82,5 +82,5 @@ before_script:
 after_success:
   - cat coverage/lcov.info | coveralls
   - ember build
-  - ember electron:make
+  - ember electron:make --platform win32
   - firebase deploy --token "$FIREBASE_TOKEN"
