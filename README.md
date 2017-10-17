@@ -32,7 +32,7 @@ You will need the following things properly installed on your computer.
 
 * Web App `npm run test-web-app`
 * Electron `npm run test-electron`
-* Lint `npm runt lint`
+* Lint `npm run lint`
 * Run all web app, Electron, and lint tests `npm test`
 
 ### Building

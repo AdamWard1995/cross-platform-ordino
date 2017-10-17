@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
     if (model && model.courseWork) {
       const nextWeek = moment().add(7, 'days');
       const dueThisWeek = model.courseWork.filter((work) => {
-        return moment(work.get('due')).isBefore(nextWeek);
+        return moment(work.get('due')).isBefore(nextWeek) && moment(work.get('due')).isAfter(moment());
       });
       const data = [];
       dueThisWeek.forEach((work) => {
