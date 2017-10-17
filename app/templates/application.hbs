@@ -38,7 +38,7 @@
       {{/if}}
       {{fa-icon 'info-circle' click=(action 'toggleShowVersionModal')}}
       {{#if (not electron)}}
-        <a href='https://firebasestorage.googleapis.com/v0/b/ordino-b5acf.appspot.com/o/Ordino-Windows-Installer.exe?alt=media&token=03a17018-623f-49bd-834c-3f331aaaf976' target='_blank'>{{fa-icon 'download' class='download'}}</a>
+        <a href='https://firebasestorage.googleapis.com/v0/b/ordino-b5acf.appspot.com/o/Ordino-Windows-Installer.exe?alt=media&token=03a17018-623f-49bd-834c-3f331aaaf976' target='_blank' rel='noopener'>{{fa-icon 'download' class='download'}}</a>
       {{/if}}
     </div>
     {{outlet}}
