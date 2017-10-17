@@ -41,7 +41,8 @@ before_script:
   - npm install -g firebase-tools
   - bower install
 
-after_success:
-  - 'if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then cat coverage/lcov.info | coveralls fi'
-  - 'if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then ember build fi'
-  - 'if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then firebase deploy --token "$FIREBASE_TOKEN" fi'
+deploy:
+  provider: script
+  script: .travis/deploy.sh
+  on:
+    branch: master
