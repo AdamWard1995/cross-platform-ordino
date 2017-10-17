@@ -24,6 +24,11 @@ cache:
     - $HOME/.npm
     - node_modules
 
+stages:
+  - name: after_success
+    # only want to deploy if master build
+    if: branch = master
+
 before_install:
   - npm config set spin false
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 0.27.5
@@ -42,8 +47,6 @@ before_script:
   - bower install
 
 after_success:
-  - 'if [ ${TRAVIS_BRANCH} = "master"] && [${TRAVIS_PULL_REQUEST} = "false"]; then
-      cat coverage/lcov.info | coveralls;
-      ember build;
-      firebase deploy --token "$FIREBASE_TOKEN";
-    fi;'
+  - cat coverage/lcov.info | coveralls
+  - ember build
+  - firebase deploy --token "$FIREBASE_TOKEN"
