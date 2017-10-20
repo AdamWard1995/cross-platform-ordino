@@ -1,0 +1,26 @@
+{{#bs-modal class='download-modal' onHide=(action 'close') open=open as |modal|}}
+  {{#modal.header}}
+    <h2 class="modal-title">Download desktop application</h2>
+  {{/modal.header}}
+  {{#modal.body}}
+    <div class='platforms'>
+      <div class='os'>
+        <div class='os-name'>
+          Windows
+        </div>
+        {{fa-icon 'windows' class='os-icon'}}
+        <div class='os-versions'>
+          Compatible versions: 7, 8, 8.1, and 10
+        </div>
+        <div class='os-links'>
+          <a href='https://firebasestorage.googleapis.com/v0/b/ordino-b5acf.appspot.com/o/Ordino-Windows-Installer-1.0.0-x86.msi?alt=media&token=7bf39899-5d6e-4abf-9f59-8a7e89a1a9ce'>32-bit</a>
+          |
+          <a href='https://firebasestorage.googleapis.com/v0/b/ordino-b5acf.appspot.com/o/Ordino-Windows-Installer-1.0.0-x86_64.msi?alt=media&token=f586d59a-e5ac-4557-b454-9cf9aff203de'>64-bit</a>
+        </div>
+      </div>
+    </div>
+  {{/modal.body}}
+  {{#modal.footer}}
+    {{#bs-button onClick=(action modal.close) type="danger"}}Close{{/bs-button}}
+  {{/modal.footer}}
+{{/bs-modal}}

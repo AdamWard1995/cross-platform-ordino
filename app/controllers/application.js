@@ -36,6 +36,9 @@ export default Ember.Controller.extend({
     },
     toggleShowVersionModal () {
       this.set('showVersionModal', !this.get('showVersionModal'));
+    },
+    toggleShowDownloadModal () {
+      this.set('showDownloadModal', !this.get('showDownloadModal'));
     }
   }
 });
