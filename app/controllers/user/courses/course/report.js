@@ -7,9 +7,9 @@ export default Ember.Controller.extend({
       labels: ['Earned', 'Lost', 'Remaining'],
       datasets: [{
         data: [
-          round([this.get('model').accumulatedMarks, 1]),
-          round([this.get('model').completedWeight - this.get('model').accumulatedMarks, 1]),
-          round([100 - this.get('model').completedWeight, 1])
+          round([this.get('model').earnedGrade, 1]),
+          round([this.get('model').lostGrade, 1]),
+          round([this.get('model').remainingWeight, 1])
         ],
         backgroundColor: ['DarkGreen', 'Maroon', 'MediumBlue'],
         hoverBackgroundColor: ['Green', 'Red', 'Blue']
@@ -19,7 +19,8 @@ export default Ember.Controller.extend({
   'required-grade': Ember.computed('desired-grade', function() {
     const desired = this.get('desired-grade');
     if (desired) {
-      return Math.max(0, round([(desired - this.get('model').accumulatedMarks) / (100 - this.get('model').completedWeight) * 100, 1]));
+      return Math.max(0, round([this.get('model').remainingWeight > 0 ?
+        (desired - this.get('model').accumulatedMarks) / this.get('model').remainingWeight * 100 : 0, 1]));
     } else {
       return '---';
     }

@@ -11,7 +11,7 @@
     Weight
   </div>
   <div class='weight-value'>
-    {{if item.weight item.weight '---'}}%
+    {{if (not (is-blank item.weight)) item.weight '---'}}%
   </div>
 </div>
 <div class='grade'>
@@ -19,6 +19,6 @@
     Grade
   </div>
   <div class='grade-value'>
-    {{if item.grade item.grade '---'}}%
+    {{if (not (is-blank item.grade)) item.grade '---'}}%
   </div>
 </div>

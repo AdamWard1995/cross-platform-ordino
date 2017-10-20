@@ -21,16 +21,28 @@ export function getStatistics(works) {
   }
 
   let currentAvg = 0;
+  let divisibleWeight = Math.min(100, completedWeight)
   if (accumulatedMarks !== 0 && completedWeight !== 0) {
-    currentAvg = (accumulatedMarks / completedWeight) * 100;
+    currentAvg = (accumulatedMarks / divisibleWeight) * 100;
   }
 
+  let earnedGrade = Math.min(100, accumulatedMarks);
+  let lostGrade = Math.max(0, completedWeight - accumulatedMarks);
+  let remainingWeight = Math.max(0, 100 - completedWeight);
+  let maximumGrade = accumulatedMarks + remainingWeight;
+  let minimumGrade = accumulatedMarks;
+
   return {
+    earnedGrade,
+    lostGrade,
+    remainingWeight,
     accumulatedMarks,
     completedWeight,
     lowestGrade,
     highestGrade,
     medianGrade,
-    currentAvg
+    currentAvg,
+    maximumGrade,
+    minimumGrade
   }
 }

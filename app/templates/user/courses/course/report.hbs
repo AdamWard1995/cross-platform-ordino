@@ -23,10 +23,10 @@
               {{round model.accumulatedMarks 1}}%
             </div>
             <div class='value'>
-              {{round (sub model.completedWeight model.accumulatedMarks) 1}}%
+              {{round model.lostGrade 1}}%
             </div>
             <div class='value'>
-              {{round (sub 100 model.completedWeight) 1}}%
+              {{round model.remainingWeight 1}}%
             </div>
           </div>
         </div>
@@ -44,10 +44,10 @@
               {{round model.currentAvg 1}}%
             </div>
             <div class='value'>
-              {{round (sum model.accumulatedMarks (sub 100 model.completedWeight)) 1}}%
+              {{round model.maximumGrade 1}}%
             </div>
             <div class='value'>
-              {{round model.accumulatedMarks 1}}%
+              {{round model.minimumGrade 1}}%
             </div>
           </div>
         </div>
