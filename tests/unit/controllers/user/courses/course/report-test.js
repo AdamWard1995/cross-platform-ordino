@@ -15,7 +15,20 @@ describe(test.label, function () {
 
     course = Ember.Object.create({id: 12345, 'course-code': 'COMP 4004'});
 
-    controller.set('model', {course, accumulatedMarks: 42.5, completedWeight: 50, lowestGrade: 80, highestGrade: 90, medianGrade: 90, currentAvg: 85});
+    controller.set('model', {
+      course,
+      accumulatedMarks: 42.5,
+      completedWeight: 50,
+      lowestGrade: 80,
+      highestGrade: 90,
+      medianGrade: 90,
+      currentAvg: 85,
+      maximumGrade: 92.5,
+      minimumGrade: 42.5,
+      earnedGrade: 42.5,
+      lostGrade: 7.5,
+      remainingWeight: 50
+    });
   });
 
   afterEach(function () {
