@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/AdamWard1995/cross-platform-ordino.svg?branch=master)](https://travis-ci.org/AdamWard1995/cross-platform-ordino)
 
-[![Coverage Status](https://coveralls.io/repos/github/AdamWard1995/cross-platform-ordino/badge.svg?branch=master)](https://coveralls.io/github/AdamWard1995/cross-platform-ordino?branch=master)
+[![Coverage Status](https://img.shields.io/coveralls/AdamWard1995/cross-platform-ordino.svg)](https://img.shields.io/coveralls/AdamWard1995/cross-platform-ordino.svg)
 
 # cross-platform-ordino
 
