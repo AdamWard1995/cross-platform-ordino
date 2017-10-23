@@ -101,12 +101,12 @@ app.on('window-all-closed', () => {
 
 app.on('ready', () => {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    show: false,
     icon: '../public/icon.ico'
   });
 
   mainWindow.maximize();
+  mainWindow.show();
 
   // If you want to open up dev tools programmatically, call
   // mainWindow.openDevTools();
