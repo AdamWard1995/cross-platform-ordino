@@ -1,24 +1,36 @@
-import { expect } from 'chai';
-import { describe, it } from 'mocha';
-import { setupComponentTest } from 'ember-mocha';
+import Ember from 'ember';
+import {expect} from 'chai';
+import {beforeEach, describe, it} from 'mocha';
+import wait from 'ember-test-helpers/wait';
+import {integration} from 'ember-test-utils/test-support/setup-component-test';
 import hbs from 'htmlbars-inline-precompile';
 
-describe('Integration | Component | category renderer', function() {
-  setupComponentTest('category-renderer', {
-    integration: true
-  });
+const test = integration('category-renderer')
+describe(test.label, function () {
+  test.setup();
 
-  it('renders', function() {
-    // Set any properties with this.set('myProperty', 'value');
-    // Handle any actions with this.on('myAction', function(val) { ... });
-    // Template block usage:
-    // this.render(hbs`
-    //   {{#category-renderer}}
-    //     template content
-    //   {{/category-renderer}}
-    // `);
+  describe('properly renders category', function () {
+    let item = Ember.Object.create({label: 'Reading', icon: 'book'});
+    beforeEach(function () {
+      this.set('item', item);
+      this.render(hbs`{{category-renderer item=item}}`);
+      return wait();
+    })
 
-    this.render(hbs`{{category-renderer}}`);
-    expect(this.$()).to.have.length(1);
+    it('should render', function() {
+      expect(this.$()).to.have.length(1);
+    });
+
+    it('should have category-renderer class set', function() {
+      expect(this.$('.category-renderer')).to.have.length(1);
+    });
+
+    it('should have correct icon rendered', function() {
+      expect(this.$('.fa')).to.have.class('fa-book');
+    });
+
+    it('should have correct label rendered', function() {
+      expect(this.$('.category-label').text().trim()).to.eql('Reading');
+    });
   });
 });

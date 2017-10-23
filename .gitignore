@@ -3,6 +3,9 @@
 # compiled output
 /dist
 /tmp
+/installers
+/Ordino-cache
+/Ordino-32bit-cache
 
 # dependencies
 /node_modules

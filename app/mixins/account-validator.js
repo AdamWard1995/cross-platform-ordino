@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
 export default Ember.Mixin.create({
+  email: '',
+  password: '',
   passwordHasDigit: Ember.computed('password', function() {
     return this.get('password') && /\d/.test(this.get('password'));
   }),

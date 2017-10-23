@@ -1,5 +1,5 @@
 <select class='form-control' id='select-filter-category' onchange={{action (mut value) value='target.value'}}>
-  {{#each categories as |cat|}}
+  {{#each filterCategories as |cat|}}
     <option value={{cat.id}} selected={{eq cat.id value}}>{{cat.label}}</option>
   {{/each}}
 </select>

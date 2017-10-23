@@ -10,12 +10,12 @@
         filters=(array
           (hash
             value=categoryToFilter
-            view=(component 'category-filter' value=categoryToFilter categories=filterCategories)
+            view=(component 'category-filter' value=categoryToFilter categories=categories)
             passes=categoryValidator
           )
           (hash
             value=courseToFilter
-            view=(component 'course-filter' value=courseToFilter courses=filterCourses)
+            view=(component 'course-filter' value=courseToFilter courses=courses)
             passes=courseValidator
           )
           (hash

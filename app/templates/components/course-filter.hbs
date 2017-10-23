@@ -1,5 +1,5 @@
 <select class='form-control' id='select-filter-course' onchange={{action (mut value) value='target.value'}}>
-  {{#each courses as |course|}}
+  {{#each filterCourses as |course|}}
     <option value={{course.id}} selected={{eq course.id value}}>{{course.course-code}}</option>
   {{/each}}
 </select>

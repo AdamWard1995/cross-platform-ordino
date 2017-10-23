@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {expect} from 'chai';
 import {beforeEach, describe, it} from 'mocha';
 import wait from 'ember-test-helpers/wait';
@@ -8,9 +9,17 @@ const test = integration('course-filter')
 describe(test.label, function () {
   test.setup();
 
-  describe('no course code entered', function () {
+  let course1, course2, course3;
+  beforeEach(function () {
+    course1 = Ember.Object.create({id: 123, 'course-code': 'COMP 4905'});
+    course2 = Ember.Object.create({id: 456, 'course-code': 'COMP 4004'});
+    course3 = Ember.Object.create({id: 789, 'course-code': 'COMP 4107'});
+    this.set('courses', [course1, course2, course3]);
+  });
+
+  describe('no course selected', function () {
     beforeEach(function () {
-      this.render(hbs`{{course-code-filter}}`);
+      this.render(hbs`{{course-filter courses=courses}}`);
       return wait();
     })
 
@@ -18,18 +27,14 @@ describe(test.label, function () {
       expect(this.$()).to.have.length(1);
     });
 
-    it('should have correct placeholder', function () {
-      expect(this.$('.course-code-filter .ember-text-field').attr('placeholder')).to.eql('Course Code');
-    });
-
-    it('should be empty', function () {
-      expect(this.$('.course-code-filter .ember-text-field').val()).to.eql('');
+    it('should have default option selected', function () {
+      expect(this.$('.course-filter select :selected').text()).to.eql('-- Course --');
     });
   });
 
-  describe('course code entered', function () {
+  describe('a course is selected', function () {
     beforeEach(function () {
-      this.render(hbs`{{course-code-filter value='COMP 4905'}}`);
+      this.render(hbs`{{course-filter courses=courses value=123}}`);
       return wait();
     })
 
@@ -37,22 +42,26 @@ describe(test.label, function () {
       expect(this.$()).to.have.length(1);
     });
 
-    it('should render initial value', function () {
-      expect(this.$('.course-code-filter .ember-text-field').val()).to.eql('COMP 4905');
+    it('should have correct option selected', function () {
+      expect(this.$('.course-filter select :selected').text()).to.eql(course1.get('course-code'));
     });
   });
 
-  describe('change entered course code', function () {
+  describe('change course selection', function () {
     beforeEach(function () {
-      this.render(hbs`{{course-code-filter value=value}}`);
+      this.render(hbs`{{course-filter courses=courses value=value}}`);
       return wait().then(() => {
-        this.$('.course-code-filter .ember-text-field').val('COMP 4905').change();
+        this.$('.course-filter select').val(456).change();
         return wait();
       });
     });
 
-    it('should have set value', function () {
-      expect(this.get('value')).to.eql('COMP 4905');
+    it('should have second course selected', function () {
+      expect(this.$('.course-filter select :selected').text()).to.eql(course2.get('course-code'));
+    });
+
+    it('should have set filter value', function () {
+      expect(this.get('value')).to.eql('456');
     });
   });
 });

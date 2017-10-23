@@ -47,12 +47,6 @@ export default Ember.Controller.extend({
   }),
   categories: Ember.computed('model.categories.[]', function() {
     const categories = A(this.get('model').categories.slice());
-    categories.insertAt(0, Ember.Object.create({label: '-- Select --'}));
-    return categories;
-  }),
-  filterCategories: Ember.computed('model.categories.[]', function() {
-    const categories = A(this.get('model').categories.slice());
-    categories.insertAt(0, Ember.Object.create({label: '-- Category --', id: ''}));
     return categories;
   }),
   courses: Ember.computed('model.workByCourse.[]', function() {
@@ -64,11 +58,6 @@ export default Ember.Controller.extend({
       }
     });
     courses = courses.sortBy('course-code');
-    return courses;
-  }),
-  filterCourses: Ember.computed('model.workByCourse.[]', function() {
-    const courses = A(this.get('courses').slice());
-    courses.insertAt(0, Ember.Object.create({'course-code': '-- Course --', id: ''}));
     return courses;
   }),
   categoryValidator (date, item, categoryID) {
