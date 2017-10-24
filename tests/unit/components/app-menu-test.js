@@ -60,5 +60,26 @@ describe(test.label, function () {
         });
       });
     });
+
+    describe('navViewClicked()', function () {
+      describe('onNavViewClicked handler set', function () {
+        let navViewClickedStub;
+        beforeEach(function () {
+          navViewClickedStub = sinon.stub();
+          component.set('onNavViewClicked', navViewClickedStub);
+          component.actions.navViewClicked.apply(component);
+        });
+
+        it('should have called onNavViewClicked handler', function () {
+          expect(navViewClickedStub).to.have.callCount(1);
+        });
+      });
+
+      describe('no onNavViewClicked handler set', function () {
+        it('should have not thrown an exception', function () {
+          expect(() => component.actions.navViewClicked.apply(component)).to.not.throw();
+        });
+      });
+    });
   });
 });

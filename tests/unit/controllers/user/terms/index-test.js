@@ -44,6 +44,38 @@ describe(test.label, function () {
         });
       });
     });
+
+    describe('noTerms', function () {
+      beforeEach(function () {
+        controller.set('model', []);
+      });
+
+      describe('no terms', function () {
+        it('should return true', function () {
+          expect(controller.get('noTerms')).to.eql(true);
+        });
+      });
+
+      describe('one term', function () {
+        beforeEach(function () {
+          controller.set('model', ['foo']);
+        });
+
+        it('should return false', function () {
+          expect(controller.get('noTerms')).to.eql(false);
+        });
+      });
+
+      describe('multiple terms', function () {
+        beforeEach(function () {
+          controller.set('model', ['foo', 'bar', 'baz']);
+        });
+
+        it('should return false', function () {
+          expect(controller.get('noTerms')).to.eql(false);
+        });
+      });
+    });
   });
 
   describe('Actions', function () {

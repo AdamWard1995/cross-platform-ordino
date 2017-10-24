@@ -11,7 +11,7 @@ const test = controller('user/courses/course/index')
 describe(test.label, function () {
   test.setup();
 
-  let controller, sandbox, work1, work2, work3, work4, class1, class2, course, course2, course3;
+  let controller, sandbox, work1, work2, work3, work4, class1, class2, course, course2, course3, category1, category2, category3;
   beforeEach(function () {
     sandbox = sinon.sandbox.create()
     controller = this.subject();
@@ -21,10 +21,13 @@ describe(test.label, function () {
     work1 = Ember.Object.create({save: sinon.stub(), id: 123, index: 1, cid: 12345, label: 'Assignment 2', weight: 25, grade: 95, due: moment('October 17th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a')});
     work2 = Ember.Object.create({save: sinon.stub(), id: 456, index: 0, cid: 12345, label: 'Assignment 1', weight: 25, grade: 90, due: moment('September 28th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a')});
     work3 = Ember.Object.create({save: sinon.stub(), id: 789, index: 2, cid: 12345, label: 'Final Exam', weight: 50, grade: null, due: moment('December 16th 2017, 9:00 am', 'MMMM Do yyyy, h:mm a')});
-    work4 = Ember.Object.create({save: sinon.stub(), id: 789, index: 2, cid: 111213, label: 'Final Exam', weight: 50, grade: null, due: moment('December 16th 2017, 9:00 am', 'MMMM Do yyyy, h:mm a')});
+    work4 = Ember.Object.create({save: sinon.stub(), id: 101, index: 3, cid: 111213, label: 'Final Exam', weight: 50, grade: null, due: moment('December 16th 2017, 2:00 pm', 'MMMM Do yyyy, h:mm a')});
     course = Ember.Object.create({save: sinon.stub(), id: 12345, tid: 67890, 'course-code': 'COMP 4004', index: 0});
     course2 = Ember.Object.create({save: sinon.stub(), id: 111213, tid: 67890, 'course-code': 'COMP 4107', index: 1});
     course3 = Ember.Object.create({save: sinon.stub(), id: 141516, tid: 98765, 'course-code': 'COMP 4905', index: 2});
+    category1 = Ember.Object.create({id: 987, label: 'Assignment', icon: 'file-text'});
+    category2 = Ember.Object.create({id: 654, label: 'Reading', icon: 'book'});
+    category3 = Ember.Object.create({id: 321, label: 'Exam', icon: 'flag'});
 
     class1.get('save').returns(new Ember.RSVP.Promise(function (resolve) {resolve()}));
     class2.get('save').returns(new Ember.RSVP.Promise(function (resolve) {resolve()}));
@@ -37,6 +40,7 @@ describe(test.label, function () {
     work3.get('save').returns(new Ember.RSVP.Promise(function (resolve) {resolve()}));
 
     controller.set('model', {course,
+      categories: [category1, category2, category3],
       classTimes: [class1, class2],
       courseWork: [work1, work2, work3],
       termCourses: [course, course2],
@@ -78,6 +82,16 @@ describe(test.label, function () {
         it('should have the correct confirmation message' , function () {
           expect(controller.get('deleteCourseWorkConfirmationMessage')).to.eql(undefined);
         });
+      });
+    });
+
+    describe('categories', function () {
+      it('should have the correct category select options' , function () {
+        expect(controller.get('categories').slice(1)).to.eql([category1, category2, category3]);
+      });
+
+      it('should have appended null category select option' , function () {
+        expect(controller.get('categories')[0].get('label')).to.eql('-- Select --');
       });
     });
 

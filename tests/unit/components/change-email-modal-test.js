@@ -3,7 +3,7 @@ import {afterEach, beforeEach, describe, it} from 'mocha';
 import {unit} from 'ember-test-utils/test-support/setup-component-test'
 import sinon from 'sinon';
 
-const test = unit('create-term-modal');
+const test = unit('change-email-modal');
 describe(test.label, function () {
   test.setup();
 
@@ -42,8 +42,8 @@ describe(test.label, function () {
   });
 
   describe('Actions', function () {
-    describe('close()', function () {
-      describe('Close handler provided', function () {
+    describe('Close handler provided', function () {
+      describe('close()', function () {
         let onCloseStub;
         beforeEach(function () {
           onCloseStub = sinon.stub();
@@ -61,7 +61,7 @@ describe(test.label, function () {
           component.set('onClose', undefined);
         });
 
-        it('should have not thrown an exception', function () {
+        it('should have not thrown a exception', function () {
           expect(() => component.actions.close.apply(component)).to.not.throw();
         });
       });
@@ -74,9 +74,8 @@ describe(test.label, function () {
         component.set('onSubmit', onSubmitStub);
       });
 
-      describe('no semester selected', function () {
+      describe('no email entered', function () {
         beforeEach(function () {
-          component.set('semester', undefined);
           component.actions.submit.apply(component);
         });
 
@@ -85,14 +84,13 @@ describe(test.label, function () {
         });
 
         it('should have set errorMessage', function () {
-          expect(component.get('errorMessage')).to.eql('You need to select a semester.');
+          expect(component.get('errorMessage')).to.eql('The E-mail address format you entered is invalid.');
         });
       });
 
-      describe('no year entered', function () {
+      describe('no password entered', function () {
         beforeEach(function () {
-          component.set('semester', 'Fall');
-          component.set('year', undefined);
+          component.set('email', 'adam@ward.ca');
           component.actions.submit.apply(component);
         });
 
@@ -101,30 +99,34 @@ describe(test.label, function () {
         });
 
         it('should have set errorMessage', function () {
-          expect(component.get('errorMessage')).to.eql('You need to enter a year.');
+          expect(component.get('errorMessage')).to.eql('Please confirm your account password.');
         });
       });
 
       describe('all values entered', function () {
         beforeEach(function () {
-          component.set('semester', 'Fall');
-          component.set('year', 2017);
+          component.set('email', 'adam@ward.ca');
+          component.set('password', 'Passw0rd');
           component.actions.submit.apply(component);
         });
 
         it('should have called onSubmit handler', function () {
           expect(onSubmitStub).to.have.callCount(1);
         });
+
+        it('should have passed correct values to onSubmit handler', function () {
+          expect(onSubmitStub).to.have.been.calledWithExactly('adam@ward.ca', 'Passw0rd');
+        });
       });
 
       describe('No submit handler provided', function () {
         beforeEach(function () {
-          component.set('semester', 'Fall');
-          component.set('year', 2017);
+          component.set('email', 'adam@ward.ca');
+          component.set('password', 'Passw0rd');
           component.set('onSubmit', undefined);
         });
 
-        it('should have not thrown an exception', function () {
+        it('should have not thrown a exception', function () {
           expect(() => component.actions.submit.apply(component)).to.not.throw();
         });
       });

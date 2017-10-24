@@ -32,8 +32,6 @@ export default Ember.Controller.extend({
           userModel.save();
           user.reload();
           user.sendEmailVerification();
-          this.set('changeEmail', false);
-          this.set('errorMessage', '');
           this.send('hideChangeEmailModal');
           this.get('session').close();
         }, (error) => {
@@ -55,8 +53,6 @@ export default Ember.Controller.extend({
           const userModel = this.get('model');
           userModel.set('accountChanged', true);
           userModel.save();
-          this.set('changePassword', false);
-          this.set('errorMessage', '');
           this.send('hideChangePasswordModal');
           this.get('session').close();
         }, (error) => {

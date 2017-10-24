@@ -79,6 +79,28 @@ describe(test.label, function () {
     });
   });
 
+  describe('routChanged', function () {
+    describe('drawer open', function () {
+      beforeEach(function () {
+        controller.routeChanged();
+      });
+
+      it('Should have set drawerOpen to false', function () {
+        expect(controller.get('drawerOpen')).to.eql(false);
+      });
+    });
+
+    describe('drawer already closed', function () {
+      beforeEach(function () {
+        controller.routeChanged();
+      });
+
+      it('Should still have drawerOpen set to false', function () {
+        expect(controller.get('drawerOpen')).to.eql(false);
+      });
+    });
+  });
+
   describe('Actions', function () {
     describe('goToAccountDashboard()', function () {
       let transitionToStub;
@@ -117,6 +139,67 @@ describe(test.label, function () {
 
       it('should call to transition to user\'s account details page', function () {
         expect(transitionToStub).to.have.been.calledWithExactly('user.account', 'abc123');
+      });
+    });
+
+    describe('goToIndex()', function () {
+      let transitionToStub;
+      beforeEach(function () {
+        transitionToStub = sinon.stub();
+        controller.transitionToRoute = transitionToStub;
+        controller.actions.goToIndex.apply(controller);
+      });
+
+      it('should call to transition to index page', function () {
+        expect(transitionToStub).to.have.been.calledWithExactly('index');
+      });
+    });
+
+    describe('toggleShowVersionModal()', function () {
+      describe('showVersionModal initially false', function () {
+        beforeEach(function () {
+          controller.set('showVersionModal', false);
+          controller.actions.toggleShowVersionModal.apply(controller);
+        });
+
+        it('should set showVersionModal to true', function () {
+          expect(controller.get('showVersionModal')).to.eql(true);
+        });
+      });
+
+      describe('showVersionModal initially true', function () {
+        beforeEach(function () {
+          controller.set('showVersionModal', true);
+          controller.actions.toggleShowVersionModal.apply(controller);
+        });
+
+        it('should set showVersionModal to false', function () {
+          expect(controller.get('showVersionModal')).to.eql(false);
+        });
+      });
+    });
+
+    describe('toggleShowDownloadModal()', function () {
+      describe('showDownloadModal initially false', function () {
+        beforeEach(function () {
+          controller.set('showDownloadModal', false);
+          controller.actions.toggleShowDownloadModal.apply(controller);
+        });
+
+        it('should set showDownloadModal to true', function () {
+          expect(controller.get('showDownloadModal')).to.eql(true);
+        });
+      });
+
+      describe('showDownloadModal initially true', function () {
+        beforeEach(function () {
+          controller.set('showDownloadModal', true);
+          controller.actions.toggleShowDownloadModal.apply(controller);
+        });
+
+        it('should set showVersionModal to false', function () {
+          expect(controller.get('showDownloadModal')).to.eql(false);
+        });
       });
     });
   });

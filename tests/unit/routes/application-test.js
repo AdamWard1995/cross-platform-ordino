@@ -28,6 +28,42 @@ describe(test.label, function () {
     sandbox.restore();
   });
 
+  describe('title()', function () {
+    describe('running as electron app', function () {
+      let oldProcess;
+      beforeEach(function () {
+        oldProcess = window.process;
+        window.process = {versions: {electron: "1.2.3"}};
+      });
+
+      afterEach(function () {
+        window.process = oldProcess;
+      });
+
+      it('should return \'Ordino\' when tokens provided', function () {
+        expect(route.title(['Sign in'])).to.eql('Ordino');
+      });
+
+      it('should return \'Ordino\' when no tokens provided', function () {
+        expect(route.title([])).to.eql('Ordino');
+      });
+    });
+
+    describe('running as web app', function () {
+      it('should include token in title when only one', function () {
+        expect(route.title(['Sign in'])).to.eql('Sign in - Ordino');
+      });
+
+      it('should only last token in title when ther is multiple', function () {
+        expect(route.title(['Courses', 'COMP 4004', 'COMP 4004 Report'])).to.eql('COMP 4004 Report - Ordino');
+      });
+
+      it('should return \'Ordino\' when no tokens provided', function () {
+        expect(route.title([])).to.eql('Ordino');
+      });
+    });
+  });
+
   describe('beforeModel()', function () {
     beforeEach(function () {
       route.beforeModel();

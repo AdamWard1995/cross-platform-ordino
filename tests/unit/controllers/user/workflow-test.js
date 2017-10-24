@@ -11,7 +11,7 @@ const test = controller('user/workflow')
 describe(test.label, function () {
   test.setup();
 
-  let controller, sandbox, work1, work2, work3, work4, work5, course1, course2, category1, category2;
+  let controller, sandbox, work1, work2, work3, work4, work5, course1, course2, course3, category1, category2;
   beforeEach(function () {
     sandbox = sinon.sandbox.create()
     controller = this.subject();
@@ -23,8 +23,9 @@ describe(test.label, function () {
     work3 = Ember.Object.create({id: 56, save: sinon.stub(), cid: 67890, due: moment('September 28th 9999, 8:00 pm', 'MMMM Do YYYY, h:mm a'), index: 1});
     work4 = Ember.Object.create({id: 78, save: sinon.stub(), cid: 12345, due: moment('September 28th 9999, 4:00 pm', 'MMMM Do YYYY, h:mm a'), index: 2, cgyid: 123});
     work5 = Ember.Object.create({id: 90, save: sinon.stub(), cid: 67890, due: moment('September 30th 9999, 11:55 pm', 'MMMM Do YYYY, h:mm a'), index: 0, cgyid: 456});
-    course1 = Ember.Object.create({id: 12345});
-    course2 = Ember.Object.create({id: 67890});
+    course1 = Ember.Object.create({id: 12345, 'course-code': 'COMP 4107'});
+    course2 = Ember.Object.create({id: 67890, 'course-code': 'COMP 4004'});
+    course3 = Ember.Object.create({id: 67890, 'course-code': 'ERTH 2401'});
 
     [work1, work2, work3, work4, work5].forEach((work) => {
       work.get('save').returns(new Ember.RSVP.Promise(function (resolve) {
@@ -35,10 +36,11 @@ describe(test.label, function () {
     controller.set('model', {
       workByCourse: [
         {course: course1, courseWork: [work1, work2, work4]},
-        {course: course2, courseWork: [work3, work5]}
+        {course: course2, courseWork: [work3, work5]},
+        {course: course3, courseWork: []}
       ],
       allWork: [work1, work2, work3, work4, work5],
-      allCourses: [course1, course2],
+      allCourses: [course1, course2, course3],
       categories: [category1, category2]
     });
   });
@@ -48,6 +50,28 @@ describe(test.label, function () {
   });
 
   describe('Computed Properties', function () {
+    describe('haveCurrentTerm', function () {
+      describe('no-current-term flag set', function () {
+        beforeEach(function () {
+          controller.set('model', {'no-current-term': true});
+        });
+
+        it('should return false', function () {
+          expect(controller.get('haveCurrentTerm')).to.eql(false);
+        });
+      });
+
+      describe('no-current-term flag not set', function () {
+        beforeEach(function () {
+          controller.set('model', []);
+        });
+
+        it('should return true', function () {
+          expect(controller.get('haveCurrentTerm')).to.eql(true);
+        });
+      });
+    });
+
     describe('listItems', function () {
       describe('model is empty', function () {
         beforeEach(function () {
@@ -92,6 +116,50 @@ describe(test.label, function () {
           expect(controller.get('listItems')[2].items).to.eql([{course: course2, work: work5, category: category2}]);
         });
       });
+    });
+  });
+
+  describe('categories', function () {
+    it('should return array with all model categories', function () {
+      expect(controller.get('categories')).to.eql([category1, category2]);
+    });
+  });
+
+  describe('courses', function () {
+    it('should return array with all model courses sorted by course code', function () {
+      expect(controller.get('courses')).to.eql([course2, course1, course3]);
+    });
+  });
+
+  describe('categoryValidator', function () {
+    it('should pass when work has same category', function () {
+      expect(controller.categoryValidator('September 28th 2017', {work: work4}, 123)).to.eql(true);
+    });
+
+    it('should fail when work has diffent category', function () {
+      expect(controller.categoryValidator('September 28th 2017', {work: work4}, 456)).to.eql(false);
+    });
+
+    it('should fail when work has no category', function () {
+      expect(controller.categoryValidator('September 28th 2017', {work: work3}, 123)).to.eql(false);
+    });
+
+    it('should pass when no filter value is set', function () {
+      expect(controller.categoryValidator('September 28th 2017', {work: work4}, null)).to.eql(true);
+    });
+  });
+
+  describe('courseValidator', function () {
+    it('should pass when work is for same cours', function () {
+      expect(controller.courseValidator('September 28th 2017', {work: work4}, 12345)).to.eql(true);
+    });
+
+    it('should fail when work is for different course', function () {
+      expect(controller.courseValidator('September 28th 2017', {work: work4}, 67890)).to.eql(false);
+    });
+
+    it('should pass when no filter value is set', function () {
+      expect(controller.courseValidator('September 28th 2017', {work: work4}, null)).to.eql(true);
     });
   });
 

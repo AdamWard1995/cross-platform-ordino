@@ -113,6 +113,62 @@ describe(test.label, function () {
     });
   });
 
+  describe('properly renders when no timeslots', function () {
+    beforeEach(function () {
+      this.set('timeslots', undefined);
+      this.render(hbs`{{week-schedule timeslots=timeslots}}`);
+      return wait();
+    });
+
+    it('should render', function() {
+      expect(this.$()).to.have.length(1);
+    });
+
+    it('should render header placeholder', function() {
+      expect(this.$('.header .header-cell').eq(0).text().trim()).to.eql('');
+    });
+
+    it('should render header for Sunday', function() {
+      expect(this.$('.header .header-cell').eq(1).text().trim()).to.eql('S');
+    });
+
+    it('should render header for Monday', function() {
+      expect(this.$('.header .header-cell').eq(2).text().trim()).to.eql('M');
+    });
+
+    it('should render header for Tuesday', function() {
+      expect(this.$('.header .header-cell').eq(3).text().trim()).to.eql('T');
+    });
+
+    it('should render header for Wednesday', function() {
+      expect(this.$('.header .header-cell').eq(4).text().trim()).to.eql('W');
+    });
+
+    it('should render header for Thursday', function() {
+      expect(this.$('.header .header-cell').eq(5).text().trim()).to.eql('T');
+    });
+
+    it('should render header for Friday', function() {
+      expect(this.$('.header .header-cell').eq(6).text().trim()).to.eql('F');
+    });
+
+    it('should render header for Saturday', function() {
+      expect(this.$('.header .header-cell').eq(7).text().trim()).to.eql('S');
+    });
+
+    it('should render 8 columns', function() {
+      expect(this.$('.ember-scrollable .column')).to.have.length(8);
+    });
+
+    it('should render 24 hour cells for each column', function() {
+      expect(this.$('.ember-scrollable .cell')).to.have.length(8 * 24);
+    });
+
+    it('should not have rendered timeslots', function () {
+      expect(this.$('.timeslot')).to.have.length(0);
+    });
+  });
+
   describe('properly calls item selection handler', function () {
     let selectStub;
     beforeEach(function () {

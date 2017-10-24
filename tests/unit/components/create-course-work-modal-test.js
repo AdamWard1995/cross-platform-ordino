@@ -128,6 +128,12 @@ describe(test.label, function () {
 
       describe('No submit handler provided', function () {
         beforeEach(function () {
+          component.set('category', 13579);
+          component.set('course', 12345);
+          component.set('label', 'Assignment 1');
+          component.set('weight', 30);
+          component.set('grade', 95);
+          component.set('due', moment('2017-09-29T03:59:00.000Z'));
           component.set('onSubmit', undefined);
         });
 

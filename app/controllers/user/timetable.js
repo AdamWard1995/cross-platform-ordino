@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
           start: classTime.get('start-time'),
           end: classTime.get('end-time'),
           label: course.course.get('course-code'),
-          location: classTime.get('location'),
+          location: classTime.get('location')
         });
       });
     });

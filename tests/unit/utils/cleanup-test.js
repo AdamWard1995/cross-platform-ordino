@@ -88,7 +88,7 @@ describe('Unit / utils / cleanup', function () {
     let class1, class2, work1, work2, course, store;
     beforeEach(function () {
       class1 = Ember.Object.create({id: 1, destroyRecord: sinon.stub()});
-      class2 = Ember.Object.create({id: 1, destroyRecord: sinon.stub()});
+      class2 = Ember.Object.create({id: 2, destroyRecord: sinon.stub()});
       work1 = Ember.Object.create({id: 3, destroyRecord: sinon.stub()});
       work2 = Ember.Object.create({id: 4, destroyRecord: sinon.stub()});
       course = Ember.Object.create({id: 12345, destroyRecord: sinon.stub()});
@@ -136,6 +136,53 @@ describe('Unit / utils / cleanup', function () {
 
     it('should have destroyed the work record', function () {
       expect(item.destroyRecord).to.have.callCount(1);
+    });
+  });
+
+  describe('deleteCategory()', function () {
+    let item, otherItems, works;
+    beforeEach(function () {
+      item = {foo: 'qux'};
+      otherItems = {foo: 'bar'};
+      works = {foo: 'baz'};
+      sandbox.stub(cleanup, 'normalizeIndices');
+      sandbox.stub(cleanup, 'cleanupCategory')
+      cleanup.deleteCategory(item, otherItems, works);
+    });
+
+    it('should normalize other category indices', function () {
+      expect(cleanup.normalizeIndices).to.have.been.calledWithExactly(item, otherItems);
+    });
+
+    it('should cleanup category', function () {
+      expect(cleanup.cleanupCategory).to.have.been.calledWithExactly(item, works);
+    });
+  });
+
+  describe('cleanupCategory()', function () {
+    let category, work1, work2, work3;
+    beforeEach(function () {
+      work1 = Ember.Object.create({id: 1, cgyid: 4, save: sinon.stub()});
+      work2 = Ember.Object.create({id: 2, cgyid: 5});
+      work3 = Ember.Object.create({id: 3});
+      category = Ember.Object.create({id: 4, destroyRecord: sinon.stub()});
+      cleanup.cleanupCategory(category, [work1, work2, work3]);
+    });
+
+    it('should have removed first work category id', function () {
+      expect(work1.get('cgyid')).to.eql(null);
+    });
+
+    it('should not have removed second work category id', function () {
+      expect(work2.get('cgyid')).to.eql(5);
+    });
+
+    it('should have saved changes to first work', function () {
+      expect(work1.get('save')).to.have.callCount(1);
+    });
+
+    it('should have destroyed the category record', function () {
+      expect(category.get('destroyRecord')).to.have.callCount(1);
     });
   });
 

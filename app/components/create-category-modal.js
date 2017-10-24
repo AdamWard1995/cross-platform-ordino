@@ -19,9 +19,6 @@ export default Ember.Component.extend({
   errorMessageClass: Ember.computed('errorMessage', function() {
     return this.get('errorMessage') ?  'is-visible' : 'is-gone';
   }),
-  didInsertElement() {
-    this._super(...arguments);
-  },
   actions: {
     iconSelected (icon) {
       if (icon) {
@@ -42,7 +39,7 @@ export default Ember.Component.extend({
       const label = this.get('label');
       const icon = this.get('selectedIcon');
 
-      if (!label || !label.trim()) {
+      if (!(label && label.trim())) {
         this.set('errorMessage', 'You need to enter a label.');
         return;
       }

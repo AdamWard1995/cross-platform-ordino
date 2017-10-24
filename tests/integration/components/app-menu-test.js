@@ -3,6 +3,7 @@ import {beforeEach, describe, it} from 'mocha';
 import wait from 'ember-test-helpers/wait';
 import {integration} from 'ember-test-utils/test-support/setup-component-test';
 import hbs from 'htmlbars-inline-precompile';
+import sinon from 'sinon';
 
 const test = integration('app-menu')
 describe(test.label, function () {
@@ -65,6 +66,24 @@ describe(test.label, function () {
 
     it('should set class to is-closed', function() {
       expect(this.$('.app-menu')).to.have.class('is-closed');
+    });
+  });
+
+  describe('properly calls nav view click handler', function () {
+    let navViewClicked;
+    beforeEach(function () {
+      navViewClicked = sinon.stub();
+      this.set('onNavViewClicked', navViewClicked);
+      this.render(hbs`{{#app-menu onNavViewClicked=onNavViewClicked}}test content{{/app-menu}}`);
+      this.set('drawerOpen', false);
+      return wait().then(() => {
+        this.$('.app-menu-drawer-nav-view').click();
+        return wait();
+      });
+    });
+
+    it('should have called onNavViewClicked handler', function() {
+      expect(navViewClicked).to.have.callCount(1);
     });
   });
 });

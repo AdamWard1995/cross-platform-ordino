@@ -5,7 +5,7 @@ import Ember from 'ember';
 export default Ember.Route.extend({
   session: Ember.inject.service(),
   drawerOpen: true,
-  title: function(tokens) {
+  title (tokens) {
     if (!(window.process && window.process.versions.electron)) {
       return (tokens.length > 0 ? `${tokens[tokens.length - 1]} - ` : '') + 'Ordino';
     } else {
