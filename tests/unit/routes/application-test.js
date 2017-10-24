@@ -29,7 +29,7 @@ describe(test.label, function () {
   });
 
   describe('title()', function () {
-    describe('running as electron app', function () {
+    describe.skip('running as electron app', function () {
       let oldProcess;
       beforeEach(function () {
         oldProcess = window.process;
@@ -50,11 +50,11 @@ describe(test.label, function () {
     });
 
     describe('running as web app', function () {
-      it('should include token in title when only one', function () {
+      it('should include pnly token in title when only one', function () {
         expect(route.title(['Sign in'])).to.eql('Sign in - Ordino');
       });
 
-      it('should only last token in title when ther is multiple', function () {
+      it('should only include last token in title when there is multiple', function () {
         expect(route.title(['Courses', 'COMP 4004', 'COMP 4004 Report'])).to.eql('COMP 4004 Report - Ordino');
       });
 
