@@ -29,15 +29,18 @@ describe(test.label, function () {
   });
 
   describe('title()', function () {
-    describe('running as electron app', function () {
-      let oldProcess;
-      beforeEach(function () {
-        oldProcess = window.process;
-        window.process = {versions: {electron: "1.2.3"}};
-      });
+    let oldProcess;
+    beforeEach(function () {
+      oldProcess = window.process;
+    });
 
-      afterEach(function () {
-        window.process = oldProcess;
+    afterEach(function () {
+      window.process = oldProcess;
+    });
+
+    describe('running as electron app', function () {
+      beforeEach(function () {
+        window.process = {versions: {electron: "1.2.3"}};
       });
 
       it('should return \'Ordino\' when tokens provided', function () {
@@ -50,6 +53,10 @@ describe(test.label, function () {
     });
 
     describe('running as web app', function () {
+      beforeEach(function () {
+        window.process = null;
+      });
+
       it('should include pnly token in title when only one', function () {
         expect(route.title(['Sign in'])).to.eql('Sign in - Ordino');
       });
