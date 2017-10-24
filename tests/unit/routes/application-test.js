@@ -29,7 +29,7 @@ describe(test.label, function () {
   });
 
   describe('title()', function () {
-    describe.skip('running as electron app', function () {
+    describe('running as electron app', function () {
       let oldProcess;
       beforeEach(function () {
         oldProcess = window.process;

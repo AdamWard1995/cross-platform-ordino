@@ -6,10 +6,10 @@ export default Ember.Route.extend({
   session: Ember.inject.service(),
   drawerOpen: true,
   title (tokens) {
-    if (!(window.process && window.process.versions.electron)) {
-      return (tokens.length > 0 ? `${tokens[tokens.length - 1]} - ` : '') + 'Ordino';
-    } else {
+    if (window.process && window.process.versions.electron) {
       return 'Ordino';
+    } else {
+      return (tokens.length > 0 ? `${tokens[tokens.length - 1]} - ` : '') + 'Ordino';
     }
   },
   beforeModel () {
