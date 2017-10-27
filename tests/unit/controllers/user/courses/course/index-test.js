@@ -766,7 +766,7 @@ describe(test.label, function () {
           work1.changedAttributes = () => {
             return {};
           };
-          controller.actions.editCourseWork.apply(controller, ['Assignment 2', 25, 95, moment('October 17th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a').toISOString(), 321, 12345]);
+          controller.actions.editCourseWork.apply(controller, ['Assignment 2', 25, 95, moment('October 17th 2017, 11:59 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 12345]);
         });
 
         it('should not have normalized indices', function () {
@@ -798,7 +798,7 @@ describe(test.label, function () {
         });
 
         it('should have set the item due', function () {
-          expect(work1.get('due')).to.eql('2017-10-18T03:59:00.000Z');
+          expect(work1.get('due')).to.eql('2017-10-17T23:59:00.000Z');
         });
 
         it('should have hidden edit course work modal', function () {
