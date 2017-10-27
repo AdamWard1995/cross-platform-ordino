@@ -1,13 +1,9 @@
-import Ember from 'ember';
-import Semester from '../enums/semester';
+import Semester from 'cross-platform-ordino/enums/semester';
+import FormModal from 'cross-platform-ordino/components/form-modal';
 
-export default Ember.Component.extend({
-  open: false,
-  errorMessage: '',
+export default FormModal.extend({
   title: 'Create term',
-  errorMessageClass: Ember.computed('errorMessage', function() {
-    return this.get('errorMessage') ?  'is-visible' : 'is-gone';
-  }),
+  class: 'create-term-modal',
   semesters: [
     {
       label: '-- Select --',

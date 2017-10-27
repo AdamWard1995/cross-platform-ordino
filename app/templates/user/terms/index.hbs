@@ -9,6 +9,7 @@
   {{#ember-scrollable class='list-scrollable'}}
     {{ordered-list
       items=model
+      new=new
       itemRenderer=(component 'term-renderer')
       onItemSelected=(action 'goToTermRoute')
       onItemDeleted=(action 'showDeleteModal')

@@ -8,7 +8,7 @@
       {{/if}}
     </div>
     {{#each group.items as |item|}}
-      <div class='list-group-item' {{action 'itemSelected' item}} role='button'>
+      <div class={{concat 'list-group-item' (if (eq new item) ' new') (if (eq changed item) ' changed')}} {{action 'itemSelected' item}} role='button'>
         {{#if item-renderer}}
           {{component item-renderer item=item}}
         {{else}}

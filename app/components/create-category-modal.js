@@ -1,9 +1,10 @@
 /* global $ */
 
-import Ember from 'ember';
+import FormModal from 'cross-platform-ordino/components/form-modal';
 
-export default Ember.Component.extend({
+export default FormModal.extend({
   title: 'Create category',
+  class: 'create-category-modal',
   icons: [
     'address-book-o', 'handshake-o', 'thermometer', 'anchor', 'archive', 'area-chart', 'asterisk',
     'at', 'automobile', 'balance-scale', 'ban', 'bank', 'bar-chart', 'battery', 'bed', 'beer',
@@ -16,9 +17,6 @@ export default Ember.Component.extend({
     'pencil', 'percent', 'pie-chart', 'print', 'quote-left', 'recycle', 'rocket', 'server', 'smile-o',
     'snowflake-o', 'star', 'sun-o', 'thumbs-up', 'ticket', 'tint', 'tree', 'trophy', 'umbrella', 'video-camera'
   ],
-  errorMessageClass: Ember.computed('errorMessage', function() {
-    return this.get('errorMessage') ?  'is-visible' : 'is-gone';
-  }),
   actions: {
     iconSelected (icon) {
       if (icon) {

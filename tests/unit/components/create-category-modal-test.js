@@ -17,30 +17,6 @@ describe(test.label, function () {
     sandbox.restore();
   });
 
-  describe('Computed Properties', function () {
-    describe('errorMessageClass', function () {
-      describe('no error message set', function () {
-        beforeEach(function () {
-          component.set('errorMessage', '');
-        });
-
-        it('should use is-gone as class', function () {
-          expect(component.get('errorMessageClass')).to.eql('is-gone');
-        });
-      });
-
-      describe('an error message is set', function () {
-        beforeEach(function () {
-          component.set('errorMessage', 'There has been an error!');
-        });
-
-        it('should use is-visible as class', function () {
-          expect(component.get('errorMessageClass')).to.eql('is-visible');
-        });
-      });
-    });
-  });
-
   describe('Actions', function () {
     describe('Close handler provided', function () {
       describe('close()', function () {

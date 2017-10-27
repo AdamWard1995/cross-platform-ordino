@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import {deleteCourse, deleteTerm} from 'cross-platform-ordino/utils/cleanup';
 
-export default Ember.Controller.extend({
+import ChangedItemMixin from 'cross-platform-ordino/mixins/changed-item';
+
+export default Ember.Controller.extend(ChangedItemMixin, {
   editTerm: false,
   deleteTerm: false,
   createCourse: false,
@@ -53,6 +55,7 @@ export default Ember.Controller.extend({
       this.get('model').term.set('semester', semester);
       this.get('model').term.set('year', year);
       this.get('model').term.set('current', current);
+
       this.get('model').term.save();
       this.send('hideEditModal');
       this.send('refreshModel');
@@ -73,6 +76,7 @@ export default Ember.Controller.extend({
         'index': index,
         'course-code': courseCode
       });
+      this.set('new', course);
       course.save().then(() => {
         this.send('refreshModel');
       });

@@ -17,6 +17,7 @@
   {{#ember-scrollable class='list-scrollable'}}
     {{ordered-list
       items=model.courses
+      new=new
       itemRenderer=(component 'course-renderer')
       onItemSelected=(action 'goToCourseRoute')
       onItemDeleted=(action 'showDeleteCourseModal')

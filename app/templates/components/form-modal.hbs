@@ -1,0 +1,15 @@
+{{#bs-modal class=class onSubmit=submit onHide=close open=open as |modal|}}
+  {{#modal.header}}
+    <h2 class='modal-title'>{{title}}</h2>
+  {{/modal.header}}
+  {{#modal.body}}
+    {{yield}}
+    <div class='alert alert-danger {{errorMessageClass}}'>
+      <strong>Error!</strong> {{errorMessage}}
+    </div>
+  {{/modal.body}}
+  {{#modal.footer}}
+    {{#bs-button onClick=(action modal.close) type=closeButton.type}}{{closeButton.label}}{{/bs-button}}
+    {{#bs-button onClick=(action modal.submit) type=submitButton.type}}{{submitButton.label}}{{/bs-button}}
+  {{/modal.footer}}
+{{/bs-modal}}

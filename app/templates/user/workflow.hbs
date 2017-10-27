@@ -6,6 +6,7 @@
     {{#ember-scrollable class='list-scrollable'}}
       {{filtered-list
         groups=listItems
+        changed=changed
         item-renderer=(component 'workflow-course-work-renderer')
         filters=(array
           (hash

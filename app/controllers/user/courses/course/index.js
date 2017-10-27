@@ -3,7 +3,9 @@ const {A} = Ember;
 import {deleteCourse, deleteCourseWork, normalizeIndices} from 'cross-platform-ordino/utils/cleanup';
 import moment from 'moment';
 
-export default Ember.Controller.extend({
+import ChangedItemMixin from 'cross-platform-ordino/mixins/changed-item';
+
+export default Ember.Controller.extend(ChangedItemMixin, {
   editCourse: false,
   deleteCourse: false,
   createCourseWork: false,
@@ -134,7 +136,7 @@ export default Ember.Controller.extend({
     createCourseWork (label, weight, grade, due, cgyid, cid) {
       const model = this.get('model');
       const index = model.course.get('id') === cid ? model.courseWork.length : model.allWork.filterBy('cid', cid).length;
-      this.store.createRecord('course-work', {
+      const work = this.store.createRecord('course-work', {
         'uid': this.get('session').get('currentUser').uid,
         'cid': cid,
         'index': index,
@@ -143,7 +145,9 @@ export default Ember.Controller.extend({
         'grade': grade,
         'due': due,
         'cgyid': cgyid
-      }).save().then(() => {
+      });
+      this.set('new', work);
+      work.save().then(() => {
         this.send('refreshModel');
       });
 
@@ -163,6 +167,11 @@ export default Ember.Controller.extend({
       itemToEdit.set('grade', grade);
       itemToEdit.set('due', due);
       itemToEdit.set('cgyid', cgyid);
+
+      if (Object.keys(itemToEdit.changedAttributes()).length > 0) {
+        this.set('changed', itemToEdit);
+      }
+
       itemToEdit.save().then(() => {
         this.send('refreshModel');
       });

@@ -1,7 +1,9 @@
 import Ember from 'ember';
 import {deleteTerm} from 'cross-platform-ordino/utils/cleanup';
 
-export default Ember.Controller.extend({
+import ChangedItemMixin from 'cross-platform-ordino/mixins/changed-item';
+
+export default Ember.Controller.extend(ChangedItemMixin, {
   createTerm: false,
   deleteConfirmationMessage: Ember.computed('itemToDelete', function() {
     if (this.get('itemToDelete')) {
@@ -27,13 +29,15 @@ export default Ember.Controller.extend({
       this.set('itemToDelete', null);
     },
     createTerm (semester, year, current) {
-      this.store.createRecord('term', {
+      const term = this.store.createRecord('term', {
         uid: this.get('session').get('currentUser').uid,
         index: this.get('model').length,
         semester,
         year,
         current
-      }).save().then(() => {
+      });
+      this.set('new', term);
+      term.save().then(() => {
         this.send('refreshModel');
       });
       if (current) {

@@ -1,0 +1,27 @@
+$changed-color-1: rgba($color-orange, .4);
+$changed-color-2: rgba($color-orange, .3);
+
+$new-color-1: rgba($color-green, .25);
+$new-color-2: rgba($color-green, .2);
+
+.list-group-item {
+  &.changed {
+    border: 1px solid $color-orange;
+    background-color: transparent !important; // sass-lint:disable-line no-important
+    background-image: linear-gradient($changed-color-1, $changed-color-2);
+
+    + .list-group-item {
+      border-top: 1px solid $color-orange;
+    }
+  }
+
+  &.new {
+    border: 1px solid $color-green;
+    background-color: transparent !important; // sass-lint:disable-line no-important
+    background-image: linear-gradient($new-color-1, $new-color-2);
+
+    + .list-group-item {
+      border-top: 1px solid $color-green;
+    }
+  }
+}

@@ -79,7 +79,7 @@ describe(test.label, function () {
     });
   });
 
-  describe('routChanged', function () {
+  describe('routeChanged', function () {
     describe('drawer open', function () {
       beforeEach(function () {
         controller.routeChanged();

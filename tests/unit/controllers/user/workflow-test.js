@@ -117,6 +117,38 @@ describe(test.label, function () {
         });
       });
     });
+
+    describe('changed', function () {
+      describe('no changed item', function () {
+        beforeEach(function () {
+          controller.set('changedID', null);
+        });
+
+        it('should return undefined', function () {
+          expect(controller.get('changed')).to.eql(undefined);
+        });
+      });
+
+      describe('have changed item', function () {
+        beforeEach(function () {
+          controller.set('changedID', 34);
+        });
+
+        it('should return correct item grouping', function () {
+          expect(controller.get('changed')).to.eql({work: work2, course: course1, category: null});
+        });
+      });
+
+      describe('group does not exist', function () {
+        beforeEach(function () {
+          controller.set('changedID', -1);
+        });
+
+        it('should return undefined', function () {
+          expect(controller.get('changed')).to.eql(undefined);
+        });
+      });
+    });
   });
 
   describe('categories', function () {
@@ -271,14 +303,24 @@ describe(test.label, function () {
     });
 
     describe('editCourseWork()', function () {
+      let oldLater;
       beforeEach(function () {
+        oldLater = Ember.run.later;
+        Ember.run.later = () => {};
         sandbox.stub(controller, 'send');
         sandbox.stub(cleanup, 'normalizeIndices');
         controller.set('itemToEdit', work2);
       });
 
+      afterEach(function () {
+        Ember.run.later = oldLater;
+      });
+
       describe('not changing course ID', function () {
         beforeEach(function () {
+          work2.changedAttributes = () => {
+            return {label: ['Assignment 2', 'Assignment 4']};
+          };
           controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 456, 12345]);
         });
 
@@ -318,6 +360,10 @@ describe(test.label, function () {
           expect(controller.send).to.have.been.calledWithExactly('hideEditCourseWorkModal');
         });
 
+        it('should have set changed item', function () {
+          expect(controller.get('changedID')).to.eql(34);
+        });
+
         it('should have saved changes', function () {
           expect(work2.save).to.have.callCount(1);
         });
@@ -329,6 +375,9 @@ describe(test.label, function () {
 
       describe('changing course ID', function () {
         beforeEach(function () {
+          work2.changedAttributes = () => {
+            return {course: [123, 456]};
+          };
           controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 456, 67890]);
         });
 
@@ -366,6 +415,67 @@ describe(test.label, function () {
 
         it('should have hidden edit course work modal', function () {
           expect(controller.send).to.have.been.calledWithExactly('hideEditCourseWorkModal');
+        });
+
+        it('should have set changed item', function () {
+          expect(controller.get('changedID')).to.eql(34);
+        });
+
+        it('should have saved changes', function () {
+          expect(work2.save).to.have.callCount(1);
+        });
+
+        it('should have refreshed the model', function () {
+          expect(controller.send).to.have.been.calledWithExactly('refreshModel');
+        });
+      });
+
+      describe('nothing changed', function () {
+        beforeEach(function () {
+          work2.changedAttributes = () => {
+            return {};
+          };
+          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 456, 67890]);
+        });
+
+        it('should have normalize indices', function () {
+          expect(cleanup.normalizeIndices).to.have.been.calledWithExactly(work2, [work1, work2, work4]);
+        });
+
+        it('should have changed index', function () {
+          expect(work2.get('index')).to.eql(2);
+        });
+
+        it('should have changed cid', function () {
+          expect(work2.get('cid')).to.eql(67890);
+        });
+
+        it('should have changed category', function () {
+          expect(work2.get('cgyid')).to.eql(456);
+        });
+
+        it('should have set the item label', function () {
+          expect(work2.get('label')).to.eql('Assignment 4');
+        });
+
+        it('should have set the item weight', function () {
+          expect(work2.get('weight')).to.eql(33);
+        });
+
+        it('should have set the item grade', function () {
+          expect(work2.get('grade')).to.eql(87);
+        });
+
+        it('should have set the item due', function () {
+          expect(work2.get('due')).to.eql('2017-09-30T22:30:00.000Z');
+        });
+
+        it('should have hidden edit course work modal', function () {
+          expect(controller.send).to.have.been.calledWithExactly('hideEditCourseWorkModal');
+        });
+
+        it('should not have set changed item', function () {
+          expect(controller.get('changed')).to.eql(undefined);
         });
 
         it('should have saved changes', function () {

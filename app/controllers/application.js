@@ -1,9 +1,12 @@
 /* global window */
 
 import Ember from 'ember';
+import isOnline from 'npm:is-online';
 
 export default Ember.Controller.extend({
   router: Ember.inject.service('-routing'),
+  electron: false || (window.process && window.process.versions.electron),
+  online: true,
   observeSession: function() {
     if (this.get('session').get('isClosing') &&
         this.get('session').get('isAuthenticated')) {
@@ -15,14 +18,23 @@ export default Ember.Controller.extend({
       }
     }
   }.observes('session.isAuthenticated', 'session.isClosing'),
-  routeChanged: function() {
+  routeChanged () {
     this.set('drawerOpen', false);
   },
-  electron: false || (window.process && window.process.versions.electron),
-  init() {
+  init () {
     this._super(...arguments);
+
     let router = this.get('router');
     router.addObserver('currentRouteName', this, 'routeChanged');
+
+    const connectionStatus = () => {
+      isOnline().then((online) => {
+        this.set('online', online);
+      });
+    };
+
+    window.addEventListener('online',  connectionStatus);
+    window.addEventListener('offline', connectionStatus);
   },
   actions: {
     goToAccountDashboard () {

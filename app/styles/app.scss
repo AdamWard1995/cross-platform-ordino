@@ -9,6 +9,7 @@ $header-vertical-margin: 40px !global;
 @import 'app-menu';
 @import 'categories';
 @import 'category-renderer';
+@import 'changeable-item';
 @import 'change-email-modal';
 @import 'change-password-modal';
 @import 'course';
@@ -52,6 +53,14 @@ body > .ember-view {
   display: flex;
   width: 100%;
   height: 100%;
+}
+
+.no-internet-connection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: $font-size-xl;
 }
 
 .page-header {

@@ -20,6 +20,8 @@
   {{#ember-scrollable class='list-scrollable'}}
     {{ordered-list
       items=model.courseWork
+      changed=changed
+      new=new
       itemRenderer=(component 'course-work-renderer')
       onItemSelected=(action 'showEditCourseWorkModal')
       onItemDeleted=(action 'showDeleteCourseWorkModal')

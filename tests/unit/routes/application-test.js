@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import {expect} from 'chai'
-import {afterEach, beforeEach, describe, it} from 'mocha'
-import sinon from 'sinon'
+import {expect} from 'chai';
+import {afterEach, beforeEach, describe, it} from 'mocha';
+import sinon from 'sinon';
 
 import {route} from 'ember-test-utils/test-support/setup-test'
 

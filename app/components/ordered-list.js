@@ -23,6 +23,7 @@ export default Ember.Component.extend({
       if (index === items.length - 1) {
         return;
       }
+      this.set('changed', item);
       this.swapIndices(items[index], items[index + 1]);
     },
     decrementIndex (item) {
@@ -32,6 +33,7 @@ export default Ember.Component.extend({
         return;
       }
       const items = this.get('orderedItems');
+      this.set('changed', item);
       this.swapIndices(items[index], items[index - 1]);
     },
     itemSelected (item) {

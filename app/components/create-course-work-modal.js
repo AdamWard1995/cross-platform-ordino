@@ -1,13 +1,10 @@
-import Ember from 'ember';
 import moment from 'moment';
 
-export default Ember.Component.extend({
-  open: false,
-  errorMessage: '',
+import FormModal from 'cross-platform-ordino/components/form-modal';
+
+export default FormModal.extend({
   title: 'Create course work',
-  errorMessageClass: Ember.computed('errorMessage', function() {
-    return this.get('errorMessage') ?  'is-visible' : 'is-gone';
-  }),
+  class: 'create-course-work-modal',
   actions: {
     close () {
       const onClose = this.get('onClose');

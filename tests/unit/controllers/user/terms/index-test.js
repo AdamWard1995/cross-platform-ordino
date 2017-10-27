@@ -129,8 +129,10 @@ describe(test.label, function () {
     });
 
     describe('createTerm()', function () {
-      let item1, item2, item3, save, session, store, user;
+      let item1, item2, item3, save, session, store, user, oldLater;
       beforeEach(function () {
+        oldLater = Ember.run.later;
+        Ember.run.later = () => {};
         item1 = Ember.Object.create({current: false, save: sinon.stub()});
         item2 = Ember.Object.create({current: true, save: sinon.stub()});
         item3 = Ember.Object.create({current: false, save: sinon.stub()});
@@ -138,7 +140,7 @@ describe(test.label, function () {
         session = Ember.Object.create({currentUser: user});
         store = {createRecord: sinon.stub()};
         save = sinon.stub();
-        store.createRecord.returns({save});
+        store.createRecord.returns({foo: 'bar', save});
         save.returns(new Ember.RSVP.Promise(function(resolve) {
           resolve();
         }));
@@ -148,6 +150,10 @@ describe(test.label, function () {
         controller.set('model', [item1, item2, item3]);
         controller.set('itemToDelete', item1);
         controller.set('session', session);
+      });
+
+      afterEach(function () {
+        Ember.run.later = oldLater;
       });
 
       describe('create new current term', function () {
@@ -172,6 +178,10 @@ describe(test.label, function () {
         it('should have made old current term a non-current term', function () {
           expect(item2.get('current'), 'Should have set current to false').to.eql(false);
           expect(item2.save, 'Should have saved change').to.have.callCount(1);
+        });
+
+        it('should have flagged new term', function () {
+          expect(controller.get('new')).to.eql({foo: 'bar', save});
         });
 
         it('should have refreshed the model', function () {
@@ -200,6 +210,10 @@ describe(test.label, function () {
 
         it('should have saved new term record', function () {
           expect(save).to.have.callCount(1);
+        });
+
+        it('should have flagged new term', function () {
+          expect(controller.get('new')).to.eql({foo: 'bar', save});
         });
 
         it('should have refreshed the model', function () {

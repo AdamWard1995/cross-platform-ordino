@@ -1,12 +1,9 @@
-import Ember from 'ember';
+import FormModal from 'cross-platform-ordino/components/form-modal';
 import AccountValidatorMixin from 'cross-platform-ordino/mixins/account-validator';
 
-export default Ember.Component.extend(AccountValidatorMixin, {
-  open: false,
+export default FormModal.extend(AccountValidatorMixin, {
   title: 'Change account password',
-  errorMessageClass: Ember.computed('errorMessage', function() {
-    return this.get('errorMessage') ?  'is-visible' : 'is-gone';
-  }),
+  class: 'change-password-modal',
   actions: {
     close () {
       if (this.get('onClose')) {

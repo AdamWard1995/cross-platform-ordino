@@ -1,13 +1,10 @@
-import Ember from 'ember';
-import Day from '../enums/day';
+import Day from 'cross-platform-ordino/enums/day';
 
-export default Ember.Component.extend({
-  open: false,
-  errorMessage: '',
+import FormModal from 'cross-platform-ordino/components/form-modal';
+
+export default FormModal.extend({
   title: 'Create course',
-  errorMessageClass: Ember.computed('errorMessage', function() {
-    return this.get('errorMessage') ?  'is-visible' : 'is-gone';
-  }),
+  class: 'create-course-modal',
   createClassTimes: false,
   days: [Day.SUNDAY, Day.MONDAY, Day.TUESDAY, Day.WEDNESDAY, Day.THURSDAY, Day.FRIDAY, Day.SATURDAY],
   selectedDays: [],

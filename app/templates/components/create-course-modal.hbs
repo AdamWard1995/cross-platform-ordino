@@ -1,67 +1,55 @@
-{{#bs-modal class='create-course-modal' onSubmit=(action 'submit') onHide=(action 'close') open=open as |modal|}}
-  {{#modal.header}}
-    <h2 class='modal-title'>{{title}}</h2>
-  {{/modal.header}}
-  {{#modal.body}}
-    <div class='form-group'>
-      <label for='select-term'>Term</label>
-      <select class='form-control select-term' id='select-term' onchange={{action (mut term) value='target.value'}}>
-        {{#each terms as |t|}}
-          <option value={{t.id}} selected={{eq t.id term}}>{{t.semester}}&thinsp;{{t.year}}</option>
-        {{/each}}
-      </select>
-      <label for='course-code-box'>Course Code</label>
+{{#form-modal errorMessage=errorMessage submit=(action 'submit') close=(action 'close') open=open title=title class=class}}
+  <div class='form-group'>
+    <label for='select-term'>Term</label>
+    <select class='form-control select-term' id='select-term' onchange={{action (mut term) value='target.value'}}>
+      {{#each terms as |t|}}
+        <option value={{t.id}} selected={{eq t.id term}}>{{t.semester}}&thinsp;{{t.year}}</option>
+      {{/each}}
+    </select>
+    <label for='course-code-box'>Course Code</label>
+    {{input
+      id='course-code-box'
+      type='text'
+      class='form-control course-code'
+      value=course-code
+    }}
+    <label>
       {{input
-        id='course-code-box'
-        type='text'
-        class='form-control course-code'
-        value=course-code
+        id='create-class-times-checkbox'
+        type='checkbox'
+        class='create-class-times'
+        checked=createClassTimes
       }}
-      <label>
-        {{input
-          id='create-class-times-checkbox'
-          type='checkbox'
-          class='create-class-times'
-          checked=createClassTimes
-        }}
-        Set class times
-      </label>
-      {{#if createClassTimes}}
-        <br>
-        <label for='location-box'>Location</label>
-        {{input
-          id='location-box'
-          type='text'
-          class='form-control location'
-          value=location
-        }}
-        <label for='start-time-picker'>Start Time</label>
-        {{bs-datetimepicker
-          class='start-time-picker'
-          id='start-time-picker'
-          date=start-time
-          updateDate=(action (mut start-time))
-          format='hh:mm a'
-          dateIcon='glyphicon glyphicon-time'
-        }}
-        <label for='end-time-picker'>End Time</label>
-        {{bs-datetimepicker
-          class='end-time-picker'
-          id='end-time-picker'
-          date=end-time
-          updateDate=(action (mut end-time))
-          format='hh:mm a'
-          dateIcon='glyphicon glyphicon-time'
-        }}
-        {{multi-select class='selected-days' label='Days of Week' items=days selectedItems=selectedDays}}
-      {{/if}}
-    </div>
-    <div class='alert alert-danger {{errorMessageClass}}'>
-      <strong>Error!</strong> {{errorMessage}}
-    </div>
-  {{/modal.body}}
-  {{#modal.footer}}
-    {{#bs-button onClick=(action modal.close) type='danger'}}Cancel{{/bs-button}}
-    {{#bs-button onClick=(action modal.submit) type='primary'}}Submit{{/bs-button}}
-  {{/modal.footer}}
-{{/bs-modal}}
+      Set class times
+    </label>
+    {{#if createClassTimes}}
+      <br>
+      <label for='location-box'>Location</label>
+      {{input
+        id='location-box'
+        type='text'
+        class='form-control location'
+        value=location
+      }}
+      <label for='start-time-picker'>Start Time</label>
+      {{bs-datetimepicker
+        class='start-time-picker'
+        id='start-time-picker'
+        date=start-time
+        updateDate=(action (mut start-time))
+        format='hh:mm a'
+        dateIcon='glyphicon glyphicon-time'
+      }}
+      <label for='end-time-picker'>End Time</label>
+      {{bs-datetimepicker
+        class='end-time-picker'
+        id='end-time-picker'
+        date=end-time
+        updateDate=(action (mut end-time))
+        format='hh:mm a'
+        dateIcon='glyphicon glyphicon-time'
+      }}
+      {{multi-select class='selected-days' label='Days of Week' items=days selectedItems=selectedDays}}
+    {{/if}}
+  </div>
+{{/form-modal}}

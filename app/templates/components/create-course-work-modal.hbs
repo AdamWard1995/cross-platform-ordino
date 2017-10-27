@@ -1,57 +1,45 @@
-{{#bs-modal class='create-course-work-modal' onSubmit=(action 'submit') onHide=(action 'close') open=open as |modal|}}
-  {{#modal.header}}
-    <h2 class='modal-title'>{{title}}</h2>
-  {{/modal.header}}
-  {{#modal.body}}
-    <div class='form-group'>
-      <label for='select-course'>Course</label>
-      <select class='form-control select-course' id='select-course' onchange={{action (mut course) value='target.value'}}>
-        {{#each courses as |c|}}
-          <option value={{c.id}} selected={{eq c.id course}}>{{c.course-code}}</option>
-        {{/each}}
-      </select>
-      <label for='label-box'>Label</label>
-      {{input
-        id='label-box'
-        type='text'
-        class='form-control work-label'
-        value=label
-      }}
-      <label for='weight-box'>Weight (%)</label>
-      {{input
-        id='weight-box'
-        type='number'
-        class='form-control weight'
-        value=weight
-      }}
-      <label for='grade-box'>Grade (%)</label>
-      {{input
-        id='grade-box'
-        type='number'
-        class='form-control grade'
-        value=grade
-      }}
-      <label for='due-time-picker'>Due</label>
-      {{bs-datetimepicker
-        class='due-time-picker'
-        id='due-time-picker'
-        date=due
-        updateDate=(action (mut due))
-        format='MMMM Do YYYY, h:mm a'
-      }}
-      <label for='select-category'>Category</label>
-      <select class='form-control category' id='select-category' onchange={{action (mut category) value='target.value'}}>
-        {{#each categories as |cat|}}
-          <option value={{cat.id}} selected={{eq cat.id category}}>{{cat.label}}</option>
-        {{/each}}
-      </select>
-    </div>
-    <div class='alert alert-danger {{errorMessageClass}}'>
-      <strong>Error!</strong> {{errorMessage}}
-    </div>
-  {{/modal.body}}
-  {{#modal.footer}}
-    {{#bs-button onClick=(action modal.close) type='danger'}}Cancel{{/bs-button}}
-    {{#bs-button onClick=(action modal.submit) type='primary'}}Submit{{/bs-button}}
-  {{/modal.footer}}
-{{/bs-modal}}
+{{#form-modal errorMessage=errorMessage submit=(action 'submit') close=(action 'close') open=open title=title class=class}}
+  <div class='form-group'>
+    <label for='select-course'>Course</label>
+    <select class='form-control select-course' id='select-course' onchange={{action (mut course) value='target.value'}}>
+      {{#each courses as |c|}}
+        <option value={{c.id}} selected={{eq c.id course}}>{{c.course-code}}</option>
+      {{/each}}
+    </select>
+    <label for='label-box'>Label</label>
+    {{input
+      id='label-box'
+      type='text'
+      class='form-control work-label'
+      value=label
+    }}
+    <label for='weight-box'>Weight (%)</label>
+    {{input
+      id='weight-box'
+      type='number'
+      class='form-control weight'
+      value=weight
+    }}
+    <label for='grade-box'>Grade (%)</label>
+    {{input
+      id='grade-box'
+      type='number'
+      class='form-control grade'
+      value=grade
+    }}
+    <label for='due-time-picker'>Due</label>
+    {{bs-datetimepicker
+      class='due-time-picker'
+      id='due-time-picker'
+      date=due
+      updateDate=(action (mut due))
+      format='MMMM Do YYYY, h:mm a'
+    }}
+    <label for='select-category'>Category</label>
+    <select class='form-control category' id='select-category' onchange={{action (mut category) value='target.value'}}>
+      {{#each categories as |cat|}}
+        <option value={{cat.id}} selected={{eq cat.id category}}>{{cat.label}}</option>
+      {{/each}}
+    </select>
+  </div>
+{{/form-modal}}
