@@ -15,6 +15,8 @@ module.exports = {
     '*/public/**/*',
     '*/ember-electron/**/*',
     '*/config/**/*',
-    '*/app/enums/*'
+    '*/app/enums/*',
+    '*/app/models/*',
+    '*/app/router.js'
   ]
 }
