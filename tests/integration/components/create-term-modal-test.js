@@ -1,3 +1,5 @@
+/* global jQuery */
+
 import {expect} from 'chai';
 import {beforeEach, describe, it} from 'mocha';
 import wait from 'ember-test-helpers/wait';
@@ -163,7 +165,31 @@ describe(test.label, function () {
         this.$('.btn-primary').click();
         return wait();
       });
-    })
+    });
+
+    it('should have called submit handler', function() {
+      expect(submitStub).to.have.callCount(1);
+    });
+
+    it('Should have passed correct parameters to submit handler', function() {
+      expect(submitStub).to.have.been.calledWithExactly('Fall', 2017, true);
+    });
+  });
+
+  describe('properly submits on ENTER', function () {
+    let submitStub;
+    beforeEach(function () {
+      submitStub = sinon.stub();
+      this.set('onSubmit', submitStub);
+      this.render(hbs`{{create-term-modal open=true onSubmit=onSubmit semester='Fall' year=2017 current=true}}`);
+      return wait().then(() => {
+        let e = jQuery.Event('keypress');
+        e.which = 13;
+        e.keyCode = 13;
+        this.$('.year').trigger(e);
+        return wait();
+      });
+    });
 
     it('should have called submit handler', function() {
       expect(submitStub).to.have.callCount(1);

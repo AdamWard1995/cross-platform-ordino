@@ -1,3 +1,5 @@
+/* global jQuery */
+
 import Ember from 'ember';
 import {expect} from 'chai';
 import {beforeEach, describe, it} from 'mocha';
@@ -299,6 +301,27 @@ describe(test.label, function () {
         this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pmZ' 'MMMM Do YYYY, h:mm aZ') category=category categories=categories course=course courses=courses}}`);
         return wait().then(() => {
           this.$('.btn-primary').click();
+          return wait();
+        });
+      });
+
+      it('should have called submit handler', function() {
+        expect(submitStub).to.have.callCount(1);
+      });
+
+      it('should have passed correct parameters to submit handler', function() {
+        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-28T23:59:00.000Z', 13579, 12345);
+      });
+    });
+
+    describe('properly submits on ENTER', function () {
+      beforeEach(function () {
+        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pmZ' 'MMMM Do YYYY, h:mm aZ') category=category categories=categories course=course courses=courses}}`);
+        return wait().then(() => {
+          let e = jQuery.Event('keypress');
+          e.which = 13;
+          e.keyCode = 13;
+          this.$('.work-label').trigger(e);
           return wait();
         });
       });

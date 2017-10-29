@@ -72,4 +72,19 @@ describe(test.label, function () {
       expect(this.get('value')).to.eql(moment('January 10th 2018', 'MMMM Do YYYY').valueOf());
     });
   });
+
+  describe('remove entered date', function () {
+    beforeEach(function () {
+      this.set('value', moment('September 28th 2017', 'MMMM Do YYYY').valueOf());
+      this.render(hbs`{{due-after-filter value=value}}`);
+      return wait().then(() => {
+        this.$('.due-after-filter .ember-text-field').val('').change();
+        return wait();
+      });
+    });
+
+    it('should have removed set value', function () {
+      expect(this.get('value')).to.eql('');
+    });
+  });
 });

@@ -1,3 +1,5 @@
+/* global jQuery */
+
 import Ember from 'ember';
 import {expect} from 'chai';
 import {beforeEach, describe, it} from 'mocha';
@@ -471,7 +473,31 @@ describe(test.label, function () {
           this.$('.btn-primary').click();
           return wait();
         });
-      })
+      });
+
+      it('should have called submit handler', function() {
+        expect(submitStub).to.have.callCount(1);
+      });
+
+      it('should have passed correct parameters to submit handler', function() {
+        expect(submitStub).to.have.been.calledWithExactly('COMP 4004', 'N/A', null, null, [], 12345);
+      });
+    });
+
+    describe('properly submits on ENTER', function () {
+      beforeEach(function () {
+        const term = Ember.Object.create({id: 12345, semester: 'Fall', year: 2017});
+        this.set('term', term.get('id'));
+        this.set('terms', [term]);
+        this.render(hbs`{{create-course-modal open=true onSubmit=onSubmit title='Create a new course' course-code='COMP 4004' term=term terms=terms}}`);
+        return wait().then(() => {
+          let e = jQuery.Event('keypress');
+          e.which = 13;
+          e.keyCode = 13;
+          this.$('.course-code').trigger(e);
+          return wait();
+        });
+      });
 
       it('should have called submit handler', function() {
         expect(submitStub).to.have.callCount(1);

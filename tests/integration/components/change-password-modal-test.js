@@ -1,3 +1,5 @@
+/* global jQuery */
+
 import {expect} from 'chai';
 import {beforeEach, describe, it} from 'mocha';
 import wait from 'ember-test-helpers/wait';
@@ -143,7 +145,31 @@ describe(test.label, function () {
         this.$('.btn-primary').click();
         return wait();
       });
-    })
+    });
+
+    it('should have called submit handler', function() {
+      expect(submitStub).to.have.callCount(1);
+    });
+
+    it('Should have passed correct parameters to submit handler', function() {
+      expect(submitStub).to.have.been.calledWithExactly('F00bar', 'Passw0rd');
+    });
+  });
+
+  describe('properly submits on ENTER', function () {
+    let submitStub;
+    beforeEach(function () {
+      submitStub = sinon.stub();
+      this.set('onSubmit', submitStub);
+      this.render(hbs`{{change-password-modal open=true onSubmit=onSubmit current-password='F00bar' password='Passw0rd' confirm-password='Passw0rd'}}`);
+      return wait().then(() => {
+        let e = jQuery.Event('keypress');
+        e.which = 13;
+        e.keyCode = 13;
+        this.$('.new-password').trigger(e);
+        return wait();
+      });
+    });
 
     it('should have called submit handler', function() {
       expect(submitStub).to.have.callCount(1);

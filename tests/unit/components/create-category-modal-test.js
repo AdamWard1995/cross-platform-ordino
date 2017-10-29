@@ -107,5 +107,32 @@ describe(test.label, function () {
         });
       });
     });
+
+    describe('show()', function () {
+      describe('icon selected', function () {
+        let scrollIntoView;
+        beforeEach(function () {
+          scrollIntoView = sinon.stub();
+          sandbox.stub(window, '$')
+            .withArgs('.create-category-modal .selected').returns([{scrollIntoView}]);
+          component.actions.show.apply(component);
+        });
+
+        it('should have scrolled selected icon into view handler', function () {
+          expect(scrollIntoView).to.have.callCount(1);
+        });
+      });
+
+      describe('no icon selected', function () {
+        beforeEach(function () {
+          sandbox.stub(window, '$')
+            .withArgs('.create-category-modal .selected').returns([]);
+        });
+
+        it('should not have thrown an exception', function () {
+          expect(() => component.actions.show.apply(component)).to.not.throw();
+        });
+      });
+    });
   });
 });

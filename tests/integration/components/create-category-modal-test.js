@@ -1,3 +1,5 @@
+/* global jQuery */
+
 import {expect} from 'chai';
 import {beforeEach, describe, it} from 'mocha';
 import wait from 'ember-test-helpers/wait';
@@ -154,6 +156,30 @@ describe(test.label, function () {
       this.render(hbs`{{create-category-modal open=true onSubmit=onSubmit label='Reading' selectedIcon='book'}}`);
       return wait().then(() => {
         this.$('.btn-primary').click();
+        return wait();
+      });
+    })
+
+    it('should have called submit handler', function() {
+      expect(submitStub).to.have.callCount(1);
+    });
+
+    it('Should have passed correct parameters to submit handler', function() {
+      expect(submitStub).to.have.been.calledWithExactly('Reading', 'book');
+    });
+  });
+
+  describe('properly submits on ENTER', function () {
+    let submitStub;
+    beforeEach(function () {
+      submitStub = sinon.stub();
+      this.set('onSubmit', submitStub);
+      this.render(hbs`{{create-category-modal open=true onSubmit=onSubmit label='Reading' selectedIcon='book'}}`);
+      return wait().then(() => {
+        let e = jQuery.Event('keypress');
+        e.which = 13;
+        e.keyCode = 13;
+        this.$('.category-label').trigger(e);
         return wait();
       });
     })
