@@ -8,6 +8,21 @@ const {A} = Ember;
 const DATE_FORMAT = 'MMMM Do YYYY';
 
 export default Ember.Controller.extend(ChangedItemMixin, {
+  queryParams: {
+    categoryToFilter: 'cgy',
+    courseToFilter: 'c',
+    dueAfterToFilter: 'da',
+    dueBeforeToFilter: 'db',
+    minWeightToFilter: 'minw',
+    maxWeightToFilter: 'maxw'
+  },
+  categoryToFilter: '',
+  courseToFilter: '',
+  dueAfterToFilter: '',
+  dueBeforeToFilter: '',
+  minWeightToFilter: '',
+  maxWeightToFilter: '',
+
   reset: false,
   haveCurrentTerm: Ember.computed('model.no-current-term', function() {
     return !this.get('model')['no-current-term'];
@@ -82,10 +97,10 @@ export default Ember.Controller.extend(ChangedItemMixin, {
     return !courseID || item.work.get('cid') === courseID;
   },
   dueAfterValidator (date, item, selectedDate) {
-    return !selectedDate || moment(selectedDate).isBefore(moment(date, DATE_FORMAT));
+    return !selectedDate || moment(parseInt(selectedDate)).isBefore(moment(date, DATE_FORMAT));
   },
   dueBeforeValidator (date, item, selectedDate) {
-    return !selectedDate || moment(selectedDate).isAfter(moment(date, DATE_FORMAT));
+    return !selectedDate || moment(parseInt(selectedDate)).isAfter(moment(date, DATE_FORMAT));
   },
   minWeightValidator (date, item, weight) {
     return !weight || item.work.get('weight') >= weight;

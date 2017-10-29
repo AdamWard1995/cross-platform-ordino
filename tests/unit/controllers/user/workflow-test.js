@@ -198,34 +198,34 @@ describe(test.label, function () {
   describe('dueAfterValidator', function () {
     it('should pass when work is due after selected date', function () {
       const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
-      expect(controller.dueAfterValidator('September 28th 2017', {work: Ember.Object.create({due})}, due.subtract(1, 'days'))).to.eql(true);
+      expect(controller.dueAfterValidator('September 28th 2017', {work: Ember.Object.create({due})}, due.subtract(1, 'days').valueOf())).to.eql(true);
     });
 
     it('should not pass when work is due before selected date', function () {
       const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
-      expect(controller.dueAfterValidator('September 28th 2017', {work: Ember.Object.create({due})}, due.add(1, 'days'))).to.eql(false);
+      expect(controller.dueAfterValidator('September 28th 2017', {work: Ember.Object.create({due})}, due.add(1, 'days').valueOf())).to.eql(false);
     });
 
     it('should pass when no filter value is set', function () {
       const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
-      expect(controller.dueAfterValidator('September 28th 2017', {work: Ember.Object.create({due})}, null)).to.eql(true);
+      expect(controller.dueAfterValidator('September 28th 2017', {work: Ember.Object.create({due})}, '')).to.eql(true);
     });
   });
 
   describe('dueBeforeValidator', function () {
     it('should pass when work is due before selected date', function () {
       const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
-      expect(controller.dueBeforeValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due})}, due.add(1, 'days'))).to.eql(true);
+      expect(controller.dueBeforeValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due})}, due.add(1, 'days').valueOf())).to.eql(true);
     });
 
     it('should not pass when work is due after selected date', function () {
       const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
-      expect(controller.dueBeforeValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due})}, due.subtract(1, 'days'))).to.eql(false);
+      expect(controller.dueBeforeValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due})}, due.subtract(1, 'days').valueOf())).to.eql(false);
     });
 
     it('should pass when no filter value is set', function () {
       const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
-      expect(controller.dueBeforeValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due})}, null)).to.eql(true);
+      expect(controller.dueBeforeValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due})}, '')).to.eql(true);
     });
   });
 

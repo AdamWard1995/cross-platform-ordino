@@ -1,5 +1,22 @@
+import Ember from 'ember';
 import Filter from './filter';
+import moment from 'moment';
 
 export default Filter.extend({
-  classNames: ['due-before-filter']
+  classNames: ['due-before-filter'],
+  momentValue: Ember.computed('value', function() {
+    const value = this.get('value');
+    if (value) {
+      return moment(parseInt(value));
+    }
+  }),
+  actions: {
+    updateDate (date) {
+      if (date) {
+        this.set('value', date.valueOf());
+      } else {
+        this.set('value', '');
+      }
+    }
+  }
 });

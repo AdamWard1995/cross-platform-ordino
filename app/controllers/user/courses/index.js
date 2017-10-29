@@ -1,6 +1,15 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+  queryParams: {
+    semesterToFilter: 'sem',
+    yearToFilter: 'year',
+    courseCodeToFilter: 'cc'
+  },
+  semesterToFilter: '',
+  yearToFilter: '',
+  courseCodeToFilter: '',
+
   listItems: Ember.computed('model', function() {
     const terms = this.get('model').terms;
     const courses = this.get('model').courses;

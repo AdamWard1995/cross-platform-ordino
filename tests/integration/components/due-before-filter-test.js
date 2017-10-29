@@ -34,7 +34,8 @@ describe(test.label, function () {
 
   describe('date entered', function () {
     beforeEach(function () {
-      this.render(hbs`{{due-before-filter value=(moment 'September 28th 2017' 'MMMM Do YYYY')}}`);
+      this.set('value', moment('September 28th 2017', 'MMMM Do YYYY').valueOf());
+      this.render(hbs`{{due-before-filter value=value}}`);
       return wait();
     })
 
@@ -53,7 +54,7 @@ describe(test.label, function () {
 
   describe('change entered date', function () {
     beforeEach(function () {
-      this.set('value', moment('September 28th 2017', 'MMMM Do YYYY'));
+      this.set('value', moment('September 28th 2017', 'MMMM Do YYYY').valueOf());
       this.render(hbs`{{due-before-filter value=value}}`);
       return wait().then(() => {
         this.$('.due-before-filter .input-group-addon').click();
@@ -68,7 +69,7 @@ describe(test.label, function () {
     });
 
     it('should have set value', function () {
-      expect(this.get('value').format('MMMM Do YYYY')).to.eql('January 10th 2018');
+      expect(this.get('value')).to.eql(moment('January 10th 2018', 'MMMM Do YYYY').valueOf());
     });
   });
 });
