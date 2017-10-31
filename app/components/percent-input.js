@@ -1,10 +1,9 @@
 /* global $ */
 
 import Ember from 'ember';
-import ClickOutside from 'ember-click-outside/mixins/click-outside';
 import {round} from 'cross-platform-ordino/helpers/round';
 
-export default Ember.Component.extend(ClickOutside, {
+export default Ember.Component.extend({
   classNames: ['percent-input', 'input-group'],
   popoverVisible: false,
   observeValues: function() {
@@ -24,13 +23,9 @@ export default Ember.Component.extend(ClickOutside, {
     }
   },
   setupOutsideClickListener: Ember.on('didInsertElement', function() {
-    // let clickHandler = this.get('handleOutsideClick').bind(this);
-    // return Ember.$(document).on('click', clickHandler);
     return $(document).on('click', $.proxy(this.get('handleOutsideClick'), this));
   }),
   removeOutsideClickListener: Ember.on('willDestroyElement', function() {
-    // let clickHandler = this.get('handleOutsideClick').bind(this);
-    // return Ember.$(document).off('click', clickHandler);
     return $(document).off('click', $.proxy(this.get('handleOutsideClick'), this));
   }),
   actions: {
