@@ -1,0 +1,28 @@
+{{#if popoverVisible}}
+  {{#bs-popover
+    class='fraction-popover'
+    placement='top'
+    onShow=(action 'onShow')
+    visible=true
+  }}
+    {{input
+      type='number'
+      class='form-control ember-text-field numerator'
+      value=numerator
+    }}
+    <div class='slash'>/</div>
+    {{input
+      type='number'
+      class='form-control ember-text-field denominator'
+      value=denominator
+    }}
+  {{/bs-popover}}
+{{/if}}
+{{input
+  type='number'
+  class='form-control ember-text-field percent'
+  value=percent
+}}
+<span class='input-group-addon popover-button' role='button' {{action 'togglePopoverVisible'}}>
+  {{fa-icon 'percent'}}
+</span>

@@ -14,19 +14,9 @@
       value=label
     }}
     <label for='weight-box'>Weight (%)</label>
-    {{input
-      id='weight-box'
-      type='number'
-      class='form-control weight'
-      value=weight
-    }}
+    {{percent-input id='weight-box' class='weight' percent=weight}}
     <label for='grade-box'>Grade (%)</label>
-    {{input
-      id='grade-box'
-      type='number'
-      class='form-control grade'
-      value=grade
-    }}
+    {{percent-input id='grade-box' class='grade' percent=grade}}
     <label for='due-time-picker'>Due</label>
     {{bs-datetimepicker
       class='due-time-picker'

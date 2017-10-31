@@ -44,11 +44,11 @@ describe(test.label, function () {
       });
 
       it('should not have no entered weight', function() {
-        expect(this.$('.modal-body .weight').val()).to.eql('');
+        expect(this.$('.modal-body .weight .percent').val()).to.eql('');
       });
 
       it('should have no entered grade', function() {
-        expect(this.$('.modal-body .grade').val()).to.eql('');
+        expect(this.$('.modal-body .grade .percent').val()).to.eql('');
       });
 
       it('should no have no set due time', function() {
@@ -101,11 +101,11 @@ describe(test.label, function () {
       });
 
       it('should not have no entered weight', function() {
-        expect(this.$('.modal-body .weight').val()).to.eql('30');
+        expect(this.$('.modal-body .weight .percent').val()).to.eql('30');
       });
 
       it('should have no entered grade', function() {
-        expect(this.$('.modal-body .grade').val()).to.eql('95');
+        expect(this.$('.modal-body .grade .percent').val()).to.eql('95');
       });
 
       it('should no have no set due time', function() {

@@ -1,0 +1,14 @@
+.percent-input {
+
+}
+
+.fraction-popover {
+  .popover-content {
+    display: flex;
+
+    .slash {
+      font-size: $font-size-l;
+      padding: 0 10px;
+    }
+  }
+}
