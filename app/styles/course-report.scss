@@ -63,6 +63,7 @@
     .form-control {
       display: inline-block;
       width: auto;
+      max-width: 100px;
       margin-left: 5px;
     }
 
@@ -70,6 +71,12 @@
       margin-right: 5px;
       margin-left: 5px;
       font-size: $font-size-m;
+    }
+
+    .fa-percent {
+      padding: 0 2px;
+      font-size: 1.1em;
+      vertical-align: middle;
     }
   }
 }

@@ -6,7 +6,7 @@
   {{#ember-scrollable horizontal=true vertical=true class='list-scrollable'}}
     <div class='course-report-content'>
       <div class='course-report-chart' style='width: 400px; height: 400px;'>
-        {{ember-chart type='doughnut' data=chartData}}
+        {{ember-chart type='doughnut' data=chartData width=400 height=400}}
       </div>
       <div class='course-report-content-stats'>
         <h2 class='page-header course-report-sub-header'>
@@ -57,8 +57,8 @@
       Desired Grade
     </h2>
     <div class='course-report-desired-grade'>
-      To get a desired grade of {{input type='number' class='form-control' value=desired-grade}}%,
-      you need to get an average grade of <div class='label label-primary'>{{required-grade}}%</div> over the remaining evaluations.
+      To get a desired grade of {{input type='number' class='form-control' value=desired-grade}}{{fa-icon 'percent'}},
+      you need an average grade of <div class='label label-primary'>{{required-grade}}&thinsp;%</div> over the remaining evaluations.
     </div>
   {{/ember-scrollable}}
 </div>
