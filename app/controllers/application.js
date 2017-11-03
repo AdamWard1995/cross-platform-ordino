@@ -1,10 +1,10 @@
 /* global window */
 
 import Ember from 'ember';
-import isOnline from 'npm:is-online';
 
 export default Ember.Controller.extend({
   router: Ember.inject.service('-routing'),
+  onlineStatus: Ember.inject.service(),
   electron: false || (window.process && window.process.versions.electron),
   online: true,
   observeSession: function() {
@@ -26,15 +26,6 @@ export default Ember.Controller.extend({
 
     let router = this.get('router');
     router.addObserver('currentRouteName', this, 'routeChanged');
-
-    const connectionStatus = () => {
-      isOnline().then((online) => {
-        this.set('online', online);
-      });
-    };
-
-    window.addEventListener('online',  connectionStatus);
-    window.addEventListener('offline', connectionStatus);
   },
   actions: {
     goToAccountDashboard () {

@@ -1,5 +1,5 @@
 <div class='application'>
-  {{#if online}}
+  {{#if onlineStatus.isOnline}}
     {{#app-menu drawerOpen=drawerOpen onNavViewClicked=(action 'goToIndex')}}
       {{#if (and session.isAuthenticated session.currentUser)}}
         <ul class='list-group'>
