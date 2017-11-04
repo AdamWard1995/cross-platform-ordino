@@ -281,11 +281,12 @@ describe(test.label, function () {
       });
 
       describe('try to create new account', function () {
-        let createUserStub;
+        let createUserStub, closeStub;
         beforeEach(function () {
           createUserStub = sinon.stub();
+          closeStub = sinon.stub();
           authStub.returns({createUserWithEmailAndPassword: createUserStub});
-          controller.set('session', Ember.Object.create({isAuthenticated: false}));
+          controller.set('session', Ember.Object.create({isAuthenticated: false, close: closeStub}));
           controller.set('first-name', 'Adam');
           controller.set('last-name', 'Ward');
           controller.set('email', 'adam@ward.ca');
@@ -295,7 +296,6 @@ describe(test.label, function () {
 
         describe('error occurred', function () {
           beforeEach(function () {
-            /*eslint no-unused-vars: ["error", { "args": "none" }]*/
             createUserStub.returns(new Ember.RSVP.Promise(function(resolve, reject) {
               reject({message: 'Error message!'});
             }));
@@ -316,8 +316,7 @@ describe(test.label, function () {
           beforeEach(function () {
             sendVerificationStub = sinon.stub();
             saveStub = sinon.stub();
-            /*eslint no-unused-vars: ["error", { "args": "none" }]*/
-            createUserStub.returns(new Ember.RSVP.Promise(function(resolve, reject) {
+            createUserStub.returns(new Ember.RSVP.Promise(function(resolve) {
               resolve({
                 sendEmailVerification: sendVerificationStub,
                 email: 'adam@ward.ca',
@@ -355,6 +354,10 @@ describe(test.label, function () {
 
           it('should ensure success message is shown', function () {
             expect(controller.get('signedUp')).to.eql(true);
+          });
+
+          it('should close session', function () {
+            expect(controller.get('session').get('close')).to.have.callCount(1);
           });
         });
       });

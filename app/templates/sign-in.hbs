@@ -20,7 +20,7 @@
       }}
     </div>
     <div class='sign-in-form-button-container'>
-      {{#if (and session.isWorking (not sendingVerification))}}
+      {{#if (or (and session.isWorking (not sendingVerification)) signingIn)}}
         <button class='btn btn-primary' disabled='disabled'>
           {{fa-icon 'spinner' spin=true}} Signing In...
         </button>

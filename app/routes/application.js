@@ -1,7 +1,6 @@
 /* global window */
 
 import Ember from 'ember';
-import isOnline from 'npm:is-online';
 
 export default Ember.Route.extend({
   session: Ember.inject.service(),
@@ -14,11 +13,6 @@ export default Ember.Route.extend({
     }
   },
   beforeModel () {
-    isOnline().then((online) => {
-      if (!online) {
-        alert('Error! Ordino requires an Internet connection to function correctly.');
-      }
-    });
     return this.get('session').fetch().catch(() => {});
   },
   model () {

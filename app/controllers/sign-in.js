@@ -10,8 +10,10 @@ export default Ember.Controller.extend({
   }),
   actions: {
     signIn () {
+      this.set('signingIn', true);
       if (this.get('session').get('isAuthenticated')) {
         this.set('errorMessage', 'An account session is already open. Please sign out before signing in to a different account.');
+        this.set('signingIn', false);
       } else {
         this.get('session').open('firebase', {
           provider: 'password',
@@ -22,6 +24,7 @@ export default Ember.Controller.extend({
             this.set('errorMessage', 'The E-mail address for this account has not been verified.');
             this.set('emailNotVerified', true);
             this.get('session').close();
+            this.set('signingIn', false);
           } else {
             this.store.findRecord('user', data.currentUser.uid).then(user => {
               if (data.currentUser.email !== user.get('email')) {
@@ -34,6 +37,7 @@ export default Ember.Controller.extend({
           }
         }, (error) => {
           this.set('errorMessage', error.message);
+          this.set('signingIn', false);
         });
       }
     },

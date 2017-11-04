@@ -10,5 +10,7 @@ export default Ember.Route.extend({
     controller.set('password', null);
     controller.set('errorMessage', null);
     controller.set('emailNotVerified', false);
+    controller.set('signingIn', false);
+    controller.set('sendingVerification', false);
   }
 });

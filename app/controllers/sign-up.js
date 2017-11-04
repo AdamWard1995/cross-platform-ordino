@@ -35,6 +35,7 @@ export default Ember.Controller.extend(AccountValidatorMixin, {
           }).save();
           this.set('errorMessage', '');
           this.set('signedUp', true);
+          this.get('session').close();
         }).catch((error) => {
           this.set('errorMessage', error.message);
         });
