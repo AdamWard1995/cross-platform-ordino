@@ -11,6 +11,8 @@ describe(test.label, function () {
 
   let controller;
   beforeEach(function () {
+    const service = Ember.Service.extend({});
+    this.register('service:onlineStatus', service);
     controller = this.subject();
   });
 

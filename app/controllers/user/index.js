@@ -78,7 +78,7 @@ export default Ember.Controller.extend({
         const days = Object.values(Day);
         let dayOfWeek = moment().weekday();
         for (let i = 0; i < 8; ++i) {
-          let dayData = data[days[dayOfWeek++ % 6]];
+          let dayData = data[days[dayOfWeek++ % 7]];
           if (dayData) {
             if (i == 0) {
               dayData = dayData.filter((day) => {
