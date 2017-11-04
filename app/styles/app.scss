@@ -76,6 +76,26 @@ body > .ember-view {
   justify-content: center;
   width: 100%;
   font-size: $font-size-m;
+
+  .checking-connection {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.spinner {
+  width: 31px;
+  height: 31px;
+  margin: 0 10px;
+  background: url('/ajax-loader.gif') no-repeat;
+}
+
+.refresh {
+  font-size: $font-size-xl;
+
+  .fa {
+    margin: 0 10px;
+  }
 }
 
 .page-header {

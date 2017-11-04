@@ -55,7 +55,12 @@
       <h1 class='app-name'>
         <img class='app-name-logo' src='/assets/images/logo.png' alt='O'>rdino
       </h1>
-      <div class='alert alert-danger'><strong>Error!</strong> Ordino requires an Internet connection to function correctly.</div>
+      {{#if onlineStatus.isCheckingConnection}}
+        <div class='alert alert-info checking-connection'><div class='spinner'></div>Checking Internet connection.</div>
+      {{else}}
+        <div class='alert alert-danger'><strong>Error!</strong> Ordino requires an Internet connection to function correctly.</div>
+        <button class='btn btn-link refresh' onClick="window.location.reload()">{{fa-icon 'refresh'}}Refresh</button>
+      {{/if}}
     </div>
   {{/if}}
 </div>
