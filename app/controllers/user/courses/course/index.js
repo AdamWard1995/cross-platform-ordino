@@ -24,11 +24,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       return classTime.get('day');
     });
   }),
-  categories: Ember.computed('model.categories.[]', function() {
-    const categories = A(this.get('model').categories.slice());
-    categories.insertAt(0, Ember.Object.create({label: '-- Select --'}));
-    return categories;
-  }),
+  categories: Ember.computed.alias('model.categories'),
   createClassTimes: Ember.computed('classDays', function() {
     return this.get('classDays').length > 0;
   }),

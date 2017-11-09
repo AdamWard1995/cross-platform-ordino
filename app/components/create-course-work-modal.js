@@ -1,3 +1,6 @@
+import Ember from 'ember';
+const {A} = Ember;
+
 import moment from 'moment';
 
 import FormModal from 'cross-platform-ordino/components/form-modal';
@@ -5,6 +8,14 @@ import FormModal from 'cross-platform-ordino/components/form-modal';
 export default FormModal.extend({
   title: 'Create course work',
   class: 'create-course-work-modal',
+  selectCategories: Ember.computed('categories.[]', function() {
+    let categories = this.get('categories');
+    if (categories) {
+      categories = A(categories.slice());
+      categories.insertAt(0, Ember.Object.create({label: '-- Select --'}));
+      return categories;
+    }
+  }),
   actions: {
     close () {
       const onClose = this.get('onClose');

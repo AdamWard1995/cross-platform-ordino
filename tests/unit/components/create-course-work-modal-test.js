@@ -1,3 +1,4 @@
+import Ember from 'ember';
 import {expect} from 'chai';
 import {afterEach, beforeEach, describe, it} from 'mocha';
 import {unit} from 'ember-test-utils/test-support/setup-component-test'
@@ -8,14 +9,34 @@ const test = unit('create-course-work-modal');
 describe(test.label, function () {
   test.setup();
 
-  let component, sandbox;
+  let component, sandbox, category1, category2, category3;
   beforeEach(function () {
     sandbox = sinon.sandbox.create();
     component = this.subject();
+
+    category1 = Ember.Object.create({id: 987, label: 'Assignment', icon: 'file-text'});
+    category2 = Ember.Object.create({id: 654, label: 'Reading', icon: 'book'});
+    category3 = Ember.Object.create({id: 321, label: 'Exam', icon: 'flag'});
   });
 
   afterEach(function () {
     sandbox.restore();
+  });
+
+  describe('Computed Properties', function () {
+    describe('categories', function () {
+      beforeEach(function () {
+        component.set('categories', [category1, category2, category3]);
+      });
+
+      it('should have the correct category select options' , function () {
+        expect(component.get('selectCategories').slice(1)).to.eql([category1, category2, category3]);
+      });
+
+      it('should have appended null category select option' , function () {
+        expect(component.get('selectCategories')[0].get('label')).to.eql('-- Select --');
+      });
+    });
   });
 
   describe('Actions', function () {

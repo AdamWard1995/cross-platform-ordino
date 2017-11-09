@@ -63,10 +63,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
     }
     return [];
   }),
-  categories: Ember.computed('model.categories.[]', function() {
-    const categories = A(this.get('model').categories.slice());
-    return categories;
-  }),
+  categories: Ember.computed.alias('model.categories'),
   courses: Ember.computed('model.workByCourse.[]', function() {
     const workByCourse = A(this.get('model').workByCourse.slice());
     let courses = A();

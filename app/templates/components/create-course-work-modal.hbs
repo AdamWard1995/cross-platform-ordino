@@ -27,7 +27,7 @@
     }}
     <label for='select-category'>Category</label>
     <select class='form-control category' id='select-category' onchange={{action (mut category) value='target.value'}}>
-      {{#each categories as |cat|}}
+      {{#each selectCategories as |cat|}}
         <option value={{cat.id}} selected={{eq cat.id category}}>{{cat.label}}</option>
       {{/each}}
     </select>

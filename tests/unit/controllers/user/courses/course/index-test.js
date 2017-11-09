@@ -86,12 +86,8 @@ describe(test.label, function () {
     });
 
     describe('categories', function () {
-      it('should have the correct category select options' , function () {
-        expect(controller.get('categories').slice(1)).to.eql([category1, category2, category3]);
-      });
-
-      it('should have appended null category select option' , function () {
-        expect(controller.get('categories')[0].get('label')).to.eql('-- Select --');
+      it('should have all the model categories' , function () {
+        expect(controller.get('categories')).to.eql([category1, category2, category3]);
       });
     });
 
