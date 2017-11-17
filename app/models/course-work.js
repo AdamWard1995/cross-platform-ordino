@@ -8,5 +8,6 @@ export default DS.Model.extend({
   'weight': DS.attr('number'),
   'grade': DS.attr('number'),
   'due': DS.attr('string'),
-  'index': DS.attr('number')
+  'index': DS.attr('number'),
+  'completed': DS.attr('boolean')
 });

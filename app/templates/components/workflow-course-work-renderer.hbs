@@ -1,6 +1,9 @@
 <div class='left-portion'>
   <div class='label'>
     {{item.work.label}}
+    {{#if item.work.completed}}
+      {{fa-icon 'check-circle' class='completed'}}
+    {{/if}}
   </div>
   <div class='work-course'>
     {{item.course.course-code}}

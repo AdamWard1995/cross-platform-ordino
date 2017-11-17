@@ -4,7 +4,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   session: Ember.inject.service(),
-  drawerOpen: true,
+  loaded: false,
   title (tokens) {
     if (window.process && window.process.versions.electron) {
       return 'Ordino';
@@ -27,6 +27,16 @@ export default Ember.Route.extend({
     },
     refreshModel: function() {
       this.refresh();
+      this.set('loaded', true);
+    },
+    loading () {
+      return !this.get('loaded');
+    },
+    activate () {
+      this.set('loaded', true);
+    },
+    deactivate () {
+      this.set('loaded', false);
     }
   }
 });

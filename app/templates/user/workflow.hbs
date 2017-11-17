@@ -7,6 +7,7 @@
       {{filtered-list
         groups=listItems
         changed=changed
+        onClear=(action 'clearFilters')
         item-renderer=(component 'workflow-course-work-renderer')
         filters=(array
           (hash
@@ -39,6 +40,11 @@
             view=(component 'max-weight-filter' value=maxWeightToFilter)
             passes=maxWeightValidator
           )
+          (hash
+            value=filterCompleted
+            view=(component 'completed-filter' value=filterCompleted)
+            passes=filterCompletedValidator
+          )
         )
         onItemSelected=(action 'showEditCourseWorkModal')
       }}
@@ -54,6 +60,7 @@
       grade=(readonly itemToEdit.grade)
       due=(readonly (moment itemToEdit.due))
       category=(readonly itemToEdit.cgyid)
+      completed=(readonly itemToEdit.completed)
       onClose=(action 'hideEditCourseWorkModal')
       onSubmit=(action 'editCourseWork')
     }}

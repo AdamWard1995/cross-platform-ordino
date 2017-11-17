@@ -28,6 +28,12 @@ export default Ember.Component.extend({
   actions: {
     itemSelected (item) {
       this.get('onItemSelected')(item);
+    },
+    clear () {
+      const onClear = this.get('onClear');
+      if (onClear) {
+        onClear();
+      }
     }
   }
 });

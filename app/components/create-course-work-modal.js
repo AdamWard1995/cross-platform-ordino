@@ -30,6 +30,7 @@ export default FormModal.extend({
       const due = this.get('due');
       const cgyid = this.get('category');
       const cid = this.get('course');
+      const completed = this.get('completed');
 
       if (!label) {
         this.set('errorMessage', 'You need to enter a label.')
@@ -39,7 +40,7 @@ export default FormModal.extend({
       const dueStr = due ? moment(due).toISOString() : null;
       const onSubmit = this.get('onSubmit');
       if (onSubmit) {
-        onSubmit(label, weight, grade, dueStr, cgyid, cid);
+        onSubmit(label, weight, grade, dueStr, cgyid, cid, completed);
       }
     }
   }

@@ -108,5 +108,30 @@ describe(test.label, function () {
         expect(onSelect).to.have.been.calledWithExactly(item);
       });
     });
+
+    describe('clear()', function () {
+      describe('clear handler provided', function () {
+        let onClear;
+        beforeEach(function () {
+          onClear = sinon.stub();
+          component.set('onClear', onClear);
+          component.actions.clear.apply(component);
+        });
+
+        it('should have called selection handler', function () {
+          expect(onClear).to.have.callCount(1);
+        });
+      });
+
+      describe('no clear handler provided', function () {
+        beforeEach(function () {
+          component.set('onClear', undefined);
+        });
+
+        it('should have not thrown an exception', function () {
+          expect(() => component.actions.clear.apply(component)).to.not.throw();
+        });
+      });
+    });
   });
 });

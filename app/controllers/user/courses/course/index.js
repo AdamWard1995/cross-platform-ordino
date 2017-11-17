@@ -129,7 +129,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       this.send('refreshModel');
       this.transitionToRoute('user.terms.term', course.get('tid'));
     },
-    createCourseWork (label, weight, grade, due, cgyid, cid) {
+    createCourseWork (label, weight, grade, due, cgyid, cid, completed) {
       const model = this.get('model');
       const index = model.course.get('id') === cid ? model.courseWork.length : model.allWork.filterBy('cid', cid).length;
       const work = this.store.createRecord('course-work', {
@@ -140,7 +140,8 @@ export default Ember.Controller.extend(ChangedItemMixin, {
         'weight': weight,
         'grade': grade,
         'due': due,
-        'cgyid': cgyid
+        'cgyid': cgyid,
+        'completed': false || completed
       });
       this.set('new', work);
       work.save().then(() => {
@@ -149,7 +150,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
 
       this.send('hideCreateCourseWorkModal');
     },
-    editCourseWork (label, weight, grade, due, cgyid, cid) {
+    editCourseWork (label, weight, grade, due, cgyid, cid, completed) {
       const itemToEdit = this.get('itemToEdit');
       const model = this.get('model');
       if (itemToEdit.get('cid') !== cid) {
@@ -163,6 +164,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       itemToEdit.set('grade', grade);
       itemToEdit.set('due', due);
       itemToEdit.set('cgyid', cgyid);
+      itemToEdit.set('completed', false || completed);
 
       if (Object.keys(itemToEdit.changedAttributes()).length > 0) {
         this.set('changed', itemToEdit);

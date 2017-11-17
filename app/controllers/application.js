@@ -6,7 +6,6 @@ export default Ember.Controller.extend({
   router: Ember.inject.service('-routing'),
   onlineStatus: Ember.inject.service(),
   electron: false || (window.process && window.process.versions.electron),
-  online: true,
   observeSession: function() {
     if (this.get('session').get('isClosing') &&
         this.get('session').get('isAuthenticated')) {

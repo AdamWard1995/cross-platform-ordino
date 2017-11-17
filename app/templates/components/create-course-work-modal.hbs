@@ -31,5 +31,14 @@
         <option value={{cat.id}} selected={{eq cat.id category}}>{{cat.label}}</option>
       {{/each}}
     </select>
+    <label>
+      {{input
+        id='work-completed-checkbox'
+        type='checkbox'
+        class='work-completed'
+        checked=completed
+      }}
+      Mark as completed
+    </label>
   </div>
 {{/form-modal}}

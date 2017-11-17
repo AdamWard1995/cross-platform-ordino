@@ -25,4 +25,5 @@
   {{#each filterViews as |view|}}
     {{component view}}
   {{/each}}
+  {{#bs-button onClick=(action 'clear') type='primary'}}Clear filter{{/bs-button}}
 </div>

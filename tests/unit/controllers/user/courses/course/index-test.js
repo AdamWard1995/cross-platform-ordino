@@ -18,7 +18,7 @@ describe(test.label, function () {
 
     class1 = Ember.Object.create({save: sinon.stub(), destroyRecord: sinon.stub(), id: 135, cid: 12345, 'start-time': '10:05 am', 'end-time': '11:25 am', location: 'TB 238', day: 'Tuesday'});
     class2 = Ember.Object.create({save: sinon.stub(), destroyRecord: sinon.stub(), id: 791, cid: 12345, 'start-time': '10:05 am', 'end-time': '11:25 am', location: 'TB 238', day: 'Thursday'});
-    work1 = Ember.Object.create({save: sinon.stub(), id: 123, index: 1, cid: 12345, cgyid: 321, label: 'Assignment 2', weight: 25, grade: 95, due: moment('October 17th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a')});
+    work1 = Ember.Object.create({save: sinon.stub(), id: 123, index: 1, cid: 12345, cgyid: 321, label: 'Assignment 2', weight: 25, grade: 95, due: moment('October 17th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a'), completed: true});
     work2 = Ember.Object.create({save: sinon.stub(), id: 456, index: 0, cid: 12345, label: 'Assignment 1', weight: 25, grade: 90, due: moment('September 28th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a')});
     work3 = Ember.Object.create({save: sinon.stub(), id: 789, index: 2, cid: 12345, label: 'Final Exam', weight: 50, grade: null, due: moment('December 16th 2017, 9:00 am', 'MMMM Do yyyy, h:mm a')});
     work4 = Ember.Object.create({save: sinon.stub(), id: 101, index: 3, cid: 111213, label: 'Final Exam', weight: 50, grade: null, due: moment('December 16th 2017, 2:00 pm', 'MMMM Do yyyy, h:mm a')});
@@ -582,12 +582,12 @@ describe(test.label, function () {
 
       describe('creating for default course', function () {
         beforeEach(function () {
-          controller.actions.createCourseWork.apply(controller, ['Midterm', 40, 90, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 12345]);
+          controller.actions.createCourseWork.apply(controller, ['Midterm', 40, 90, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 12345, false]);
         });
 
         it('should have created new course work', function () {
           expect(controller.store.createRecord).to.have.been.calledWithExactly('course-work',
-            {uid: 680, cid: 12345, index: 3, label: 'Midterm', weight: 40, grade: 90, due: '2017-09-30T22:30:00.000Z', cgyid: 321}
+            {uid: 680, cid: 12345, index: 3, label: 'Midterm', weight: 40, grade: 90, due: '2017-09-30T22:30:00.000Z', cgyid: 321, completed: false}
           );
         });
 
@@ -610,12 +610,12 @@ describe(test.label, function () {
 
       describe('creating for non-default course', function () {
         beforeEach(function () {
-          controller.actions.createCourseWork.apply(controller, ['Midterm', 40, 90, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 111213]);
+          controller.actions.createCourseWork.apply(controller, ['Midterm', 40, 90, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 111213, false]);
         });
 
         it('should have created new course work', function () {
           expect(controller.store.createRecord).to.have.been.calledWithExactly('course-work',
-            {uid: 680, cid: 111213, index: 1, label: 'Midterm', weight: 40, grade: 90, due: '2017-09-30T22:30:00.000Z', cgyid: 321}
+            {uid: 680, cid: 111213, index: 1, label: 'Midterm', weight: 40, grade: 90, due: '2017-09-30T22:30:00.000Z', cgyid: 321, completed: false}
           );
         });
 
@@ -656,7 +656,7 @@ describe(test.label, function () {
           work1.changedAttributes = () => {
             return {course: [123, 456]};
           };
-          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 111213]);
+          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 111213, true]);
         });
 
         it('should have normalized indices', function () {
@@ -691,6 +691,10 @@ describe(test.label, function () {
           expect(work1.get('due')).to.eql('2017-09-30T22:30:00.000Z');
         });
 
+        it('should have set the item completed flag', function () {
+          expect(work1.get('completed')).to.eql(true);
+        });
+
         it('should have hidden edit course work modal', function () {
           expect(controller.send).to.have.been.calledWithExactly('hideEditCourseWorkModal');
         });
@@ -709,7 +713,7 @@ describe(test.label, function () {
           work1.changedAttributes = () => {
             return {course: ['Assignment 2', 'Assignment 4']};
           };
-          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 12345]);
+          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 12345, true]);
         });
 
         it('should not have normalized indices', function () {
@@ -744,6 +748,10 @@ describe(test.label, function () {
           expect(work1.get('due')).to.eql('2017-09-30T22:30:00.000Z');
         });
 
+        it('should have set the item completed flag', function () {
+          expect(work1.get('completed')).to.eql(true);
+        });
+
         it('should have hidden edit course work modal', function () {
           expect(controller.send).to.have.been.calledWithExactly('hideEditCourseWorkModal');
         });
@@ -762,7 +770,7 @@ describe(test.label, function () {
           work1.changedAttributes = () => {
             return {};
           };
-          controller.actions.editCourseWork.apply(controller, ['Assignment 2', 25, 95, moment('October 17th 2017, 11:59 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 12345]);
+          controller.actions.editCourseWork.apply(controller, ['Assignment 2', 25, 95, moment('October 17th 2017, 11:59 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 12345, true]);
         });
 
         it('should not have normalized indices', function () {
@@ -795,6 +803,10 @@ describe(test.label, function () {
 
         it('should have set the item due', function () {
           expect(work1.get('due')).to.eql('2017-10-17T23:59:00.000Z');
+        });
+
+        it('should have set the item completed flag', function () {
+          expect(work1.get('completed')).to.eql(true);
         });
 
         it('should have hidden edit course work modal', function () {

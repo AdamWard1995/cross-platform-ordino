@@ -1,6 +1,9 @@
 <div class='left-portion'>
   <div class='label'>
     {{item.label}}
+    {{#if item.completed}}
+      {{fa-icon 'check-circle' class='completed'}}
+    {{/if}}
   </div>
   <div class='due'>
     {{if item.due (moment-format item.due 'MMMM Do YYYY, h:mm a') 'No due date'}}

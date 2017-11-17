@@ -91,6 +91,7 @@ describe(test.label, function () {
           component.set('label', 'Assignment 1');
           component.set('weight', 30);
           component.set('grade', 95);
+          component.set('completed', false);
           component.actions.submit.apply(component);
         });
 
@@ -99,7 +100,7 @@ describe(test.label, function () {
         });
 
         it('should have passed correct parameters to onSubmit handler', function () {
-          expect(onSubmitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, null, 13579, 12345);
+          expect(onSubmitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, null, 13579, 12345, false);
         });
       });
 
@@ -111,6 +112,7 @@ describe(test.label, function () {
           component.set('weight', 30);
           component.set('grade', 95);
           component.set('due', moment('2017-09-29T03:59:00.000Z'));
+          component.set('completed', true);
           component.actions.submit.apply(component);
         });
 
@@ -119,7 +121,7 @@ describe(test.label, function () {
         });
 
         it('should have passed correct parameters to onSubmit handler', function () {
-          expect(onSubmitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-29T03:59:00.000Z', 13579, 12345);
+          expect(onSubmitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-29T03:59:00.000Z', 13579, 12345, true);
         });
       });
 
@@ -131,6 +133,7 @@ describe(test.label, function () {
           component.set('weight', 30);
           component.set('grade', 95);
           component.set('due', moment('2017-09-29T03:59:00.000Z'));
+          component.set('completed', true);
           component.set('onSubmit', undefined);
         });
 

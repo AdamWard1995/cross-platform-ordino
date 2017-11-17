@@ -6,6 +6,7 @@
   {{#ember-scrollable class='list-scrollable'}}
     {{filtered-list
       groups=listItems
+      onClear=(action 'clearFilters')
       group-renderer=(component 'term-renderer')
       item-renderer=(component 'course-renderer')
       filters=(array

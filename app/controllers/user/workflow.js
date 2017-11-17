@@ -14,7 +14,8 @@ export default Ember.Controller.extend(ChangedItemMixin, {
     dueAfterToFilter: 'da',
     dueBeforeToFilter: 'db',
     minWeightToFilter: 'minw',
-    maxWeightToFilter: 'maxw'
+    maxWeightToFilter: 'maxw',
+    filterCompleted: 'comp'
   },
   categoryToFilter: '',
   courseToFilter: '',
@@ -22,6 +23,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
   dueBeforeToFilter: '',
   minWeightToFilter: '',
   maxWeightToFilter: '',
+  filterCompleted: true,
 
   reset: false,
   haveCurrentTerm: Ember.computed('model.no-current-term', function() {
@@ -105,6 +107,9 @@ export default Ember.Controller.extend(ChangedItemMixin, {
   maxWeightValidator (date, item, weight) {
     return !weight || item.work.get('weight') <= weight;
   },
+  filterCompletedValidator (date, item, filterCompleted) {
+    return !filterCompleted || (filterCompleted && !item.work.get('completed'));
+  },
   actions: {
     showEditCourseWorkModal (item) {
       this.set('itemToEdit', item.work);
@@ -115,7 +120,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       this.set('editCourseWork', false);
       this.set('itemToEdit', null);
     },
-    editCourseWork (label, weight, grade, due, cgyid, cid) {
+    editCourseWork (label, weight, grade, due, cgyid, cid, completed) {
       const itemToEdit = this.get('itemToEdit');
       const model = this.get('model');
       if (itemToEdit.get('cid') !== cid) {
@@ -130,6 +135,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       itemToEdit.set('due', due);
       itemToEdit.set('cgyid', cgyid);
       itemToEdit.set('cid', cid);
+      itemToEdit.set('completed', false || completed);
 
       if (Object.keys(itemToEdit.changedAttributes()).length > 0) {
         this.set('changedID', itemToEdit.get('id'));
@@ -142,6 +148,15 @@ export default Ember.Controller.extend(ChangedItemMixin, {
         }, 2000);
       });
       this.send('hideEditCourseWorkModal');
+    },
+    clearFilters () {
+      this.set('categoryToFilter', '');
+      this.set('courseToFilter', '');
+      this.set('dueAfterToFilter', '');
+      this.set('dueBeforeToFilter', '');
+      this.set('minWeightToFilter', '');
+      this.set('maxWeightToFilter', '');
+      this.set('filterCompleted', false);
     }
   }
 });

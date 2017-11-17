@@ -12,6 +12,11 @@
       padding: 0;
       color: inherit;
       font-size: $font-size-m;
+
+      .fa-check-circle {
+        margin-left: 2px;
+        color: $color-green;
+      }
     }
   }
 

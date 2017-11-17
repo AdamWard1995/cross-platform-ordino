@@ -54,6 +54,10 @@ describe(test.label, function () {
       it('should no have no set due time', function() {
         expect(this.$('.modal-body .due-time-picker .ember-text-field').val()).to.eql('');
       });
+
+      it('should not have completed checkbox checked', function() {
+        expect(this.$('.modal-body .work-completed:checked')).to.have.length(0);
+      });
     });
 
     describe('values provided', function () {
@@ -64,7 +68,7 @@ describe(test.label, function () {
         this.set('courses', [course]);
         this.set('category', category.get('id'));
         this.set('categories', [category]);
-        this.render(hbs`{{create-course-work-modal open=true label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pm' 'MMMM Do YYYY, h:mm a') category=category categories=categories course=course courses=courses}}`);
+        this.render(hbs`{{create-course-work-modal open=true label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pm' 'MMMM Do YYYY, h:mm a') category=category categories=categories course=course courses=courses completed=true}}`);
         return wait();
       });
 
@@ -110,6 +114,10 @@ describe(test.label, function () {
 
       it('should no have no set due time', function() {
         expect(this.$('.modal-body .due-time-picker .ember-text-field').val()).to.eql('September 28th 2017, 11:59 pm');
+      });
+
+      it('should have completed checkbox checked', function() {
+        expect(this.$('.modal-body .work-completed:checked')).to.have.length(1);
       });
     });
   });
@@ -258,7 +266,7 @@ describe(test.label, function () {
 
     describe('no label is provided', function () {
       beforeEach(function () {
-        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pm' 'MMMM Do YYYY, h:mm a') category=category categories=categories course=course courses=courses}}`);
+        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pm' 'MMMM Do YYYY, h:mm a') category=category categories=categories course=course courses=courses completed=false}}`);
         return wait().then(() => {
           this.$('.btn-primary').click();
           return wait();
@@ -280,7 +288,7 @@ describe(test.label, function () {
 
     describe('no entered due date', function () {
       beforeEach(function () {
-        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 category=category categories=categories  courses=courses course=course}}`);
+        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 category=category categories=categories  courses=courses course=course completed=false}}`);
         return wait().then(() => {
           this.$('.btn-primary').click();
           return wait();
@@ -292,13 +300,13 @@ describe(test.label, function () {
       });
 
       it('should have passed correct parameters to submit handler', function() {
-        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, null, 13579, 12345);
+        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, null, 13579, 12345, false);
       });
     });
 
     describe('all values are provided', function () {
       beforeEach(function () {
-        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pmZ' 'MMMM Do YYYY, h:mm aZ') category=category categories=categories course=course courses=courses}}`);
+        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pmZ' 'MMMM Do YYYY, h:mm aZ') category=category categories=categories course=course courses=courses completed=true}}`);
         return wait().then(() => {
           this.$('.btn-primary').click();
           return wait();
@@ -310,13 +318,13 @@ describe(test.label, function () {
       });
 
       it('should have passed correct parameters to submit handler', function() {
-        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-28T23:59:00.000Z', 13579, 12345);
+        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-28T23:59:00.000Z', 13579, 12345, true);
       });
     });
 
     describe('properly submits on ENTER', function () {
       beforeEach(function () {
-        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pmZ' 'MMMM Do YYYY, h:mm aZ') category=category categories=categories course=course courses=courses}}`);
+        this.render(hbs`{{create-course-work-modal open=true onSubmit=onSubmit label='Assignment 1' weight=30 grade=95 due=(moment 'September 28 2017, 11:59 pmZ' 'MMMM Do YYYY, h:mm aZ') category=category categories=categories course=course courses=courses completed=true}}`);
         return wait().then(() => {
           let e = jQuery.Event('keypress');
           e.which = 13;
@@ -331,7 +339,7 @@ describe(test.label, function () {
       });
 
       it('should have passed correct parameters to submit handler', function() {
-        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-28T23:59:00.000Z', 13579, 12345);
+        expect(submitStub).to.have.been.calledWithExactly('Assignment 1', 30, 95, '2017-09-28T23:59:00.000Z', 13579, 12345, true);
       });
     });
   });

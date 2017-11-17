@@ -35,6 +35,11 @@ export default Ember.Controller.extend({
   actions: {
     goToCourseRoute (course) {
       this.transitionToRoute('user.courses.course', course.get('id'));
+    },
+    clearFilters () {
+      this.set('semesterToFilter', '');
+      this.set('yearToFilter', '');
+      this.set('courseCodeToFilter', '');
     }
   }
 });
