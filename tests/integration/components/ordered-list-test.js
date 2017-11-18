@@ -11,6 +11,7 @@ const test = integration('ordered-list')
 describe(test.label, function () {
   test.setup();
 
+  let sandbox;
   beforeEach(function () {
     registerMockComponent(this, 'mock-component', {
       classNames: 'mock-component',
@@ -18,10 +19,13 @@ describe(test.label, function () {
         <h1>{{item.title}}</h1>
       `
     });
+    sandbox = sinon.sandbox.create();
+    sandbox.stub(Ember.run, 'later');
   });
 
   afterEach(function () {
-    unregisterMockComponent(this, 'mock-component')
+    unregisterMockComponent(this, 'mock-component');
+    sandbox.restore();
   });
 
   describe('properly renders without an item renderer', function () {
@@ -173,6 +177,14 @@ describe(test.label, function () {
       expect(this.get('items')[2].get('index')).to.eql(2);
     });
 
+    it('should have set changed class for second list item', function() {
+      expect(this.$('.list-group-item').eq(1)).to.have.class('changed');
+    });
+
+    it('should have set changed class for third list item', function() {
+      expect(this.$('.list-group-item').eq(2)).to.have.class('changed');
+    });
+
     it('should have save changes to item1', function() {
       expect(item1SaveStub).to.have.callCount(1);
     });
@@ -222,6 +234,14 @@ describe(test.label, function () {
 
     it('should have updated index for item3', function() {
       expect(this.get('items')[2].get('index')).to.eql(2);
+    });
+
+    it('should have set changed class for second list item', function() {
+      expect(this.$('.list-group-item').eq(1)).to.have.class('changed');
+    });
+
+    it('should have set changed class for third list item', function() {
+      expect(this.$('.list-group-item').eq(2)).to.have.class('changed');
     });
 
     it('should have save changes to item1', function() {

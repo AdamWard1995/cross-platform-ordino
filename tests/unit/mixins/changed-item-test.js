@@ -17,51 +17,88 @@ describe('Unit / mixins / changed-item', function () {
     sandbox.restore();
   });
 
-  describe('observeChanged', function () {
+  describe('addChanged', function () {
     beforeEach(function () {
       sandbox.stub(Ember.run, 'later');
     });
 
-    describe('changed and reset', function () {
+    describe('changed item and reset', function () {
       beforeEach(function () {
-        mixin.set('changed', 'foo');
-        Ember.run.later.getCall(0).args[0]();
+        mixin.addChanged('foo');
       });
 
-      it('should reset changed item in 2 seconds', function () {
-        expect(Ember.run.later).to.have.been.calledWithExactly(sinon.match.func, 2000);
+      it('should only have one changed item', function () {
+        expect(mixin.get('changed')).to.have.length(1);
       });
 
-      it('should reset changed item to null', function () {
-        expect(mixin.get('changed')).to.eql(null);
+      it('should add changed item', function () {
+        expect(mixin.get('changed').includes('foo')).to.eql(true);
+      });
+
+      describe('item removed from changed items', function () {
+        beforeEach(function () {
+          Ember.run.later.getCall(0).args[0]();
+        });
+
+        it('should remove changed item in 2 seconds', function () {
+          expect(Ember.run.later).to.have.been.calledWithExactly(sinon.match.func, 2000);
+        });
+
+        it('should remove changed item', function () {
+          expect(mixin.get('changed')).to.have.length(0);
+        });
       });
     });
 
-    describe('changed and not reset', function () {
+    describe('changed item and not reset', function () {
       beforeEach(function () {
         mixin.set('reset', false);
-        mixin.set('changed', 'foo');
+        mixin.addChanged('foo');
       });
 
-      it('should not reset changed item', function () {
+      it('should have no changed items', function () {
+        expect(mixin.get('changed')).to.have.length(0);
+      });
+
+      it('should not have added changed item', function () {
+        expect(mixin.get('changed').includes('foo')).to.eql(false);
+      });
+
+      it('should not have removed changed item', function () {
         expect(Ember.run.later).to.have.callCount(0);
       });
     });
 
-    describe('not changed and reset', function () {
+    describe('not changed item and reset', function () {
       beforeEach(function () {
-        mixin.set('changed', null);
+        mixin.addChanged(null);
       });
 
-      it('should not reset changed item', function () {
+      it('should have no changed items', function () {
+        expect(mixin.get('changed')).to.have.length(0);
+      });
+
+      it('should not have added changed item', function () {
+        expect(mixin.get('changed').includes(null)).to.eql(false);
+      });
+
+      it('should not have removed changed item', function () {
         expect(Ember.run.later).to.have.callCount(0);
       });
     });
 
-    describe('not changed and not reset', function () {
+    describe('not changed item and not reset', function () {
       beforeEach(function () {
         mixin.set('reset', false);
-        mixin.set('changed', null);
+        mixin.addChanged(null);
+      });
+
+      it('should have no changed items', function () {
+        expect(mixin.get('changed')).to.have.length(0);
+      });
+
+      it('should not have added changed item', function () {
+        expect(mixin.get('changed').includes(null)).to.eql(false);
       });
 
       it('should not reset changed item', function () {
@@ -70,54 +107,91 @@ describe('Unit / mixins / changed-item', function () {
     });
   });
 
-  describe('observeNew', function () {
+  describe('addNew', function () {
     beforeEach(function () {
       sandbox.stub(Ember.run, 'later');
     });
 
-    describe('new and reset', function () {
+    describe('new item and reset', function () {
       beforeEach(function () {
-        mixin.set('new', 'foo');
-        Ember.run.later.getCall(0).args[0]();
+        mixin.addNew('foo');
       });
 
-      it('should reset new item in 2 seconds', function () {
-        expect(Ember.run.later).to.have.been.calledWithExactly(sinon.match.func, 2000);
+      it('should only have one new item', function () {
+        expect(mixin.get('new')).to.have.length(1);
       });
 
-      it('should reset new item to null', function () {
-        expect(mixin.get('new')).to.eql(null);
+      it('should add new item', function () {
+        expect(mixin.get('new').includes('foo')).to.eql(true);
+      });
+
+      describe('item removed from changed items', function () {
+        beforeEach(function () {
+          Ember.run.later.getCall(0).args[0]();
+        });
+
+        it('should removed new item in 2 seconds', function () {
+          expect(Ember.run.later).to.have.been.calledWithExactly(sinon.match.func, 2000);
+        });
+
+        it('should removed new item to null', function () {
+          expect(mixin.get('new')).to.have.length(0);
+        });
       });
     });
 
-    describe('new and not reset', function () {
+    describe('new item and not reset', function () {
       beforeEach(function () {
         mixin.set('reset', false);
-        mixin.set('new', 'foo');
+        mixin.addNew('foo');
       });
 
-      it('should not reset new item', function () {
+      it('should have no new items', function () {
+        expect(mixin.get('new')).to.have.length(0);
+      });
+
+      it('should not have added new item', function () {
+        expect(mixin.get('new').includes('foo')).to.eql(false);
+      });
+
+      it('should not removed new item', function () {
         expect(Ember.run.later).to.have.callCount(0);
       });
     });
 
-    describe('not new and reset', function () {
+    describe('not new item and reset', function () {
       beforeEach(function () {
-        mixin.set('new', null);
+        mixin.addNew(null);
       });
 
-      it('should not reset new item', function () {
+      it('should have no new items', function () {
+        expect(mixin.get('new')).to.have.length(0);
+      });
+
+      it('should not have added new item', function () {
+        expect(mixin.get('new').includes('foo')).to.eql(false);
+      });
+
+      it('should not remove new item', function () {
         expect(Ember.run.later).to.have.callCount(0);
       });
     });
 
-    describe('not new and not reset', function () {
+    describe('not new item and not reset', function () {
       beforeEach(function () {
         mixin.set('reset', false);
-        mixin.set('new', null);
+        mixin.addNew(null);
       });
 
-      it('should not reset new item', function () {
+      it('should have no new items', function () {
+        expect(mixin.get('new')).to.have.length(0);
+      });
+
+      it('should not have added new item', function () {
+        expect(mixin.get('new').includes('foo')).to.eql(false);
+      });
+
+      it('should not removed new item', function () {
         expect(Ember.run.later).to.have.callCount(0);
       });
     });

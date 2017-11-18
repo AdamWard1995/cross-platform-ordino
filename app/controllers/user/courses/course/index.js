@@ -143,7 +143,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
         'cgyid': cgyid,
         'completed': false || completed
       });
-      this.set('new', work);
+      this.addNew(work);
       work.save().then(() => {
         this.send('refreshModel');
       });
@@ -167,7 +167,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       itemToEdit.set('completed', false || completed);
 
       if (Object.keys(itemToEdit.changedAttributes()).length > 0) {
-        this.set('changed', itemToEdit);
+        this.addChanged(itemToEdit);
       }
 
       itemToEdit.save().then(() => {

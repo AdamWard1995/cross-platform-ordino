@@ -180,8 +180,12 @@ describe(test.label, function () {
           expect(item2.save, 'Should have saved change').to.have.callCount(1);
         });
 
-        it('should have flagged new term', function () {
-          expect(controller.get('new')).to.eql({foo: 'bar', save});
+        it('should have one new term', function () {
+          expect(controller.get('new')).to.have.length(1);
+        });
+
+        it('should have added new term', function () {
+          expect(controller.get('new')[0]).to.eql({foo: 'bar', save});
         });
 
         it('should have refreshed the model', function () {
@@ -212,8 +216,12 @@ describe(test.label, function () {
           expect(save).to.have.callCount(1);
         });
 
-        it('should have flagged new term', function () {
-          expect(controller.get('new')).to.eql({foo: 'bar', save});
+        it('should have one new term', function () {
+          expect(controller.get('new')).to.have.length(1);
+        });
+
+        it('should have added new term', function () {
+          expect(controller.get('new')[0]).to.eql({foo: 'bar', save});
         });
 
         it('should have refreshed the model', function () {

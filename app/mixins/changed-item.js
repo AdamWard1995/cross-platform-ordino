@@ -1,21 +1,35 @@
 import Ember from 'ember';
 
+const {A} = Ember;
+
 export default Ember.Mixin.create({
-  changed: null,
-  new: null,
+  changed: A(),
+  new: A(),
   reset: true,
-  observeChanged: function() {
-    if (this.get('changed') && this.get('reset')) {
-      Ember.run.later(() => {
-        this.set('changed', null);
-      }, 2000);
+  addChanged (item) {
+    if (this.get('reset')) {
+      const changed = this.get('changed');
+      if (item) {
+        if (!changed.includes(item)) {
+          this.set('changed', changed.slice().addObject(item));
+          Ember.run.later(() => {
+            this.set('changed', this.get('changed').slice().removeObject(item));
+          }, 2000);
+        }
+      }
     }
-  }.observes('changed'),
-  observeNew: function() {
-    if (this.get('new') && this.get('reset')) {
-      Ember.run.later(() => {
-        this.set('new', null);
-      }, 2000);
+  },
+  addNew (item) {
+    if (this.get('reset')) {
+      const _new = this.get('new');
+      if (item) {
+        if (!_new.includes(item)) {
+          this.set('new', _new.slice().addObject(item));
+          Ember.run.later(() => {
+            this.set('new', this.get('new').slice().removeObject(item));
+          }, 2000);
+        }
+      }
     }
-  }.observes('new')
+  }
 });

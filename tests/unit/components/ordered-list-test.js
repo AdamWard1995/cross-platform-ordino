@@ -41,14 +41,22 @@ describe(test.label, function () {
 
   describe('Actions', function () {
     describe('incrementIndex()', function () {
+      beforeEach(function () {
+        sandbox.stub(component, 'swapIndices');
+        sandbox.stub(component, 'addChanged');
+      });
+
       describe('already last on list', function () {
         beforeEach(function () {
-          sandbox.stub(component, 'swapIndices');
           component.actions.incrementIndex.apply(component, [component.get('items')[0]]);
         });
 
         it('should not have swapped any indices', function () {
           expect(component.swapIndices).to.have.callCount(0);
+        });
+
+        it('should not have added changed item', function () {
+          expect(component.addChanged).to.have.callCount(0);
         });
 
         it('should have entered arranging state', function () {
@@ -58,7 +66,6 @@ describe(test.label, function () {
 
       describe('not last on list', function () {
         beforeEach(function () {
-          sandbox.stub(component, 'swapIndices');
           component.actions.incrementIndex.apply(component, [component.get('items')[1]]);
         });
 
@@ -70,6 +77,18 @@ describe(test.label, function () {
           expect(component.swapIndices).to.have.been.calledWithExactly(component.get('items')[1], component.get('items')[2]);
         });
 
+        it('should have added two changed items', function () {
+          expect(component.addChanged).to.have.callCount(2);
+        });
+
+        it('should have added first changed item', function () {
+          expect(component.addChanged).to.have.been.calledWithExactly(component.get('items')[1]);
+        });
+
+        it('should have added second changed item', function () {
+          expect(component.addChanged).to.have.been.calledWithExactly(component.get('items')[2]);
+        });
+
         it('should have entered arranging state', function () {
           expect(component.get('arranging')).to.eql(true);
         });
@@ -77,14 +96,22 @@ describe(test.label, function () {
     });
 
     describe('decrementIndex()', function () {
+      beforeEach(function () {
+        sandbox.stub(component, 'swapIndices');
+        sandbox.stub(component, 'addChanged');
+      });
+
       describe('already first on list', function () {
         beforeEach(function () {
-          sandbox.stub(component, 'swapIndices');
           component.actions.decrementIndex.apply(component, [component.get('items')[1]]);
         });
 
         it('should not have swapped any indices', function () {
           expect(component.swapIndices).to.have.callCount(0);
+        });
+
+        it('should not have added changed item', function () {
+          expect(component.addChanged).to.have.callCount(0);
         });
 
         it('should have entered arranging state', function () {
@@ -94,7 +121,6 @@ describe(test.label, function () {
 
       describe('not first on list', function () {
         beforeEach(function () {
-          sandbox.stub(component, 'swapIndices');
           component.actions.decrementIndex.apply(component, [component.get('items')[0]]);
         });
 
@@ -104,6 +130,18 @@ describe(test.label, function () {
 
         it('should have swapped item1 with item3', function () {
           expect(component.swapIndices).to.have.been.calledWithExactly(component.get('items')[0], component.get('items')[2]);
+        });
+
+        it('should have added two changed items', function () {
+          expect(component.addChanged).to.have.callCount(2);
+        });
+
+        it('should have added first changed item', function () {
+          expect(component.addChanged).to.have.been.calledWithExactly(component.get('items')[0]);
+        });
+
+        it('should have added second changed item', function () {
+          expect(component.addChanged).to.have.been.calledWithExactly(component.get('items')[2]);
         });
 
         it('should have entered arranging state', function () {

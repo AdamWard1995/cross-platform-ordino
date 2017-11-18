@@ -7,5 +7,10 @@ export default Ember.Route.extend({
     stats['course'] = this.modelFor('user.courses.course').course;
     this.set('titleToken', `${stats['course'].get('course-code')} Report`);
     return stats;
+  },
+  resetController (controller, isExiting) {
+    if (isExiting) {
+      controller.set('desired-grade', null);
+    }
   }
 });

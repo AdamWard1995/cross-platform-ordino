@@ -36,7 +36,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
         year,
         current
       });
-      this.set('new', term);
+      this.addNew(term);
       term.save().then(() => {
         this.send('refreshModel');
       });

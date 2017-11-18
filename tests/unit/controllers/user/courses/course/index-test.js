@@ -566,18 +566,13 @@ describe(test.label, function () {
     });
 
     describe('createCourseWork()', function () {
-      let saveNewRecordStub, oldLater;
+      let saveNewRecordStub;
       beforeEach(function () {
-        oldLater = Ember.run.later;
-        Ember.run.later = () => {};
         saveNewRecordStub = sinon.stub();
         saveNewRecordStub.returns(new Ember.RSVP.Promise(function (resolve){resolve();}));
         sandbox.stub(controller, 'send');
+        sandbox.stub(Ember.run, 'later');
         controller.store.createRecord.returns({foo: 'bar', save: saveNewRecordStub});
-      });
-
-      afterEach(function () {
-        Ember.run.later = oldLater;
       });
 
       describe('creating for default course', function () {
@@ -591,8 +586,12 @@ describe(test.label, function () {
           );
         });
 
-        it('should have set new item', function () {
-          expect(controller.get('new')).to.eql({foo: 'bar', save: saveNewRecordStub});
+        it('should have one new item', function () {
+          expect(controller.get('new')).to.have.length(1);
+        });
+
+        it('should have added new item', function () {
+          expect(controller.get('new')[0]).to.eql({foo: 'bar', save: saveNewRecordStub});
         });
 
         it('should have saved new course work', function () {
@@ -619,8 +618,12 @@ describe(test.label, function () {
           );
         });
 
-        it('should have set new item', function () {
-          expect(controller.get('new')).to.eql({foo: 'bar', save: saveNewRecordStub});
+        it('should have one new item', function () {
+          expect(controller.get('new')).to.have.length(1);
+        });
+
+        it('should have added new item', function () {
+          expect(controller.get('new')[0]).to.eql({foo: 'bar', save: saveNewRecordStub});
         });
 
         it('should have saved new course work', function () {
@@ -699,8 +702,12 @@ describe(test.label, function () {
           expect(controller.send).to.have.been.calledWithExactly('hideEditCourseWorkModal');
         });
 
-        it('should have set changed item', function () {
-          expect(controller.get('changed')).to.eql(work1);
+        it('should have one changed item', function () {
+          expect(controller.get('changed')).to.have.length(1);
+        });
+
+        it('should have added changed item', function () {
+          expect(controller.get('changed')[0]).to.eql(work1);
         });
 
         it('should have refreshed the model', function () {
@@ -756,8 +763,12 @@ describe(test.label, function () {
           expect(controller.send).to.have.been.calledWithExactly('hideEditCourseWorkModal');
         });
 
-        it('should have set changed item', function () {
-          expect(controller.get('changed')).to.eql(work1);
+        it('should have one changed item', function () {
+          expect(controller.get('changed')).to.have.length(1);
+        });
+
+        it('should have added changed item', function () {
+          expect(controller.get('changed')[0]).to.eql(work1);
         });
 
         it('should have refreshed the model', function () {
@@ -813,8 +824,8 @@ describe(test.label, function () {
           expect(controller.send).to.have.been.calledWithExactly('hideEditCourseWorkModal');
         });
 
-        it('should have not set changed item', function () {
-          expect(controller.get('changed')).to.eql(null);
+        it('should have not added changed item', function () {
+          expect(controller.get('changed')).to.have.length(0);
         });
 
         it('should have refreshed the model', function () {

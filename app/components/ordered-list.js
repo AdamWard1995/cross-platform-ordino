@@ -1,6 +1,8 @@
 import Ember from 'ember';
 
-export default Ember.Component.extend({
+import ChangedItemMixin from 'cross-platform-ordino/mixins/changed-item';
+
+export default Ember.Component.extend(ChangedItemMixin, {
   classNames: ['ordered-list'],
   items: [],
   orderedItems: Ember.computed('items.@each.index', function() {
@@ -23,7 +25,10 @@ export default Ember.Component.extend({
       if (index === items.length - 1) {
         return;
       }
-      this.set('changed', item);
+      // this.propertyWillChange('changed')
+      this.addChanged(items[index]);
+      this.addChanged(items[index + 1]);
+      // this.propertyDidChange('changed')
       this.swapIndices(items[index], items[index + 1]);
     },
     decrementIndex (item) {
@@ -33,7 +38,10 @@ export default Ember.Component.extend({
         return;
       }
       const items = this.get('orderedItems');
-      this.set('changed', item);
+      // this.propertyWillChange('changed')
+      this.addChanged(items[index]);
+      this.addChanged(items[index - 1]);
+      // this.propertyDidChange('changed')
       this.swapIndices(items[index], items[index - 1]);
     },
     itemSelected (item) {

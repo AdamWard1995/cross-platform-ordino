@@ -1,6 +1,6 @@
 <div class='list-group item-list'>
   {{#each orderedItems as |item|}}
-    <div class={{concat 'list-group-item' (if (eq new item) ' new') (if (eq changed item) ' changed')}} {{action 'itemSelected' item}} role='button'>
+    <div class={{concat 'list-group-item' (if (contains new item) ' new') (if (contains changed item) ' changed')}} {{action 'itemSelected' item}} role='button'>
       {{#if itemRenderer}}
         {{component itemRenderer class='ordered-item' item=item}}
       {{/if}}

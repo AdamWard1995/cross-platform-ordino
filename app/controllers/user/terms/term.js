@@ -76,7 +76,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
         'index': index,
         'course-code': courseCode
       });
-      this.set('new', course);
+      this.addNew(course);
       course.save().then(() => {
         this.send('refreshModel');
       });
