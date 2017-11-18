@@ -303,17 +303,11 @@ describe(test.label, function () {
     });
 
     describe('editCourseWork()', function () {
-      let oldLater;
       beforeEach(function () {
-        oldLater = Ember.run.later;
-        Ember.run.later = () => {};
         sandbox.stub(controller, 'send');
         sandbox.stub(cleanup, 'normalizeIndices');
         controller.set('itemToEdit', work2);
-      });
-
-      afterEach(function () {
-        Ember.run.later = oldLater;
+        sandbox.stub(Ember.run, 'later');
       });
 
       describe('not changing course ID', function () {

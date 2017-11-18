@@ -264,10 +264,8 @@ describe(test.label, function () {
     });
 
     describe('createCourse()', function () {
-      let classTime, course, course2, course3, store, oldLater;
+      let classTime, course, course2, course3, store;
       beforeEach(function () {
-        oldLater = Ember.run.later;
-        Ember.run.later = () => {};
         course = Ember.Object.create({id: 123, tid: 67890});
         course.save = sinon.stub();
         course.save.returns(new Ember.RSVP.Promise(function(resolve) {
@@ -284,10 +282,7 @@ describe(test.label, function () {
         controller.store = store;
         sandbox.stub(cleanup, 'normalizeIndices');
         sandbox.stub(controller, 'send');
-      });
-
-      afterEach(function () {
-        Ember.run.later = oldLater;
+        sandbox.stub(Ember.run, 'later');
       });
 
       describe('create for default term', function () {

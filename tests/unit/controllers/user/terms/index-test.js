@@ -129,10 +129,8 @@ describe(test.label, function () {
     });
 
     describe('createTerm()', function () {
-      let item1, item2, item3, save, session, store, user, oldLater;
+      let item1, item2, item3, save, session, store, user;
       beforeEach(function () {
-        oldLater = Ember.run.later;
-        Ember.run.later = () => {};
         item1 = Ember.Object.create({current: false, save: sinon.stub()});
         item2 = Ember.Object.create({current: true, save: sinon.stub()});
         item3 = Ember.Object.create({current: false, save: sinon.stub()});
@@ -146,14 +144,11 @@ describe(test.label, function () {
         }));
         sandbox.stub(cleanup, 'deleteTerm');
         sandbox.stub(controller, 'send');
+        sandbox.stub(Ember.run, 'later');
         controller.store = store;
         controller.set('model', [item1, item2, item3]);
         controller.set('itemToDelete', item1);
         controller.set('session', session);
-      });
-
-      afterEach(function () {
-        Ember.run.later = oldLater;
       });
 
       describe('create new current term', function () {

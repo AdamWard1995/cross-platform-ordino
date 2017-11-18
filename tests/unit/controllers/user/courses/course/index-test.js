@@ -641,17 +641,11 @@ describe(test.label, function () {
     });
 
     describe('editCourseWork()', function () {
-      let oldLater;
       beforeEach(function () {
-        oldLater = Ember.run.later;
-        Ember.run.later = () => {};
         sandbox.stub(cleanup, 'normalizeIndices');
         sandbox.stub(controller, 'send');
+        sandbox.stub(Ember.run, 'later');
         controller.set('itemToEdit', work1);
-      });
-
-      afterEach(function () {
-        Ember.run.later = oldLater;
       });
 
       describe('changing course ID', function () {
