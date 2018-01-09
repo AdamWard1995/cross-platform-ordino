@@ -17,6 +17,8 @@
   {{#ember-scrollable class='list-scrollable'}}
     {{ordered-list
       items=courseListItems
+      indexKey='course.index'
+      updateIndex=(action 'updateCourseIndex')
       new=new
       itemRenderer=(component 'course-renderer')
       onItemSelected=(action 'goToCourseRoute')

@@ -1,4 +1,6 @@
 import Ember from 'ember';
+const {set} = Ember;
+
 import {deleteCourse, deleteTerm} from 'cross-platform-ordino/utils/cleanup';
 import {getStatistics} from 'cross-platform-ordino/utils/course-statistics';
 
@@ -25,6 +27,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       courses.forEach((course) => {
         items.push({
           course,
+          index: course.get('index'),
           average: courseWork ? getStatistics(courseWork.filter(work => work.get('cid') === course.get('id'))).currentAvg : null
         });
       });
@@ -114,6 +117,11 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       deleteCourse(course, this.get('model').courses, this.store);
       this.send('hideDeleteCourseModal');
       this.send('refreshModel');
+    },
+    updateCourseIndex (item, index) {
+      set(item, 'index', index);
+      item.course.set('index', index);
+      item.course.save();
     },
     goToTermsRoute () {
       this.transitionToRoute('user.terms');

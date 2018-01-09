@@ -1,4 +1,5 @@
 import Ember from 'ember';
+const {get, set} = Ember;
 
 import ChangedItemMixin from 'cross-platform-ordino/mixins/changed-item';
 
@@ -9,39 +10,39 @@ export default Ember.Component.extend(ChangedItemMixin, {
     const items = this.get('items');
     return items.sortBy('index');
   }),
+  updateIndex: function (item, index) {
+    set(item, 'index', index);
+    if (item.save) {
+      item.save();
+    }
+  },
   swapIndices (item1, item2) {
-    const index1 = item1.get('index');
-    const index2 = item2.get('index');
-    item1.set('index', index2);
-    item2.set('index', index1);
-    item1.save();
-    item2.save();
+    const index1 = get(item1, 'index');
+    const index2 = get(item2, 'index');
+    this.get('updateIndex')(item1, index2);
+    this.get('updateIndex')(item2, index1);
   },
   actions: {
     incrementIndex (item) {
       this.set('arranging', true);
       const items = this.get('orderedItems');
-      const index = item.get('index');
+      const index = get(item, 'index');
       if (index === items.length - 1) {
         return;
       }
-      // this.propertyWillChange('changed')
       this.addChanged(items[index]);
       this.addChanged(items[index + 1]);
-      // this.propertyDidChange('changed')
       this.swapIndices(items[index], items[index + 1]);
     },
     decrementIndex (item) {
       this.set('arranging', true);
-      const index = item.get('index');
+      const index = get(item, 'index');
       if (index === 0) {
         return;
       }
       const items = this.get('orderedItems');
-      // this.propertyWillChange('changed')
       this.addChanged(items[index]);
       this.addChanged(items[index - 1]);
-      // this.propertyDidChange('changed')
       this.swapIndices(items[index], items[index - 1]);
     },
     itemSelected (item) {
