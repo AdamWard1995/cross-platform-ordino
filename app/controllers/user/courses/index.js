@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+import {getStatistics} from 'cross-platform-ordino/utils/course-statistics';
+
 export default Ember.Controller.extend({
   queryParams: {
     semesterToFilter: 'sem',
@@ -9,15 +11,20 @@ export default Ember.Controller.extend({
   semesterToFilter: '',
   yearToFilter: '',
   courseCodeToFilter: '',
-
   listItems: Ember.computed('model', function() {
     const terms = this.get('model').terms;
     const courses = this.get('model').courses;
+    const courseWork = this.get('model').courseWork;
     if (terms && terms.map) {
       return terms.sortBy('index').map((term) => {
         return {
           group: term,
-          items: courses.filterBy('tid', term.get('id')).sortBy('index')
+          items: courses.filterBy('tid', term.get('id')).sortBy('index').map((course) => {
+            return {
+              course,
+              average: courseWork ? getStatistics(courseWork.filter(work => work.get('cid') === course.get('id'))).currentAvg : null
+            };
+          })
         };
       });
     }
@@ -33,8 +40,8 @@ export default Ember.Controller.extend({
     return !year || `${term.get('year')}`.startsWith(year);
   },
   actions: {
-    goToCourseRoute (course) {
-      this.transitionToRoute('user.courses.course', course.get('id'));
+    goToCourseRoute (item) {
+      this.transitionToRoute('user.courses.course', item.course.get('id'));
     },
     clearFilters () {
       this.set('semesterToFilter', '');

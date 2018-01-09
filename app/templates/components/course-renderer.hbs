@@ -1,3 +1,11 @@
 <div class='course-label'>
-  {{item.course-code}}
+  {{item.course.course-code}}
+</div>
+<div class='course-average'>
+  <div class='course-average-label'>
+    Average
+  </div>
+  <div class='course-average-value'>
+    {{if item.average (round item.average 1) '---'}}%
+  </div>
 </div>

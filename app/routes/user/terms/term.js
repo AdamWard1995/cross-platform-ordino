@@ -14,7 +14,8 @@ export default Ember.Route.extend({
         term,
         terms: model.terms,
         allCourses: model.courses,
-        courses: model.courses.filterBy('tid', termID)
+        courses: model.courses.filterBy('tid', termID),
+        courseWork: model.courseWork
       };
     }
   }

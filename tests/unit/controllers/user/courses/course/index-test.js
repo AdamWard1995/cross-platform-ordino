@@ -18,10 +18,10 @@ describe(test.label, function () {
 
     class1 = Ember.Object.create({save: sinon.stub(), destroyRecord: sinon.stub(), id: 135, cid: 12345, 'start-time': '10:05 am', 'end-time': '11:25 am', location: 'TB 238', day: 'Tuesday'});
     class2 = Ember.Object.create({save: sinon.stub(), destroyRecord: sinon.stub(), id: 791, cid: 12345, 'start-time': '10:05 am', 'end-time': '11:25 am', location: 'TB 238', day: 'Thursday'});
-    work1 = Ember.Object.create({save: sinon.stub(), id: 123, index: 1, cid: 12345, cgyid: 321, label: 'Assignment 2', weight: 25, grade: 95, due: moment('October 17th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a'), completed: true});
-    work2 = Ember.Object.create({save: sinon.stub(), id: 456, index: 0, cid: 12345, label: 'Assignment 1', weight: 25, grade: 90, due: moment('September 28th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a')});
-    work3 = Ember.Object.create({save: sinon.stub(), id: 789, index: 2, cid: 12345, label: 'Final Exam', weight: 50, grade: null, due: moment('December 16th 2017, 9:00 am', 'MMMM Do yyyy, h:mm a')});
-    work4 = Ember.Object.create({save: sinon.stub(), id: 101, index: 3, cid: 111213, label: 'Final Exam', weight: 50, grade: null, due: moment('December 16th 2017, 2:00 pm', 'MMMM Do yyyy, h:mm a')});
+    work1 = Ember.Object.create({save: sinon.stub(), id: 123, index: 1, cid: 12345, cgyid: 321, label: 'Assignment 2', weight: 25, grade: 95, due: moment('October 17th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a'), completed: true});
+    work2 = Ember.Object.create({save: sinon.stub(), id: 456, index: 0, cid: 12345, label: 'Assignment 1', weight: 25, grade: 90, due: moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a')});
+    work3 = Ember.Object.create({save: sinon.stub(), id: 789, index: 2, cid: 12345, label: 'Final Exam', weight: 50, grade: null, due: moment('December 16th 2017, 9:00 am', 'MMMM Do YYYY, h:mm a')});
+    work4 = Ember.Object.create({save: sinon.stub(), id: 101, index: 3, cid: 111213, label: 'Final Exam', weight: 50, grade: null, due: moment('December 16th 2017, 2:00 pm', 'MMMM Do YYYY, h:mm a')});
     course = Ember.Object.create({save: sinon.stub(), id: 12345, tid: 67890, 'course-code': 'COMP 4004', index: 0});
     course2 = Ember.Object.create({save: sinon.stub(), id: 111213, tid: 67890, 'course-code': 'COMP 4107', index: 1});
     course3 = Ember.Object.create({save: sinon.stub(), id: 141516, tid: 98765, 'course-code': 'COMP 4905', index: 2});
@@ -577,7 +577,7 @@ describe(test.label, function () {
 
       describe('creating for default course', function () {
         beforeEach(function () {
-          controller.actions.createCourseWork.apply(controller, ['Midterm', 40, 90, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 12345, false]);
+          controller.actions.createCourseWork.apply(controller, ['Midterm', 40, 90, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do YYYY, h:mm aZ').toISOString(), 321, 12345, false]);
         });
 
         it('should have created new course work', function () {
@@ -609,7 +609,7 @@ describe(test.label, function () {
 
       describe('creating for non-default course', function () {
         beforeEach(function () {
-          controller.actions.createCourseWork.apply(controller, ['Midterm', 40, 90, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 111213, false]);
+          controller.actions.createCourseWork.apply(controller, ['Midterm', 40, 90, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do YYYY, h:mm aZ').toISOString(), 321, 111213, false]);
         });
 
         it('should have created new course work', function () {
@@ -653,7 +653,7 @@ describe(test.label, function () {
           work1.changedAttributes = () => {
             return {course: [123, 456]};
           };
-          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 111213, true]);
+          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do YYYY, h:mm aZ').toISOString(), 321, 111213, true]);
         });
 
         it('should have normalized indices', function () {
@@ -714,7 +714,7 @@ describe(test.label, function () {
           work1.changedAttributes = () => {
             return {course: ['Assignment 2', 'Assignment 4']};
           };
-          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 12345, true]);
+          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do YYYY, h:mm aZ').toISOString(), 321, 12345, true]);
         });
 
         it('should not have normalized indices', function () {
@@ -775,7 +775,7 @@ describe(test.label, function () {
           work1.changedAttributes = () => {
             return {};
           };
-          controller.actions.editCourseWork.apply(controller, ['Assignment 2', 25, 95, moment('October 17th 2017, 11:59 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 321, 12345, true]);
+          controller.actions.editCourseWork.apply(controller, ['Assignment 2', 25, 95, moment('October 17th 2017, 11:59 pmZ', 'MMMM Do YYYY, h:mm aZ').toISOString(), 321, 12345, true]);
         });
 
         it('should not have normalized indices', function () {

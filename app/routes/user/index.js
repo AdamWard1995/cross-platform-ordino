@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  titleToken: 'Welcome',
+  titleToken: 'Welcome!',
   model () {
     const model = this.modelFor('user');
     return {

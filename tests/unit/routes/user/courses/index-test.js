@@ -24,6 +24,7 @@ describe(test.label, function () {
       sandbox.stub(route, 'modelFor')
         .withArgs('user.courses').returns({
           courses: 'foo',
+          courseWork: 'baz',
           terms: 'bar'
       });
       model = route.model();
@@ -32,6 +33,7 @@ describe(test.label, function () {
     it('should have returned parent route model data', function () {
       expect(model).to.eql({
         courses: 'foo',
+        courseWork: 'baz',
         terms: 'bar'
       });
     });

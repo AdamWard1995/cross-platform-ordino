@@ -23,8 +23,8 @@ describe(test.label, function () {
       resolve();
     }));
 
-    work1 = Ember.Object.create({save: sinon.stub(), id: 123, index: 1, cid: 12345, label: 'Assignment 2', weight: 25, grade: 95, due: moment('October 17th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a')});
-    work2 = Ember.Object.create({save: sinon.stub(), id: 456, index: 0, cid: 12345, label: 'Assignment 1', weight: 25, grade: 90, due: moment('September 28th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a')});
+    work1 = Ember.Object.create({save: sinon.stub(), id: 123, index: 1, cid: 12345, label: 'Assignment 2', weight: 25, grade: 95, due: moment('October 17th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a')});
+    work2 = Ember.Object.create({save: sinon.stub(), id: 456, index: 0, cid: 12345, label: 'Assignment 1', weight: 25, grade: 90, due: moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a')});
 
     save = sinon.stub();
     save.returns(new Ember.RSVP.Promise(function(resolve) {

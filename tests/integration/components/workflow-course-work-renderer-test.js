@@ -15,7 +15,7 @@ describe(test.label, function () {
       label: 'Assignment 1',
       weight: 40,
       grade: 100,
-      due: moment('September 28th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a').toISOString()
+      due: moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a').toISOString()
     });
     let course = Ember.Object.create({
       'course-code': 'COMP 4004'
@@ -55,7 +55,7 @@ describe(test.label, function () {
     let work = Ember.Object.create({
       label: 'Assignment 1',
       grade: 100,
-      due: moment('September 28th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a').toISOString()
+      due: moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a').toISOString()
     });
     let course = Ember.Object.create({
       'course-code': 'COMP 4004'

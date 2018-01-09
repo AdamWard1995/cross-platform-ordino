@@ -21,7 +21,7 @@ describe(test.label, function () {
     class3 = Ember.Object.create({id: 567, cid: 12345, 'start-time': '10:05 am', 'end-time': '11:25 am', location: 'TB 238', day: moment().add(-2, 'days').format('dddd')});
     class4 = Ember.Object.create({id: 567, cid: 12345, 'start-time': moment().add(-1, 'minutes').format('hh:mm a'), 'end-time': moment().add(1, 'minutes').format('hh:mm a'), location: 'TB 238', day: moment().format('dddd')});
     work1 = Ember.Object.create({id: 123, index: 1, cid: 12345, label: 'Assignment 2', weight: 25, grade: 95, due: moment().add(2, 'days')});
-    work2 = Ember.Object.create({id: 456, index: 0, cid: 12345, label: 'Assignment 1', weight: 25, grade: 90, due: moment('September 28th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a')});
+    work2 = Ember.Object.create({id: 456, index: 0, cid: 12345, label: 'Assignment 1', weight: 25, grade: 90, due: moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a')});
     work3 = Ember.Object.create({id: 789, index: 2, cid: 111213, label: 'Final Exam', weight: 50, grade: null, due: moment().add(5, 'days')});
     work4 = Ember.Object.create({id: 101, index: 3, cid: 111213, label: 'Final Exam', weight: 50, grade: null, due: moment().add(8, 'days')});
     course1 = Ember.Object.create({id: 12345, tid: 67890, 'course-code': 'COMP 4004', index: 0});

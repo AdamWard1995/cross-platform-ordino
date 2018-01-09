@@ -1,3 +1,25 @@
 .course-renderer {
-  font-size: $font-size-m;
+  display: flex;
+  align-items: center;
+
+  .course-label {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: $font-size-m;
+  }
+
+  .course-average {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+    margin-left: 15px;
+
+    &-label {
+      font-weight: bold;
+    }
+  }
 }

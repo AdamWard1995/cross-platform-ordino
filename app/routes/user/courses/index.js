@@ -5,6 +5,7 @@ export default Ember.Route.extend({
     const model = this.modelFor('user.courses');
     return {
       courses: model.courses,
+      courseWork: model.courseWork,
       terms: model.terms
     };
   }

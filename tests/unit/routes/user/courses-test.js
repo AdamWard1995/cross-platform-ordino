@@ -24,13 +24,14 @@ describe(test.label, function () {
       sandbox.stub(route, 'modelFor')
         .withArgs('user').returns({
           courses: 'foo',
+          courseWork: 'baz',
           terms: 'bar'
         });
       model = route.model();
     });
 
     it('should have returned all user courses and term', function () {
-      expect(model).to.eql({courses: 'foo', terms: 'bar'});
+      expect(model).to.eql({courses: 'foo', courseWork: 'baz', terms: 'bar'});
     });
   });
 });

@@ -9,7 +9,7 @@ const test = route('user/terms/term');
 describe(test.label, function () {
   test.setup()
 
-  let route, sandbox, course1, course2, course3, term1, term2;
+  let route, sandbox, course1, course2, course3, courseWork1, courseWork2, term1, term2;
   beforeEach(function () {
     sandbox = sinon.sandbox.create();
     route = this.subject();
@@ -19,9 +19,12 @@ describe(test.label, function () {
     course1 = Ember.Object.create({id: 123, tid: 12345});
     course2 = Ember.Object.create({id: 456, tid: 12345});
     course3 = Ember.Object.create({id: 789, tid: 67890});
+    courseWork1 = Ember.Object.create({id: 13, cid: 456});
+    courseWork2 = Ember.Object.create({id: 24, cid: 789});
     sandbox.stub(route, 'modelFor')
       .withArgs('user').returns({
         courses: [course1, course2, course3],
+        courseWork: [courseWork1, courseWork2],
         terms: [term1, term2]
       });
   });
@@ -53,7 +56,8 @@ describe(test.label, function () {
           term: term1,
           terms: [term1, term2],
           allCourses: [course1, course2, course3],
-          courses: [course1, course2]
+          courses: [course1, course2],
+          courseWork: [courseWork1, courseWork2]
         });
       });
 

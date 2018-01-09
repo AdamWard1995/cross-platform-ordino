@@ -8,7 +8,7 @@ const test = controller('user/courses/index')
 describe(test.label, function () {
   test.setup();
 
-  let controller, sandbox, term1, term2, course1, course2, course3;
+  let controller, sandbox, term1, term2, course1, course2, course3, course4, courseWork1, courseWork2, courseWork3, courseWork4;
   beforeEach(function () {
     sandbox = sinon.sandbox.create()
     controller = this.subject();
@@ -18,10 +18,16 @@ describe(test.label, function () {
     course1 = Ember.Object.create({id: 123, tid: 12345, 'course-code': 'COMP 4905'});
     course2 = Ember.Object.create({id: 456, tid: 67890, 'course-code': 'SYSC 4903'});
     course3 = Ember.Object.create({id: 789, tid: 67890, 'course-code': 'COMP 3008'});
+    course4 = Ember.Object.create({id: 101, tid: 67890, 'course-code': 'COMP 3002'});
+    courseWork1 = Ember.Object.create({id: 13, cid: 456, weight: 20, grade: 90});
+    courseWork2 = Ember.Object.create({id: 57, cid: 456, weight: 30, grade: 80});
+    courseWork3 = Ember.Object.create({id: 24, cid: 789, weight: 25});
+    courseWork4 = Ember.Object.create({id: 24, cid: 101, weight: 15, grade: 75});
 
     controller.set('model', {
       terms: [term1, term2],
-      courses: [course1, course2, course3]
+      courses: [course1, course2, course3, course4],
+      courseWork: [courseWork1, courseWork2, courseWork3, courseWork4]
     });
   });
 
@@ -74,16 +80,20 @@ describe(test.label, function () {
           expect(controller.get('listItems')[1].group).to.eql(term1);
         });
 
-        it('should have course1 in term1 group', function () {
-          expect(controller.get('listItems')[1].items).to.contain(course1);
+        it('should have course1 and correct corresponding average in term1 group', function () {
+          expect(controller.get('listItems')[1].items[0]).to.eql({course: course1, average: 0});
         });
 
-        it('should have course2 in term2 group', function () {
-          expect(controller.get('listItems')[0].items).to.contain(course2);
+        it('should have course2 and correct corresponding average  in term2 group', function () {
+          expect(controller.get('listItems')[0].items[0]).to.eql({course: course2, average: 84});
         });
 
-        it('should have course3 in term2 group', function () {
-          expect(controller.get('listItems')[0].items).to.contain(course3);
+        it('should have course3 and correct corresponding average  in term2 group', function () {
+          expect(controller.get('listItems')[0].items[1]).to.eql({course: course3, average: 0});
+        });
+
+        it('should have course4 and correct corresponding average  in term2 group', function () {
+          expect(controller.get('listItems')[0].items[2]).to.eql({course: course4, average: 75});
         });
       });
     });
@@ -147,7 +157,7 @@ describe(test.label, function () {
     describe('goToCourseRoute()', function () {
       beforeEach(function () {
         sandbox.stub(controller, 'transitionToRoute');
-        controller.actions.goToCourseRoute.apply(controller, [course1]);
+        controller.actions.goToCourseRoute.apply(controller, [{course: course1, average: null}]);
       });
 
       it('should have transitioned to course route', function () {

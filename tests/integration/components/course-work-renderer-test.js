@@ -15,7 +15,7 @@ describe(test.label, function () {
       label: 'Assignment 1',
       weight: 40,
       grade: 100,
-      due: moment('September 28th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a').toISOString(),
+      due: moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a').toISOString(),
       completed: true
     });
     beforeEach(function () {
@@ -53,7 +53,7 @@ describe(test.label, function () {
     let item = Ember.Object.create({
       label: 'Assignment 1',
       grade: 100,
-      due: moment('September 28th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a').toISOString(),
+      due: moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a').toISOString(),
       completed: true
     });
     beforeEach(function () {
@@ -91,7 +91,7 @@ describe(test.label, function () {
     let item = Ember.Object.create({
       label: 'Assignment 1',
       weight: 40,
-      due: moment('September 28th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a').toISOString(),
+      due: moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a').toISOString(),
       completed: true
     });
     beforeEach(function () {
@@ -129,7 +129,7 @@ describe(test.label, function () {
     let item = Ember.Object.create({
       label: 'Assignment 1',
       weight: 40,
-      due: moment('September 28th 2017, 11:59 pm', 'MMMM Do yyyy, h:mm a').toISOString(),
+      due: moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a').toISOString(),
       completed: false
     });
     beforeEach(function () {

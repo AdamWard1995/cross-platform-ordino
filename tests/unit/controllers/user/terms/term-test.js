@@ -434,7 +434,7 @@ describe(test.label, function () {
     describe('goToCourseRoute()', function () {
       beforeEach(function () {
         sandbox.stub(controller, 'transitionToRoute')
-        controller.actions.goToCourseRoute.apply(controller, [Ember.Object.create({id: 12345})]);
+        controller.actions.goToCourseRoute.apply(controller, [{course: Ember.Object.create({id: 12345}), average: 95}]);
       });
 
       it('should have transitioned to the selected course page', function () {

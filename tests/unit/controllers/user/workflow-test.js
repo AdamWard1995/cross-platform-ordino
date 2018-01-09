@@ -315,7 +315,7 @@ describe(test.label, function () {
           work2.changedAttributes = () => {
             return {label: ['Assignment 2', 'Assignment 4']};
           };
-          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 456, 12345]);
+          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do YYYY, h:mm aZ').toISOString(), 456, 12345]);
         });
 
         it('should not have normalize indices', function () {
@@ -372,7 +372,7 @@ describe(test.label, function () {
           work2.changedAttributes = () => {
             return {course: [123, 456]};
           };
-          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 456, 67890]);
+          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do YYYY, h:mm aZ').toISOString(), 456, 67890]);
         });
 
         it('should have normalize indices', function () {
@@ -429,7 +429,7 @@ describe(test.label, function () {
           work2.changedAttributes = () => {
             return {};
           };
-          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do yyyy, h:mm aZ').toISOString(), 456, 67890]);
+          controller.actions.editCourseWork.apply(controller, ['Assignment 4', 33, 87, moment('September 30th 2017, 10:30 pmZ', 'MMMM Do YYYY, h:mm aZ').toISOString(), 456, 67890]);
         });
 
         it('should have normalize indices', function () {

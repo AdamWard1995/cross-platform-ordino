@@ -16,7 +16,7 @@
   </div>
   {{#ember-scrollable class='list-scrollable'}}
     {{ordered-list
-      items=model.courses
+      items=courseListItems
       new=new
       itemRenderer=(component 'course-renderer')
       onItemSelected=(action 'goToCourseRoute')

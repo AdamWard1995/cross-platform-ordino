@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import {deleteCourse, deleteTerm} from 'cross-platform-ordino/utils/cleanup';
+import {getStatistics} from 'cross-platform-ordino/utils/course-statistics';
 
 import ChangedItemMixin from 'cross-platform-ordino/mixins/changed-item';
 
@@ -15,6 +16,20 @@ export default Ember.Controller.extend(ChangedItemMixin, {
     if (this.get('itemToDelete')) {
       return `Are you sure you want to delete ${this.get('itemToDelete').get('course-code')}?`
     }
+  }),
+  courseListItems: Ember.computed('model.courses', 'model.courseWork', function() {
+    const items = [];
+    const courses = this.get('model').courses;
+    const courseWork = this.get('model').courseWork;
+    if (courses) {
+      courses.forEach((course) => {
+        items.push({
+          course,
+          average: courseWork ? getStatistics(courseWork.filter(work => work.get('cid') === course.get('id'))).currentAvg : null
+        });
+      });
+    }
+    return items;
   }),
   actions: {
     showEditModal () {
@@ -103,8 +118,8 @@ export default Ember.Controller.extend(ChangedItemMixin, {
     goToTermsRoute () {
       this.transitionToRoute('user.terms');
     },
-    goToCourseRoute (course) {
-      this.transitionToRoute('user.courses.course', course.get('id'));
+    goToCourseRoute (item) {
+      this.transitionToRoute('user.courses.course', item.course.get('id'));
     }
   }
 });
