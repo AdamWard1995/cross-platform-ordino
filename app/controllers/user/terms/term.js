@@ -16,7 +16,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
   }),
   deleteCourseConfirmationMessage: Ember.computed('itemToDelete', function() {
     if (this.get('itemToDelete')) {
-      return `Are you sure you want to delete ${this.get('itemToDelete').get('course-code')}?`
+      return `Are you sure you want to delete ${this.get('itemToDelete').course.get('course-code')}?`
     }
   }),
   courseListItems: Ember.computed('model.courses', 'model.courseWork', function() {
@@ -113,7 +113,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       this.send('hideCreateCourseModal');
     },
     deleteCourse () {
-      const course = this.get('itemToDelete');
+      const course = this.get('itemToDelete').course;
       deleteCourse(course, this.get('model').courses, this.store);
       this.send('hideDeleteCourseModal');
       this.send('refreshModel');

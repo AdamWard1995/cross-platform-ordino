@@ -23,11 +23,15 @@
       flex: 1 0 auto;
     }
 
-    .delete-icon {
-      margin-right: 20px;
+    .menu-button {
+      margin-right: 5px;
       margin-left: 10px;
+      padding: 10px 0;
+    }
+
+    .menu-icon {
       color: $color-primary-light;
-      font-size: 2em;
+      font-size: 1.8em;
 
       &:hover {
         color: $color-dark-accent;
@@ -38,34 +42,30 @@
       }
     }
 
-    .order-buttons {
-      display: flex;
-      flex: 0 0 auto;
-      flex-direction: column;
+    .dropdown-menu-item-icon {
+      margin: 5px 10px;
+    }
 
-      .fa {
-        color: $color-primary-light;
-        font-size: 2em;
+    .dropdown-menu {
+      left: -120px;
+
+      &-item {
+        color: $color-black;
 
         &:hover {
           color: $color-dark-accent;
-          cursor: pointer;
-        }
-
-        &:active {
-          color: $color-light-accent;
-        }
-
-        &:nth-child(1) {
-          margin-bottom: -3px;
-          transform: rotate(-90deg) scaleX(.7);
-        }
-
-        &:nth-last-child(1) {
-          margin-top: -3px;
-          transform: rotate(90deg) scaleX(.7);
         }
       }
+    }
+
+    .decrement-icon {
+      margin-bottom: -3px;
+      transform: rotate(-90deg) scaleX(.7);
+    }
+
+    .increment-icon {
+      margin-top: -3px;
+      transform: rotate(90deg) scaleX(.7);
     }
   }
 }

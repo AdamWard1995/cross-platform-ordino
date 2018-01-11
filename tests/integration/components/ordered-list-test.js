@@ -43,10 +43,12 @@ describe(test.label, function () {
       expect(this.$()).to.have.length(1);
     });
 
-    it('should render nothing for each list item', function() {
-      expect(this.$('.list-group-item').eq(0).text().trim(), 'Should render nothing for first item').to.eql('');
-      expect(this.$('.list-group-item').eq(1).text().trim(), 'Should render nothing for second item').to.eql('');
-      expect(this.$('.list-group-item').eq(2).text().trim(), 'Should render nothing for third item').to.eql('');
+    it('should render 3 list items even though they are empty', function () {
+      expect(this.$('.list-group-item')).to.have.length(3);
+    });
+
+    it('should render menu icons', function() {
+      expect(this.$('.menu-icon')).to.have.length(3);
     });
 
     it('should render delete icons', function() {
@@ -89,6 +91,10 @@ describe(test.label, function () {
       expect(this.$('.mock-component h1').eq(0).text().trim(), 'Should render first item correctly').to.eql('item1');
       expect(this.$('.mock-component h1').eq(1).text().trim(), 'Should render second item correctly').to.eql('item2');
       expect(this.$('.mock-component h1').eq(2).text().trim(), 'Should render third item correctly').to.eql('item3');
+    });
+
+    it('should render menu icons', function() {
+      expect(this.$('.menu-icon')).to.have.length(3);
     });
 
     it('should render delete icons', function() {

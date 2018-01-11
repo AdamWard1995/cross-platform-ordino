@@ -4,11 +4,20 @@
       {{#if itemRenderer}}
         {{component itemRenderer class='ordered-item' item=item}}
       {{/if}}
-      {{fa-icon 'trash' class='delete-icon' click=(action 'deleteItem' item)}}
-      <div class='order-buttons'>
-        {{fa-icon 'play' class='decrement-icon' click=(action 'decrementIndex' item)}}
-        {{fa-icon 'play' class='increment-icon' click=(action 'incrementIndex' item)}}
-      </div>
+      {{#bs-dropdown as |dd|}}
+        {{#dd.button type='link' class='menu-button'}}{{fa-icon 'ellipsis-h' class='menu-icon'}}{{/dd.button}}
+        {{#dd.menu as |ddm|}}
+          {{#ddm.item class='dropdown-menu-item' enabled=false click=(action 'decrementIndex' item)}}{{fa-icon 'play' class='decrement-icon dropdown-menu-item-icon'}}Move up{{/ddm.item}}
+          {{#ddm.item class='dropdown-menu-item' click=(action 'incrementIndex' item)}}{{fa-icon 'play' class='increment-icon dropdown-menu-item-icon'}}Move down{{/ddm.item}}
+          {{ddm.divider}}
+          {{#ddm.item class='dropdown-menu-item' click=(action 'deleteItem' item)}}{{fa-icon 'trash' class='delete-icon dropdown-menu-item-icon'}}Delete...{{/ddm.item}}
+          {{!-- {{#if menuItems}}
+            {{#each menuItems as |menuItem|}}
+              {{#ddm.item class='dropdown-menu-item'}}{{#ddm.link-to "index"}}Something{{/ddm.link-to}}{{/ddm.item}}
+            {{/each}}
+          {{/if}} --}}
+        {{/dd.menu}}
+      {{/bs-dropdown}}
     </div>
   {{/each}}
 </div>

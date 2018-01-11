@@ -36,7 +36,7 @@ describe(test.label, function () {
     describe('deleteCourseConfirmationMessage', function () {
       describe('is item to delete', function () {
         beforeEach(function () {
-          controller.set('itemToDelete', Ember.Object.create({'course-code': 'COMP 4905'}));
+          controller.set('itemToDelete', {course: Ember.Object.create({'course-code': 'COMP 4905'}), average: 95});
         });
 
         it('should return correct confirmation message', function () {
@@ -401,7 +401,7 @@ describe(test.label, function () {
         store = {foo: 'bar'};
         controller.store = store;
         controller.set('model', {courses: [otherCourse1, otherCourse2]});
-        controller.set('itemToDelete', toDelete);
+        controller.set('itemToDelete', {course: toDelete, average: 90});
         sandbox.stub(cleanup, 'deleteCourse');
         sandbox.stub(controller, 'send');
         controller.actions.deleteCourse.apply(controller);
