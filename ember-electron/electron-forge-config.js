@@ -33,7 +33,7 @@ module.exports = {
     loadingGif: 'public/loading.gif',
     iconUrl: 'https://firebasestorage.googleapis.com/v0/b/ordino-b5acf.appspot.com/o/icon.ico?alt=media&token=a20a6929-d0e5-4684-b2ed-825b67c52eec',
     noMsi: true,
-    authors: 'Adam Ward',
+    authors: 'Quadriga Software Development Group',
     title: 'Ordino'
   },
   "electronInstallerDebian": {},
