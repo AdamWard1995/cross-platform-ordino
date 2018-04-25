@@ -21,6 +21,10 @@
 
     &-title {
       flex: 1 0 auto;
+
+      .current-avg {
+        margin: 20px;
+      }
     }
 
     &-create-button {
