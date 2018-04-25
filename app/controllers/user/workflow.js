@@ -157,6 +157,15 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       this.set('minWeightToFilter', '');
       this.set('maxWeightToFilter', '');
       this.set('filterCompleted', false);
+    },
+    filterDate (item) {
+      const date = moment(item.group, DATE_FORMAT);
+      const dayAfter = moment(date);
+      const dayBefore = moment(date);
+      dayAfter.subtract(1, 'days');
+      dayBefore.add(1, 'days');
+      this.set('dueAfterToFilter', `${dayAfter.valueOf()}`);
+      this.set('dueBeforeToFilter', `${dayBefore.valueOf()}`);
     }
   }
 });
