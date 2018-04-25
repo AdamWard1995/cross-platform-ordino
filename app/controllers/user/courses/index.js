@@ -31,7 +31,7 @@ export default Ember.Controller.extend({
     return [];
   }),
   courseCodeValidator (term, course, courseCode) {
-    return !courseCode || course.get('course-code').toLowerCase().startsWith(courseCode.toLowerCase());
+    return !courseCode || course.course.get('course-code').toLowerCase().startsWith(courseCode.toLowerCase());
   },
   semesterValidator (term, course, semester) {
     return !semester || term.get('semester') === semester;
