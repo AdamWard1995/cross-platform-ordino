@@ -7,8 +7,8 @@ export default Ember.Component.extend({
   classNames: ['percent-input', 'input-group'],
   popoverVisible: false,
   observeValues: function() {
-    const numerator = parseInt(this.get('numerator'));
-    const denominator = parseInt(this.get('denominator'));
+    const numerator = parseFloat(this.get('numerator'));
+    const denominator = parseFloat(this.get('denominator'));
     if (!isNaN(numerator) && !isNaN(denominator) && numerator >= 0 && denominator > 0) {
       this.set('percent', round([numerator / denominator * 100, 1]));
     }
