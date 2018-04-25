@@ -14,9 +14,9 @@
         </h2>
         <div class='course-report-details'>
           <div class='course-report-details-labels'>
-            <h4><div class='label label-primary'>Total earned</div></h4>
-            <h4><div class='label label-primary'>Total lost</div></h4>
-            <h4><div class='label label-primary'>Total remaining</div></h4>
+            <h4><div class='label label-primary'>Portion of total marks earned</div></h4>
+            <h4><div class='label label-primary'>Portion of total marks lost</div></h4>
+            <h4><div class='label label-primary'>Portion of course remaining</div></h4>
           </div>
           <div class='course-report-details-values'>
             <div class='value'>
@@ -36,12 +36,16 @@
         <div class='course-report-details'>
           <div class='course-report-details-labels'>
             <h4><div class='label label-primary'>Current average</div></h4>
+            <h4><div class='label label-primary'>Portion of course completed</div></h4>
             <h4><div class='label label-primary'>Maximum possible final grade</div></h4>
             <h4><div class='label label-primary'>Guaranteed minimum final grade</div></h4>
           </div>
           <div class='course-report-details-values'>
             <div class='value'>
               {{round model.currentAvg 1}}%
+            </div>
+            <div class='value'>
+              {{round model.completedWeight 1}}%
             </div>
             <div class='value'>
               {{round model.maximumGrade 1}}%
