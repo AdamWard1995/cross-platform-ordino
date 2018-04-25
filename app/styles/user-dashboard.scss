@@ -61,6 +61,8 @@ $shadow-hover-color-2: rgba($color-dark-accent, .59);
     .card {
       margin: 20px;
       text-align: center;
+      background-color: #fefefe;
+      border: 1px ridge lightgray;
       box-shadow: 0 4px 8px 0 $shadow-color-1, 0 6px 20px 0 $shadow-color-2;
 
       &-header {
@@ -94,7 +96,7 @@ $shadow-hover-color-2: rgba($color-dark-accent, .59);
     }
 
     .due-next-week {
-      flex: 1 0 500px;
+      flex: 1 0 450px;
 
       .no-value {
         margin: 20px 10px;
@@ -133,8 +135,8 @@ $shadow-hover-color-2: rgba($color-dark-accent, .59);
     .number-courses,
     .number-terms,
     .current-term {
-      flex: 1 0 125px;
-      min-height: 140px;
+      flex: 1 0 150px;
+      min-height: 150px;
     }
 
     .logged-in-as,
@@ -150,7 +152,7 @@ $shadow-hover-color-2: rgba($color-dark-accent, .59);
     }
 
     .next-class {
-      flex: 1 0 500px;
+      flex: 1 0 460px;
     }
   }
 }

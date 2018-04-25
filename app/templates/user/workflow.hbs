@@ -45,6 +45,11 @@
             view=(component 'completed-filter' value=filterCompleted)
             passes=filterCompletedValidator
           )
+          (hash
+            value=filterLate
+            view=(component 'late-filter' value=filterLate)
+            passes=filterLateValidator
+          )
         )
         onItemSelected=(action 'showEditCourseWorkModal')
         onGroupSelected=(action 'filterDate')

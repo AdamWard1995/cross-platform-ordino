@@ -2,7 +2,17 @@
   <div class='label'>
     {{item.work.label}}
     {{#if item.work.completed}}
-      {{fa-icon 'check-circle' class='completed'}}
+      {{#fa-icon 'check-circle' class='completed'}}
+        {{bs-tooltip title='This item has been completed'}}
+      {{/fa-icon}}
+    {{else if item.late}}
+      {{#fa-icon 'exclamation-circle' class='late'}}
+        {{bs-tooltip title='This item is late'}}
+      {{/fa-icon}}
+    {{else if item.warn}}
+      {{#fa-icon 'exclamation-triangle' class='warn'}}
+        {{bs-tooltip title='This item is due within 24 hours'}}
+      {{/fa-icon}}
     {{/if}}
   </div>
   <div class='work-course'>

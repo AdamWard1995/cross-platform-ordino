@@ -5,24 +5,12 @@
       {{fa-icon 'check-circle' class='completed'}}
     {{/if}}
   </div>
-  <div class='due'>
-    {{if item.work.due (moment-format item.work.due 'MMMM Do YYYY, h:mm a') 'No due date'}}
+  <div class='work-course'>
+    <div class='course-value'>
+      {{item.course.course-code}}
+    </div>
   </div>
 </div>
-{{#if item.category}}
-  <div class='category'>
-    {{fa-icon item.category.icon}}
-  </div>
-{{/if}}
-<div class='work-course'>
-  <strong>Course</strong>
-  <div class='course-value'>
-    {{item.course.course-code}}
-  </div>
-</div>
-<div class='weight'>
-  <strong>Weight</strong>
-  <div class='weight-value'>
-    {{if item.work.weight (round item.work.weight 1) '---'}}%
-  </div>
+<div class='due'>
+  {{if item.work.due (moment-format item.work.due 'MMMM Do YYYY, h:mm a') 'No due date'}}
 </div>
