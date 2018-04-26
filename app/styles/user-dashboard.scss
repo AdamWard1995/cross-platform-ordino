@@ -60,9 +60,9 @@ $shadow-hover-color-2: rgba($color-dark-accent, .59);
 
     .card {
       margin: 20px;
+      border: 1px ridge $color-mid-light-grey;
+      background-color: $color-eggshell;
       text-align: center;
-      background-color: #fefefe;
-      border: 1px ridge lightgray;
       box-shadow: 0 4px 8px 0 $shadow-color-1, 0 6px 20px 0 $shadow-color-2;
 
       &-header {
