@@ -47,7 +47,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
           const filteredCategory = categories.filterBy('id', work.get('cgyid'));
           const category = filteredCategory.length == 1 ? filteredCategory[0] : null;
           const late = !work.get('completed') && !now.isBefore(dueDate);
-          const warn = !work.get('completed') && dueDate.isBefore(in1Day);
+          const warn = !late && !work.get('completed') && dueDate.isBefore(in1Day);
           if (workByDay[dueDateStr]) {
             workByDay[dueDateStr].push({course: grouping.course, work, category, late, warn});
           } else {
