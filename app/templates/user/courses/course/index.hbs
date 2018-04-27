@@ -1,7 +1,7 @@
 <div class='course'>
   <div class='page-header course-header'>
     {{fa-icon 'arrow-left' class='back-arrow' click=(action 'goToTermRoute')}}
-    <h1 class='course-header-title'>{{model.course.course-code}}</h1>
+    <h1 class='course-header-title'>{{model.course.course-code}}<small class='current-avg'>Current average: {{if currentAvg (round currentAvg 1) '---'}}%</small></h1>
     <button class='btn btn-link course-header-create-button' {{action 'goToCourseReport'}}>
       {{fa-icon 'pie-chart'}} View report
     </button>

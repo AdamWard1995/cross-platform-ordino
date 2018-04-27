@@ -1,0 +1,16 @@
+<div class='left-portion'>
+  <div class='label'>
+    {{item.work.label}}
+    {{#if item.work.completed}}
+      {{fa-icon 'check-circle' class='completed'}}
+    {{/if}}
+  </div>
+  <div class='work-course'>
+    <div class='course-value'>
+      {{item.course.course-code}}
+    </div>
+  </div>
+</div>
+<div class='due'>
+  {{if item.work.due (moment-format item.work.due 'MMMM Do YYYY, h:mm a') 'No due date'}}
+</div>

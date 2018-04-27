@@ -18,7 +18,9 @@ export default Ember.Controller.extend({
           data.push({course: course[0], work});
         }
       });
-      return data;
+      return data.sort((a, b) => {
+        return moment(a.work.get('due')).valueOf() - moment(b.work.get('due')).valueOf();
+      });
     }
   }),
   numTerms: Ember.computed('model.terms', function() {

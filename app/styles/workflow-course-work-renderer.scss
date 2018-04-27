@@ -1,3 +1,4 @@
+.due-next-week-renderer,
 .workflow-course-work-renderer {
   display: flex;
   align-items: center;
@@ -7,8 +8,10 @@
     flex: 1 0 auto;
     flex-direction: column;
     align-items: flex-start;
+    justify-content: flex-start;
 
     .label {
+      display: flex;
       padding: 0;
       color: inherit;
       font-size: $font-size-m;
@@ -17,6 +20,26 @@
         margin-left: 2px;
         color: $color-green;
       }
+
+      .fa-exclamation-circle {
+        margin-left: 2px;
+        color: $color-red;
+      }
+
+      .fa-exclamation-triangle {
+        margin-left: 2px;
+        color: $color-yellow;
+      }
+
+      .work-course {
+        font-size: $font-size-s;
+        font-style: italic;
+        font-weight: normal;
+      }
+    }
+
+    .due {
+      padding: 0;
     }
   }
 

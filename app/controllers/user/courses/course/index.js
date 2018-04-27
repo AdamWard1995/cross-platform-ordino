@@ -5,12 +5,17 @@ import moment from 'moment';
 
 import ChangedItemMixin from 'cross-platform-ordino/mixins/changed-item';
 
+import {getStatistics} from 'cross-platform-ordino/utils/course-statistics';
+
 export default Ember.Controller.extend(ChangedItemMixin, {
   editCourse: false,
   deleteCourse: false,
   createCourseWork: false,
   editCourseWork: false,
   deleteCourseWork: false,
+  currentAvg: Ember.computed('model.course', function () {
+    return getStatistics(this.get('model').courseWork).currentAvg;
+  }),
   deleteConfirmationMessage: Ember.computed('model.course.course-code', function() {
     return `Are you sure you want to delete ${this.get('model').course.get('course-code')}?`
   }),

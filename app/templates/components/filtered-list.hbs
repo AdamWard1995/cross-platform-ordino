@@ -1,6 +1,6 @@
 <div class='list-group item-list'>
   {{#each filteredItems as |group|}}
-    <div class='list-group-item group-label'>
+    <div class='list-group-item group-label' {{action 'groupSelected' group}} role='button'>
       {{#if group-renderer}}
         {{component group-renderer item=group.group}}
       {{else}}

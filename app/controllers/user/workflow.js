@@ -15,7 +15,8 @@ export default Ember.Controller.extend(ChangedItemMixin, {
     dueBeforeToFilter: 'db',
     minWeightToFilter: 'minw',
     maxWeightToFilter: 'maxw',
-    filterCompleted: 'comp'
+    filterCompleted: 'comp',
+    filterLate: 'past'
   },
   categoryToFilter: '',
   courseToFilter: '',
@@ -24,6 +25,7 @@ export default Ember.Controller.extend(ChangedItemMixin, {
   minWeightToFilter: '',
   maxWeightToFilter: '',
   filterCompleted: true,
+  filterLate: false,
 
   reset: false,
   haveCurrentTerm: Ember.computed('model.no-current-term', function() {
@@ -33,20 +35,23 @@ export default Ember.Controller.extend(ChangedItemMixin, {
     const workByCourse = this.get('model').workByCourse;
     const categories = this.get('model').categories;
     const now = moment();
+    const in1Day = moment();
+    in1Day.add(1, 'days');
     if (workByCourse && workByCourse.length > 0 && workByCourse[0].course) {
       const workByDay = {};
       workByCourse.forEach((grouping) => {
         grouping.courseWork.forEach((work) => {
-          const dueDate = moment(work.get('due'));
-          if (now.isBefore(dueDate)) {
-            const dueDateStr = dueDate.format(DATE_FORMAT);
-            const filteredCategory = categories.filterBy('id', work.get('cgyid'));
-            const category = filteredCategory.length == 1 ? filteredCategory[0] : null;
-            if (workByDay[dueDateStr]) {
-              workByDay[dueDateStr].push({course: grouping.course, work, category});
-            } else {
-              workByDay[dueDateStr] = [{course: grouping.course, work, category}];
-            }
+          const date = work.get('due');
+          const dueDate = moment(date);
+          const dueDateStr = dueDate.format(DATE_FORMAT);
+          const filteredCategory = categories.filterBy('id', work.get('cgyid'));
+          const category = filteredCategory.length == 1 ? filteredCategory[0] : null;
+          const late = !work.get('completed') && !now.isBefore(dueDate);
+          const warn = !late && !work.get('completed') && dueDate.isBefore(in1Day);
+          if (workByDay[dueDateStr]) {
+            workByDay[dueDateStr].push({course: grouping.course, work, category, late, warn});
+          } else {
+            workByDay[dueDateStr] = [{course: grouping.course, work, category, late, warn}];
           }
         });
       });
@@ -108,7 +113,10 @@ export default Ember.Controller.extend(ChangedItemMixin, {
     return !weight || item.work.get('weight') <= weight;
   },
   filterCompletedValidator (date, item, filterCompleted) {
-    return !filterCompleted || (filterCompleted && !item.work.get('completed'));
+    return !filterCompleted || !item.work.get('completed');
+  },
+  filterLateValidator (date, item, filterLate) {
+    return item.work.get('due') && (!filterLate || !item.late);
   },
   actions: {
     showEditCourseWorkModal (item) {
@@ -157,6 +165,16 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       this.set('minWeightToFilter', '');
       this.set('maxWeightToFilter', '');
       this.set('filterCompleted', false);
+      this.set('filterLate', false);
+    },
+    filterDate (item) {
+      const date = moment(item.group, DATE_FORMAT);
+      const dayAfter = moment(date);
+      const dayBefore = moment(date);
+      dayAfter.subtract(1, 'days');
+      dayBefore.add(1, 'days');
+      this.set('dueAfterToFilter', `${dayAfter.valueOf()}`);
+      this.set('dueBeforeToFilter', `${dayBefore.valueOf()}`);
     }
   }
 });

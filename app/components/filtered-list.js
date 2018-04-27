@@ -29,6 +29,9 @@ export default Ember.Component.extend({
     itemSelected (item) {
       this.get('onItemSelected')(item);
     },
+    groupSelected (group) {
+      this.get('onGroupSelected')(group);
+    },
     clear () {
       const onClear = this.get('onClear');
       if (onClear) {

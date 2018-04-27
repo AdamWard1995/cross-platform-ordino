@@ -101,23 +101,23 @@ describe(test.label, function () {
 
   describe('courseCodeValidator', function () {
     it('should pass when filter value is upper case', function () {
-      expect(controller.courseCodeValidator(term1, course1, 'COMP')).to.eql(true);
+      expect(controller.courseCodeValidator(term1, {course: course1}, 'COMP')).to.eql(true);
     });
 
     it('should pass when filter value is lower case', function () {
-      expect(controller.courseCodeValidator(term1, course1, 'comp')).to.eql(true);
+      expect(controller.courseCodeValidator(term1, {course: course1}, 'comp')).to.eql(true);
     });
 
     it('should pass when no course code entered', function () {
-      expect(controller.courseCodeValidator(term1, course1, undefined)).to.eql(true);
+      expect(controller.courseCodeValidator(term1, {course: course1}, undefined)).to.eql(true);
     });
 
     it('should fail when course code doesn\'t start with filter value', function () {
-      expect(controller.courseCodeValidator(term1, course1, 'erth')).to.eql(false);
+      expect(controller.courseCodeValidator(term1, {course: course1}, 'erth')).to.eql(false);
     });
 
     it('should fail when filter value is in course code but not at start', function () {
-      expect(controller.courseCodeValidator(term1, course1, 'rth')).to.eql(false);
+      expect(controller.courseCodeValidator(term1, {course: course1}, 'rth')).to.eql(false);
     });
   });
 

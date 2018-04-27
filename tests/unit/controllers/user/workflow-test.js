@@ -84,36 +84,40 @@ describe(test.label, function () {
       });
 
       describe('model has values', function () {
-        it('should have 3 term groups', function () {
-          expect(controller.get('listItems')).to.have.length(3);
-        });
-
-        it('should only have 3 groups', function () {
-          expect(controller.get('listItems')).to.have.length(3);
+        it('should have 4 groups', function () {
+          expect(controller.get('listItems')).to.have.length(4);
         });
 
         it('should have correct first date group', function () {
-          expect(controller.get('listItems')[0].group).to.eql(work2.get('due').format('MMMM Do YYYY'));
+          expect(controller.get('listItems')[0].group).to.eql(work1.get('due').format('MMMM Do YYYY'));
         });
 
         it('should have correct first group items', function () {
-          expect(controller.get('listItems')[0].items).to.eql([{course: course1, work: work2, category: null}]);
+          expect(controller.get('listItems')[0].items).to.eql([{course: course1, work: work1, category: category1, late: true, warn: false}]);
         });
 
         it('should have correct second date group', function () {
-          expect(controller.get('listItems')[1].group).to.eql(work3.get('due').format('MMMM Do YYYY'));
+          expect(controller.get('listItems')[1].group).to.eql(work2.get('due').format('MMMM Do YYYY'));
         });
 
         it('should have correct second group items', function () {
-          expect(controller.get('listItems')[1].items).to.eql([{course: course1, work: work4, category: category1}, {course: course2, work: work3, category: null}]);
+          expect(controller.get('listItems')[1].items).to.eql([{course: course1, work: work2, category: null, late: false, warn: true}]);
         });
 
         it('should have correct third date group', function () {
-          expect(controller.get('listItems')[2].group).to.eql(work5.get('due').format('MMMM Do YYYY'));
+          expect(controller.get('listItems')[2].group).to.eql(work3.get('due').format('MMMM Do YYYY'));
         });
 
         it('should have correct third group items', function () {
-          expect(controller.get('listItems')[2].items).to.eql([{course: course2, work: work5, category: category2}]);
+          expect(controller.get('listItems')[2].items).to.eql([{course: course1, work: work4, category: category1, late: false, warn: false}, {course: course2, work: work3, category: null, late: false, warn: false}]);
+        });
+
+        it('should have correct fourth date group', function () {
+          expect(controller.get('listItems')[3].group).to.eql(work5.get('due').format('MMMM Do YYYY'));
+        });
+
+        it('should have correct fourth group items', function () {
+          expect(controller.get('listItems')[3].items).to.eql([{course: course2, work: work5, category: category2, late: false, warn: false}]);
         });
       });
     });
@@ -135,7 +139,7 @@ describe(test.label, function () {
         });
 
         it('should return correct item grouping', function () {
-          expect(controller.get('changed')).to.eql({work: work2, course: course1, category: null});
+          expect(controller.get('changed')).to.eql({work: work2, course: course1, category: null, late: false, warn: true});
         });
       });
 
@@ -270,6 +274,54 @@ describe(test.label, function () {
     it('should pass when no filter value is set', function () {
       const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
       expect(controller.maxWeightValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, weight: 50})}, null)).to.eql(true);
+    });
+  });
+
+  describe('filterCompletedValidator', function () {
+    it('should pass when filter is NOT set and item is completed', function () {
+      const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
+      expect(controller.filterCompletedValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, completed: true})}, undefined)).to.eql(true);
+      expect(controller.filterCompletedValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, completed: true})}, false)).to.eql(true);
+    });
+
+    it('should pass when filter is NOT set and item is NOT completed', function () {
+      const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
+      expect(controller.filterCompletedValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, completed: false})}, undefined)).to.eql(true);
+      expect(controller.filterCompletedValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, completed: false})}, false)).to.eql(true);
+    });
+
+    it('should fail when filter is set and item is completed', function () {
+      const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
+      expect(controller.filterCompletedValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, completed: true})}, true)).to.eql(false);
+    });
+
+    it('should pass when filter is set and item is NOT completed', function () {
+      const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
+      expect(controller.filterCompletedValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, completed: false})}, true)).to.eql(true);
+    });
+  });
+
+  describe('filterLateValidator', function () {
+    it('should pass when filter is NOT set and item is late', function () {
+      const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
+      expect(controller.filterLateValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, completed: false}), late: true}, undefined)).to.eql(true);
+      expect(controller.filterLateValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, completed: false}), late: true}, false)).to.eql(true);
+    });
+
+    it('should pass when filter is NOT set and item is NOT late', function () {
+      const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
+      expect(controller.filterLateValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, completed: false}), late: false}, undefined)).to.eql(true);
+      expect(controller.filterLateValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, completed: false}), late: false}, false)).to.eql(true);
+    });
+
+    it('should fail when filter is set and item is late', function () {
+      const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
+      expect(controller.filterLateValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, completed: false}), late: true}, true)).to.eql(false);
+    });
+
+    it('should pass when filter is set and item is NOT late', function () {
+      const due = moment('September 28th 2017, 11:59 pm', 'MMMM Do YYYY, h:mm a');
+      expect(controller.filterLateValidator(due.format('MMMM Do YYYY'), {work: Ember.Object.create({due, completed: true}), late: false}, true)).to.eql(true);
     });
   });
 
