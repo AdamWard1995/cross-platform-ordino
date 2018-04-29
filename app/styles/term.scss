@@ -4,6 +4,14 @@
   height: calc(100% - #{$action-buttons-height});
   margin: 0 20px;
 
+  .alert {
+    .btn-link {
+      padding: 0;
+      border: 0;
+      vertical-align: top;
+    }
+  }
+
   .list-scrollable {
     flex: 1 0 auto;
     width: 100%;

@@ -14,6 +14,11 @@
       {{fa-icon 'plus'}} Create course...
     </button>
   </div>
+  {{#if noCourses}}
+    <div class='alert alert-info'>
+      No courses have been created for this term. Would you like to <button class='btn btn-link' {{action 'showCreateCourseModal'}}>create a course?</button>
+    </div>
+  {{/if}}
   {{#ember-scrollable class='list-scrollable'}}
     {{ordered-list
       items=courseListItems
@@ -23,6 +28,7 @@
       itemRenderer=(component 'course-renderer')
       onItemSelected=(action 'goToCourseRoute')
       onItemDeleted=(action 'showDeleteCourseModal')
+      onItemDuplicated=(action 'duplicateCourse')
     }}
   {{/ember-scrollable}}
   {{create-term-modal

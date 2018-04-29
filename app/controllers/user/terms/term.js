@@ -34,6 +34,9 @@ export default Ember.Controller.extend(ChangedItemMixin, {
     }
     return items;
   }),
+  noCourses: Ember.computed('courseListItems', function() {
+    return this.get('courseListItems').length === 0;
+  }),
   actions: {
     showEditModal () {
       this.set('editTerm', true);
@@ -94,9 +97,11 @@ export default Ember.Controller.extend(ChangedItemMixin, {
         'index': index,
         'course-code': courseCode
       });
-      this.addNew(course);
       course.save().then(() => {
         this.send('refreshModel');
+        Ember.run.later(() => {
+          this.addNew(this.get('courseListItems').get('lastObject'));
+        }, 150);
       });
 
       days.forEach((day) => {
@@ -117,6 +122,20 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       deleteCourse(course, this.get('model').courses, this.store);
       this.send('hideDeleteCourseModal');
       this.send('refreshModel');
+    },
+    duplicateCourse (item) {
+      const course = this.store.createRecord('course', {
+        'uid': this.get('session').get('currentUser').uid,
+        'tid': item.course.get('tid'),
+        'index': this.get('model').courses.length,
+        'course-code': item.course.get('course-code')
+      });
+      course.save().then(() => {
+        this.send('refreshModel');
+        Ember.run.later(() => {
+          this.addNew(this.get('courseListItems').get('lastObject'));
+        }, 150);
+      });
     },
     updateCourseIndex (item, index) {
       set(item, 'index', index);

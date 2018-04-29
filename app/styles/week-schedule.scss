@@ -1,4 +1,6 @@
 $header-height: 40px;
+$timeslot-shadow-color-1: rgba($color-black, .1);
+$timeslot-shadow-color-2: rgba($color-black, .09);
 
 .week-schedule {
   display: flex;
@@ -97,6 +99,7 @@ $header-height: 40px;
       border-radius: 5px;
       background-color: $color-primary-light;
       color: $color-white;
+      box-shadow: 0 2px 8px 0 $timeslot-shadow-color-1, 0 3px 20px 0 $timeslot-shadow-color-2;
       overflow: hidden;
       z-index: 1;
 

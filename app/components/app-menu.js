@@ -3,6 +3,12 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   classNames: ['app-menu'],
   classNameBindings: ['drawerOpen:is-open:is-closed'],
+  observeToggle: function() {
+    if (this.get('toggle')) {
+      this.actions.toggleDrawerState.apply(this);
+      this.set('toggle', false);
+    }
+  }.observes('toggle'),
   didRender () {
     this._super(...arguments);
     if (!this.get('drawerOpen') && this.$('.app-menu-drawer:visible').length == 1) {

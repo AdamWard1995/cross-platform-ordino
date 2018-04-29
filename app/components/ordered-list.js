@@ -50,6 +50,8 @@ export default Ember.Component.extend(ChangedItemMixin, {
         this.set('arranging', false);
       } else if (this.get('deleting')) {
         this.set('deleting', false);
+      } else if (this.get('duplicating')) {
+        this.set('duplicating', false);
       } else if (this.get('onItemSelected')) {
         this.get('onItemSelected')(item);
       }
@@ -60,6 +62,20 @@ export default Ember.Component.extend(ChangedItemMixin, {
       if (this.get('onItemDeleted')) {
         this.get('onItemDeleted')(item);
       }
+    },
+    duplicateItem (item) {
+      this.set('duplicating', true);
+
+      if (this.get('onItemDuplicated')) {
+        this.get('onItemDuplicated')(item);
+      }
+    },
+    rightClickHandler (itemNum, event) {
+      this.$().click();
+      this.$(`#menu-button-${itemNum}`).click();
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return true;
     }
   }
 });

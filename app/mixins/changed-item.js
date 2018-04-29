@@ -20,7 +20,9 @@ export default Ember.Mixin.create({
           this.set('timers', this.get('timers').slice().removeObject(itemObj));
         }
         const timer = Ember.run.later(() => {
-          this.set('changed', this.get('changed').slice().removeObject(item));
+          if (!this.isDestroying && !this.isDestroyed) {
+            this.set('changed', this.get('changed').slice().removeObject(item));
+          }
         }, 2000);
         this.set('timers', this.get('timers').slice().addObject({item, timer}));
       }
@@ -39,7 +41,9 @@ export default Ember.Mixin.create({
           this.set('timers', this.get('timers').slice().removeObject(itemObj));
         }
         const timer = Ember.run.later(() => {
-          this.set('new', this.get('new').slice().removeObject(item));
+          if (!this.isDestroying && !this.isDestroyed) {
+            this.set('new', this.get('new').slice().removeObject(item));
+          }
         }, 2000);
         this.set('timers', this.get('timers').slice().addObject({item, timer}));
       }

@@ -17,6 +17,11 @@
       {{fa-icon 'plus'}} Create course work...
     </button>
   </div>
+  {{#if noCourseWork}}
+    <div class='alert alert-info'>
+      No course work have been created for this course. Would you like to <button class='btn btn-link' {{action 'showCreateCourseWorkModal'}}>create course work?</button>
+    </div>
+  {{/if}}
   {{#ember-scrollable class='list-scrollable'}}
     {{ordered-list
       items=model.courseWork
@@ -25,6 +30,7 @@
       itemRenderer=(component 'course-work-renderer')
       onItemSelected=(action 'showEditCourseWorkModal')
       onItemDeleted=(action 'showDeleteCourseWorkModal')
+      onItemDuplicated=(action 'duplicateCourseWork')
     }}
   {{/ember-scrollable}}
 

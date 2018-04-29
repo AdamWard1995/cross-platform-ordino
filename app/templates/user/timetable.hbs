@@ -3,10 +3,36 @@
     <h1 class='timetable-header-title'>TimeTable</h1>
   </div>
   {{#if haveCurrentTerm}}
-    {{week-schedule timeslots=timeslots itemSelected=(action 'timeSlotSelected')}}
+    <label class='show-work-label'>
+      {{input
+        id='show-work-checkbox'
+        type='checkbox'
+        class='show-work'
+        checked=showCourseWork
+      }}
+      Show course work due this week
+    </label>
+    {{week-schedule timeslots=timeslots itemSelected=(action 'timeSlotSelected') itemRightClicked=(action 'timeSlotRightClicked')}}
   {{else}}
     <div class='alert alert-danger'>
       <strong>Error!</strong> You have no term selected as your current term.
     </div>
+  {{/if}}
+  {{#if editCourse}}
+    {{create-course-modal
+      open=true
+      title='Edit course'
+      term=(readonly itemToEdit.tid)
+      terms=(sort-by 'semester' 'year' model.terms)
+      course-code=(readonly itemToEdit.course-code)
+      createClassTimes=(readonly createClassTimes)
+      start-time=(readonly startTime)
+      selectedDays=(readonly classDays)
+      location=(readonly location)
+      end-time=(readonly endTime)
+      start-time=(readonly startTime)
+      onClose=(action 'hideEditModal')
+      onSubmit=(action 'editCourse')
+    }}
   {{/if}}
 </div>

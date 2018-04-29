@@ -31,6 +31,7 @@ Router.map(function() {
     this.route('categories');
     this.route('timetable');
   });
+  this.route('about');
 });
 
 export default Router;

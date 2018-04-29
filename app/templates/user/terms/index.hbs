@@ -6,6 +6,11 @@
     </button>
   </div>
   <div class='terms-sub-header'>** Current term</div>
+  {{#if noTerms}}
+    <div class='alert alert-info'>
+      No terms have been created. Would you like to <button class='btn btn-link' {{action 'showCreateModal'}}>create a term?</button>
+    </div>
+  {{/if}}
   {{#ember-scrollable class='list-scrollable'}}
     {{ordered-list
       items=model
@@ -13,6 +18,7 @@
       itemRenderer=(component 'term-renderer')
       onItemSelected=(action 'goToTermRoute')
       onItemDeleted=(action 'showDeleteModal')
+      onItemDuplicated=(action 'duplicateTerm')
     }}
   {{/ember-scrollable}}
   {{#if (or createTerm noTerms)}}

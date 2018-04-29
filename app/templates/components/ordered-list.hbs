@@ -1,21 +1,18 @@
 <div class='list-group item-list'>
-  {{#each orderedItems as |item|}}
-    <div class={{concat 'list-group-item' (if (contains new item) ' new') (if (contains changed item) ' changed')}} {{action 'itemSelected' item}} role='button'>
+  {{#each orderedItems as |item index|}}
+    <div class={{concat 'list-group-item' (if (contains new item) ' new') (if (contains changed item) ' changed')}} oncontextmenu={{action 'rightClickHandler' index}} {{action 'itemSelected' item}} role='button'>
       {{#if itemRenderer}}
         {{component itemRenderer class='ordered-item' item=item}}
       {{/if}}
       {{#bs-dropdown as |dd|}}
-        {{#dd.button type='link' class='menu-button'}}{{fa-icon 'ellipsis-h' class='menu-icon'}}{{/dd.button}}
+        {{#dd.button type='link' id=(concat 'menu-button-' index) class='menu-button'}}{{fa-icon 'ellipsis-h' class='menu-icon'}}{{/dd.button}}
         {{#dd.menu as |ddm|}}
           {{#ddm.item class='dropdown-menu-item' enabled=false click=(action 'decrementIndex' item)}}{{fa-icon 'play' class='decrement-icon dropdown-menu-item-icon'}}Move up{{/ddm.item}}
           {{#ddm.item class='dropdown-menu-item' click=(action 'incrementIndex' item)}}{{fa-icon 'play' class='increment-icon dropdown-menu-item-icon'}}Move down{{/ddm.item}}
           {{ddm.divider}}
+          {{#ddm.item class='dropdown-menu-item' click=(action 'duplicateItem' item)}}{{fa-icon 'copy' class='duplicate-icon dropdown-menu-item-icon'}}Duplicate{{/ddm.item}}
+          {{ddm.divider}}
           {{#ddm.item class='dropdown-menu-item' click=(action 'deleteItem' item)}}{{fa-icon 'trash' class='delete-icon dropdown-menu-item-icon'}}Delete...{{/ddm.item}}
-          {{!-- {{#if menuItems}}
-            {{#each menuItems as |menuItem|}}
-              {{#ddm.item class='dropdown-menu-item'}}{{#ddm.link-to "index"}}Something{{/ddm.link-to}}{{/ddm.item}}
-            {{/each}}
-          {{/if}} --}}
         {{/dd.menu}}
       {{/bs-dropdown}}
     </div>

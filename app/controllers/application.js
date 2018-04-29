@@ -1,4 +1,4 @@
-/* global window */
+/* global window, $ */
 
 import Ember from 'ember';
 
@@ -41,6 +41,9 @@ export default Ember.Controller.extend({
     },
     toggleShowDownloadModal () {
       this.set('showDownloadModal', !this.get('showDownloadModal'));
+    },
+    clickMenuToggleButton () {
+      $('.app-menu-side-bar-icon').click();
     }
   }
 });

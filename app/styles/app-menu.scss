@@ -5,15 +5,18 @@ $side-bar-shadow-color-1: rgba(0, 0, 0, .4);
 $side-bar-shadow-color-2: rgba(0, 0, 0, .36);
 $side-bar-shadow-color-3: rgba(0, 0, 0, .12);
 $side-bat-shadow-inset-color: rgba(0, 0, 0, .46);
+$icon-shadow-color-1: rgba($color-black, .2);
+$icon-shadow-color-2: rgba($color-black, .19);
 
 $drawer-border-color: #ddd;
 
 .app-menu {
   display: flex;
   height: 100%;
+  z-index: 1000;
 
   &-side-bar {
-    width: $side-bar-width;
+    width: 0;//$side-bar-width;
     height: calc(100% + 2px);
     margin-top: -2px;
     background-color: $color-primary;
@@ -22,12 +25,22 @@ $drawer-border-color: #ddd;
     box-shadow: 3px 0 5px 0 $side-bar-shadow-color-1, 3px 0 10px 0 $side-bar-shadow-color-2, inset 0 0 20px 10px $side-bar-shadow-color-3;
 
     &-icon {
-      margin-top: 10px;
+      margin-top: 5px;
+      margin-left: 5px;
+      padding: 10px;
+      border: 1px solid $color-dark-accent;
+      border-radius: 50%;
+      background-color: $color-primary;
       color: $color-white;
-      font-size: 2em;
+      font-size: 1.4em;
+      text-shadow: 1px 1px 1px $color-black;
+      box-shadow: 0 2px 8px 0 $icon-shadow-color-1, 0 3px 20px 0 $icon-shadow-color-2;
 
       &:hover {
-        color: $color-dark-accent;
+        margin-top: 3px;
+        margin-left: 3px;
+        padding: 12px;
+        background-color: $color-dark-accent;
         cursor: pointer;
       }
 
@@ -42,9 +55,8 @@ $drawer-border-color: #ddd;
     display: flex;
     flex-direction: column;
     width: $drawer-width;
-    height: 100%;
-    border: 1px solid $drawer-border-color;
-    box-shadow: inset 2px 0 8px $side-bat-shadow-inset-color;
+    margin-top: $action-buttons-height;
+    box-shadow: 4px 4px 10px $side-bat-shadow-inset-color;
 
     &-nav-view {
       display: flex;
@@ -56,7 +68,7 @@ $drawer-border-color: #ddd;
       background-color: $color-primary;
       color: $color-label-text;
       font-family: 'Segoe UI', 'Helvetica', Garuda, Arial, sans-serif;
-      font-size: $font-size-xxl;
+      font-size: $font-size-xxxxl;
 
       .buttons {
         display: flex;
@@ -76,6 +88,7 @@ $drawer-border-color: #ddd;
     &-content {
       position: relative;
       flex: 1 0 auto;
+      background-color: $color-white;
     }
   }
 

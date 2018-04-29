@@ -13,6 +13,9 @@ export default Ember.Controller.extend(ChangedItemMixin, {
   createCourseWork: false,
   editCourseWork: false,
   deleteCourseWork: false,
+  noCourseWork: Ember.computed('model', function() {
+    return this.get('model').courseWork.length === 0;
+  }),
   currentAvg: Ember.computed('model.course', function () {
     return getStatistics(this.get('model').courseWork).currentAvg;
   }),
@@ -185,6 +188,24 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       deleteCourseWork(toDelete, this.get('model').courseWork, this.store);
       this.send('refreshModel');
       this.send('hideDeleteCourseWorkModal');
+    },
+    duplicateCourseWork (item) {
+      const index = this.get('model').courseWork.length;
+      const work = this.store.createRecord('course-work', {
+        'uid': this.get('session').get('currentUser').uid,
+        'cid': item.get('cid'),
+        'index': index,
+        'label': item.get('label'),
+        'weight': item.get('weight'),
+        'grade': item.get('grade'),
+        'due': item.get('due'),
+        'cgyid': item.get('cgyid'),
+        'completed': item.get('completed')
+      });
+      this.addNew(work);
+      work.save().then(() => {
+        this.send('refreshModel');
+      });
     },
     goToTermRoute () {
       this.transitionToRoute('user.terms.term', this.get('model').course.get('tid'));

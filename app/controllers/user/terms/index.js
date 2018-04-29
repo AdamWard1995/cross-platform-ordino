@@ -56,6 +56,19 @@ export default Ember.Controller.extend(ChangedItemMixin, {
       this.send('refreshModel');
       this.send('hideDeleteModal');
     },
+    duplicateTerm (item) {
+      const term = this.store.createRecord('term', {
+        uid: this.get('session').get('currentUser').uid,
+        index: this.get('model').length,
+        semester: item.get('semester'),
+        year: item.get('year'),
+        current: false
+      });
+      this.addNew(term);
+      term.save().then(() => {
+        this.send('refreshModel');
+      });
+    },
     goToTermRoute (item) {
       this.transitionToRoute('user.terms.term', item.get('id'));
     }

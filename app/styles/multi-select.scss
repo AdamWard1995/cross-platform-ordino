@@ -1,11 +1,15 @@
 .multi-select {
   .selections {
     display: flex;
-    flex-direction: column;
 
     label {
+      display: flex;
       margin-top: 0;
-      margin-left: 20px;
+      margin-left: 10px;
+
+      input {
+        margin-right: 2px;
+      }
     }
   }
 }
