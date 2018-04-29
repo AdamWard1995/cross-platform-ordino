@@ -34,7 +34,7 @@ describe(test.label, function () {
         class3 = Ember.Object.create({id: 56, cid: 789});
         work1 = Ember.Object.create({id: 1, cid: 123, label: 'Assignment', due: moment('February 27th 1995, 8:00 am', 'MMMM Do YYYY, h:mm a'), index: 0, cgyid: 123});
         work2 = Ember.Object.create({id: 3, save: sinon.stub(), cid: 123, label: 'Test', due: moment('October 18th 9999, 10:00 pm', 'MMMM Do YYYY, h:mm a'), index: 1});
-        work3 = Ember.Object.create({id: 4, save: sinon.stub(), cid: 123, label: 'Quiz', due: moment().startOf('day'), index: 2});
+        work3 = Ember.Object.create({id: 4, save: sinon.stub(), cid: 123, label: 'Quiz', due: moment(), index: 2});
 
         sandbox.stub(route, 'modelFor')
           .withArgs('user').returns({
