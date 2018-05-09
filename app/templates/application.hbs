@@ -49,8 +49,8 @@
       </div>
       {{outlet}}
     </div>
-    {{#if showDownloadModal}}
-      {{download-modal open=true onClose=(action 'toggleShowDownloadModal')}}
+    {{#if (or showDownloadModal isMobile.any)}}
+      {{download-modal isMobile=isMobile.any open=true onClose=(action 'toggleShowDownloadModal')}}
     {{/if}}
   {{else}}
     <div class='important-message'>

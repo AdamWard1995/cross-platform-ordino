@@ -1,10 +1,11 @@
-{{#bs-modal class='download-modal' onHide=(action 'close') open=open as |modal|}}
+{{#bs-modal class=(concat 'download-modal ' computedClass) onHide=(action 'close') open=open as |modal|}}
   {{#modal.header}}
     <h2 class="modal-title">Download desktop application</h2>
   {{/modal.header}}
   {{#modal.body}}
+    <div class='alert alert-warning mobile-warning'>&emsp;This application has not been optimized for mobile devices. Please access the application from a non-mobile device or download a mobile version of the application.</div> 
     <div class='platforms'>
-      <div class='os'>
+      <div class='os desktop'>
         <div class='os-name'>
           Windows
         </div>
@@ -16,6 +17,18 @@
           <a href='https://firebasestorage.googleapis.com/v0/b/ordino-b5acf.appspot.com/o/Ordino-Windows-Installer-1.0.0-x86.msi?alt=media&token=50c80a05-beb7-4a9f-9f09-91261f563de7'>32-bit</a>
           |
           <a href='https://firebasestorage.googleapis.com/v0/b/ordino-b5acf.appspot.com/o/Ordino-Windows-Installer-1.0.0-x86_64.msi?alt=media&token=b50b2b56-7ef5-4951-a2d8-fe32b5890a4f'>64-bit</a>
+        </div>
+      </div>
+      <div class='os mobile'>
+        <div class='os-name'>
+          Android
+        </div>
+        {{fa-icon 'android' class='os-icon'}}
+        <div class='os-versions'>
+          Compatible versions: Jelly Bean or higher
+        </div>
+        <div class='os-links'>
+          <a href='https://play.google.com/store/apps/details?id=com.quadriga.ordino.user'>Download from Google Play</a>
         </div>
       </div>
     </div>
