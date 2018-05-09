@@ -55,12 +55,12 @@
   {{else}}
     <div class='important-message'>
       <h1 class='app-name'>
-        <img class='app-name-logo' src='/assets/images/logo.png' alt='O'>rdino<sup>&trade;</sup>
+        <img class='app-name-logo' src='/assets/images/logo.png' alt='O'>rdino<sup>&copy;</sup>
       </h1>
       {{#if onlineStatus.isCheckingConnection}}
         <div class='alert alert-info checking-connection'><div class='spinner'></div>Checking Internet connection...</div>
       {{else}}
-        <div class='alert alert-danger'><strong>Error!</strong> Ordino<sup>&trade;</sup> requires an Internet connection to function correctly.</div>
+        <div class='alert alert-danger'><strong>Error!</strong> Ordino<sup>&copy;</sup> requires an Internet connection to function correctly.</div>
         <button class='btn btn-link refresh' onClick="window.location.reload()">{{fa-icon 'refresh'}}Refresh</button>
       {{/if}}
     </div>
