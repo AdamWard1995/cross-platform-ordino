@@ -36,6 +36,8 @@
               </li>
             {{/link-to}}
           </ul>
+        {{else}}
+          <div class='need-to-sign-in'>You need to {{#link-to 'sign-in'}}Sign In{{/link-to}} to use Ordino's features.</div>
         {{/if}}
       {{/app-menu}}
       <div class='action-buttons'>

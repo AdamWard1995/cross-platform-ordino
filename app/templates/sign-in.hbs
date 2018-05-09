@@ -31,6 +31,12 @@
         <button class='btn btn-link'>Forgot your password?</button>
       {{/link-to}}
     </div>
+    <div class='no-account'>
+      Do not have an account?
+      {{#link-to 'sign-up'}}
+        Create an account.
+      {{/link-to}}
+    </div>
   </form>
   <div class='alert alert-danger {{errorMessageClass}}'>
     <strong>Error!</strong> {{errorMessage}}

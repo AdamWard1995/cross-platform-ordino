@@ -50,4 +50,13 @@
   .alert {
     margin-top: 20px;
   }
+
+  .no-account {
+    margin-top: 25px;
+    text-align: center;
+
+    .btn-link {
+      padding: 0;
+    }
+  }
 }

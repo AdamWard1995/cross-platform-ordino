@@ -269,6 +269,11 @@ body > .ember-view {
   }
 }
 
+.need-to-sign-in {
+  padding: 30px 10px;
+  text-align: center;
+}
+
 .instructions {
   color: $color-grey;
   font-size: $font-size-m;
