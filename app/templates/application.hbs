@@ -37,6 +37,13 @@
             {{/link-to}}
           </ul>
         {{else}}
+          <ul class='list-group'>
+            {{#link-to 'about'}}
+              <li class='list-group-item'>
+                {{fa-icon 'info-circle'}}About
+              </li>
+            {{/link-to}}
+          </ul>
           <div class='need-to-sign-in'>You need to {{#link-to 'sign-in'}}Sign In{{/link-to}} to use Ordino's features.</div>
         {{/if}}
       {{/app-menu}}
