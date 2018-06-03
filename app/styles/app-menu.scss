@@ -7,6 +7,7 @@ $side-bar-shadow-color-3: rgba(0, 0, 0, .12);
 $side-bat-shadow-inset-color: rgba(0, 0, 0, .46);
 $icon-shadow-color-1: rgba($color-black, .2);
 $icon-shadow-color-2: rgba($color-black, .19);
+$nav-view-color: rgba($color-primary, .9);
 
 $drawer-border-color: #ddd;
 
@@ -56,6 +57,7 @@ $drawer-border-color: #ddd;
     flex-direction: column;
     width: $drawer-width;
     margin-top: $action-buttons-height;
+    background-color: $color-white;
     box-shadow: 4px 4px 10px $side-bat-shadow-inset-color;
 
     &-nav-view {
@@ -65,7 +67,7 @@ $drawer-border-color: #ddd;
       width: 100%;
       height: $side-menu-nav-view-height;
       border-bottom: 1px solid $drawer-border-color;
-      background-color: $color-primary;
+      background-color: $nav-view-color;
       color: $color-label-text;
       font-family: 'Segoe UI', 'Helvetica', Garuda, Arial, sans-serif;
       font-size: $font-size-xxxxl;

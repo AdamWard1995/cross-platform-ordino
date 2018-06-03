@@ -1,5 +1,5 @@
 $action-buttons-height: 50px !global;
-$footer-height: 30px !global;
+$footer-height: 25px !global;
 $header-vertical-margin: 40px !global;
 $content-top-padding: 5px;
 
@@ -10,6 +10,7 @@ $content-top-padding: 5px;
 @import 'about';
 @import 'account';
 @import 'app-menu';
+@import 'app-name';
 @import 'categories';
 @import 'category-renderer';
 @import 'changeable-item';
@@ -63,19 +64,6 @@ body > .ember-view {
   display: flex;
   width: 100%;
   height: calc(100% - #{$footer-height});
-}
-
-.app-name {
-  display: flex;
-  align-items: center;
-  padding-bottom: 10px;
-  font-size: $font-size-xxxl;
-
-  &-logo {
-    height: 100px;
-    margin-right: -5px;
-    margin-left: 5px;
-  }
 }
 
 .important-message {
@@ -247,6 +235,17 @@ body > .ember-view {
         margin: 10px;
       }
     }
+
+    .welcome-message {
+      display: flex;
+      align-items: center;
+    }
+
+    .welcome-information {
+      max-width: 600px;
+      margin-top: 10px;
+      color: $color-grey;
+    }
   }
 }
 
@@ -280,8 +279,10 @@ body > .ember-view {
   align-items: center;
   justify-content: center;
   height: $footer-height;
+  border-top: 1px ridge $color-grey;
   background-color: $color-primary;
   color: $color-white;
+  font-size: 12px;
 }
 
 .instructions {

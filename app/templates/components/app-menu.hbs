@@ -3,10 +3,7 @@
 </div>
 <div class='app-menu-drawer'>
   <div class='app-menu-drawer-nav-view' {{action 'navViewClicked'}} role='button'>
-    <img class='app-menu-drawer-nav-view-logo' src='/assets/images/logo.png' alt='O'>
-    <div class='app-menu-drawer-nav-view-name-remainder'>
-      rdino<sup>&copy;</sup>
-    </div>
+    {{app-name}}
   </div>
   <div class='app-menu-drawer-content'>
     {{yield}}
