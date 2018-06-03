@@ -24,7 +24,7 @@ describe(test.label, function () {
     });
 
     it('should render default title', function() {
-      expect(this.$('.modal-title').text().trim()).to.eql('Download desktop application');
+      expect(this.$('.modal-title').text().trim()).to.eql('Download application');
     });
 
     it('should render Windows label', function() {
