@@ -21,7 +21,7 @@ $timeslot-shadow-color-2: rgba($color-black, .09);
       justify-content: center;
       border-top: 1px solid $color-grey;
       border-left: 1px solid $color-grey;
-      background-image: linear-gradient($color-primary, $color-primary-light);
+      background-image: linear-gradient($color-primary, $color-dark-accent);
       color: $color-white;
       font-size: $font-size-m;
 
@@ -97,7 +97,7 @@ $timeslot-shadow-color-2: rgba($color-black, .09);
       padding: 15px 0;
       border: 1px solid $color-grey;
       border-radius: 5px;
-      background-color: $color-primary-light;
+      background-color: $color-primary;
       color: $color-white;
       box-shadow: 0 2px 8px 0 $timeslot-shadow-color-1, 0 3px 20px 0 $timeslot-shadow-color-2;
       overflow: hidden;

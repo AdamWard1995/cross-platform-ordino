@@ -7,7 +7,7 @@ $side-bar-shadow-color-3: rgba(0, 0, 0, .12);
 $side-bat-shadow-inset-color: rgba(0, 0, 0, .46);
 $icon-shadow-color-1: rgba($color-black, .2);
 $icon-shadow-color-2: rgba($color-black, .19);
-$nav-view-color: rgba($color-primary, .9);
+$nav-view-color: $color-primary;
 
 $drawer-border-color: #ddd;
 
@@ -81,9 +81,14 @@ $drawer-border-color: #ddd;
         }
       }
 
-      &-logo {
-        width: 65px;
-        height: 65px;
+      .app-name {
+        margin-top: 10px;
+        margin-left: -15px;
+
+        &-logo {
+          width: 75px;
+          height: 75px;
+        }
       }
     }
 

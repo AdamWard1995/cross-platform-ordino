@@ -1,3 +1,7 @@
-<div class='app-name'>
-  <img class='app-name-logo' src='/assets/images/logo.png' alt='O'>rdino
+<div class='app-name {{if backgroundTransparent 'logo-background-transparent'}}'>
+  {{#if backgroundTransparent}}
+    <img class='app-name-logo background-transparent' src='/assets/images/logo-transparent.png' alt='O'>rdino
+  {{else}}
+    <img class='app-name-logo' src='/assets/images/logo.png' alt='O'>rdino
+  {{/if}}
 </div>
