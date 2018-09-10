@@ -7,6 +7,7 @@ const {A} = Ember;
 
 export default Ember.Controller.extend({
   showCourseWork: true,
+  timelineString: `${moment().startOf('week').format('MMMM Do YYYY')} - ${moment().endOf('week').format('MMMM Do YYYY')}`,
   haveCurrentTerm: Ember.computed('model.no-current-term', function() {
     return !this.get('model')['no-current-term'];
   }),

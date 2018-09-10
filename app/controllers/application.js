@@ -36,6 +36,12 @@ export default Ember.Controller.extend({
     goToIndex () {
       this.transitionToRoute('index');
     },
+    goToAbout () {
+      this.transitionToRoute('about');
+    },
+    goToHelp () {
+      this.transitionToRoute('docs');
+    },
     toggleShowVersionModal () {
       this.set('showVersionModal', !this.get('showVersionModal'));
     },

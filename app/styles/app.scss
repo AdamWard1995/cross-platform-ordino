@@ -25,6 +25,7 @@ $content-top-padding: 5px;
 @import 'create-category-modal';
 @import 'create-course-modal';
 @import 'create-term-modal';
+@import 'docs';
 @import 'download-modal';
 @import 'filtered-list';
 @import 'late-filter';
@@ -205,6 +206,7 @@ body > .ember-view {
 .content {
   position: relative;
   flex: 1 0 auto;
+  width: 100%;
   height: 100%;
   padding: 5px 25px 25px;
   overflow-y: auto;
@@ -231,20 +233,31 @@ body > .ember-view {
     background-color: $color-primary;
     box-shadow: 0 4px 8px 0 $action-button-shadow-color-1, 0 3px 20px 0 $action-button-shadow-color-2;
 
-    .fa {
-      margin: 5px;
+    .action-button {
+      display: flex;
+      align-items: center;
+      margin: -5px 0;
+      padding: 5px 10px;
+      border-left: 1px ridge $color-dark-accent;
       color: $color-white;
-      font-size: 2em;
-      text-shadow: 1px 1px 1px $color-black;
 
       &:hover {
-        color: $color-dark-accent;
+        height: calc(#{$action-buttons-height} + 10px);
+        background-color: $color-dark-accent;
         cursor: pointer;
+        -webkit-box-shadow: 0 0 10px $color-black; // sass-lint:disable-line no-vendor-prefixes
+        -moz-box-shadow: 0 0 10px $color-black; // sass-lint:disable-line no-vendor-prefixes
       }
 
-      &:active {
-        color: $color-light-accent;
-        cursor: pointer;
+      .fa {
+        margin: 5px;
+        font-size: 2em;
+        text-shadow: 1px 1px 1px $color-black;
+
+        &:active {
+          color: $color-light-accent;
+          cursor: pointer;
+        }
       }
     }
   }
@@ -317,7 +330,6 @@ body > .ember-view {
   align-items: center;
   justify-content: center;
   height: $footer-height;
-  border-top: 1px ridge $color-grey;
   background-color: $color-primary;
   color: $color-white;
   font-size: 12px;

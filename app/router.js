@@ -32,6 +32,15 @@ Router.map(function() {
     this.route('timetable');
   });
   this.route('about');
+  this.route('docs', function() {
+    this.route('faq');
+    this.route('getting-started');
+    this.route('change-password');
+    this.route('change-email');
+    this.route('workflow');
+    this.route('timetable');
+    this.route('create-account');
+  });
 });
 
 export default Router;

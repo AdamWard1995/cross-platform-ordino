@@ -11,7 +11,7 @@ export default Ember.Component.extend({
   now: moment().diff(moment().startOf('day'), 'minutes') * pxPerMinute,
   hour: moment().diff(moment().startOf('day'), 'hours'),
   days: Object.values(Day).map((day) => {
-    return {day, header: day.charAt(0)}
+    return {day, header: day}
   }),
   hours: Object.values(Timeslot),
   today: moment().format('dddd'),

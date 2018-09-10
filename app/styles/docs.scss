@@ -1,0 +1,64 @@
+.documentation {
+  display: flex;
+  flex-direction: column;
+  width: calc(100% - 25px);
+  height: calc(100% - #{$action-buttons-height});
+  margin: 0 20px;
+
+  a {
+    text-decoration: none;
+  }
+
+  &-header {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+  }
+
+  .help-content {
+    padding: 10px;
+    font-size: $font-size-m;
+
+    .alert {
+      margin: 30px 30px 10px;
+    }
+  }
+
+  .btn-link {
+    padding: 10px 0;
+    border-bottom: 1px solid $color-light-grey;
+    font-size: $font-size-l;
+    text-align: left;
+  }
+
+  .cp-Panels { // sass-lint:disable-line class-name-format
+    width: 100%;
+    border: 1px solid $color-light-grey;
+    border-radius: 4px;
+
+    .cp-Panel { // sass-lint:disable-line class-name-format
+
+      .btn-link {
+        margin: 0;
+        padding: 10px;
+      }
+
+      &-toggle { // sass-lint:disable-line class-name-format
+        display: block;
+        padding: 1em;
+
+        &:link {
+          text-decoration: none;
+        }
+
+        &:hover {
+          background-color: whitesmoke; // sass-lint:disable-line no-color-keywords no-color-literals
+        }
+      }
+
+      &-body-inner { // sass-lint:disable-line class-name-format
+        padding: 1em;
+      }
+    }
+  }
+}

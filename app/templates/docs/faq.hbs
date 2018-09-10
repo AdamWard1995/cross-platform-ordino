@@ -1,0 +1,41 @@
+<div class='documentation'>
+  <div class='page-header documentation-header'>
+    {{#link-to 'docs'}}
+      {{fa-icon 'arrow-left' class='back-arrow'}}
+    {{/link-to}}
+    <h1 class='documentation-header-title'>Frequently Asked Questions (FAQ)</h1>
+  </div>
+
+  {{#cp-panels accordion=true as |panels|}}
+    {{#panels.panel as |panel|}}
+      {{#panel.toggle class='btn-link'}}
+        How do I change my account E-mail?
+      {{/panel.toggle}}
+      {{#panel.body}}
+        Read the help topic on {{#link-to 'docs.change-email'}}How to change your account E-mail address{{/link-to}}
+      {{/panel.body}}
+    {{/panels.panel}}
+
+    {{#panels.panel as |panel|}}
+      {{#panel.toggle class='btn-link'}}
+        How do I change my account password?
+      {{/panel.toggle}}
+      {{#panel.body}}
+        Read the help topic on {{#link-to 'docs.change-password'}}How to change your account password{{/link-to}}
+      {{/panel.body}}
+    {{/panels.panel}}
+
+    {{#panels.panel as |panel|}}
+      {{#panel.toggle class='btn-link'}}
+        How can I delete my account?
+      {{/panel.toggle}}
+      {{#panel.body}}
+        Presently there is no way for you to delete your account. It is easy for you to delete your term, course,
+        category, and course work data by clicking on the {{fa-icon 'fa-ellipsis-h:before'}} button for
+        the respective list item and then clicking on the "Delete..." menu item. If you want your account
+        to be deleted from our system, E-mail us at <a href='mailto:quadrigadev@gmail.com'>quadrigadev@gmail.com</a>
+        using your account E-mail and we will then delete your account for you.
+      {{/panel.body}}
+    {{/panels.panel}}
+  {{/cp-panels}}
+</div>

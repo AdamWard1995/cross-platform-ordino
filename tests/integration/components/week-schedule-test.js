@@ -35,31 +35,31 @@ describe(test.label, function () {
     });
 
     it('should render header for Sunday', function() {
-      expect(this.$('.header .header-cell').eq(1).text().trim()).to.eql('S');
+      expect(this.$('.header .header-cell').eq(1).text().trim()).to.eql('Sunday');
     });
 
     it('should render header for Monday', function() {
-      expect(this.$('.header .header-cell').eq(2).text().trim()).to.eql('M');
+      expect(this.$('.header .header-cell').eq(2).text().trim()).to.eql('Monday');
     });
 
     it('should render header for Tuesday', function() {
-      expect(this.$('.header .header-cell').eq(3).text().trim()).to.eql('T');
+      expect(this.$('.header .header-cell').eq(3).text().trim()).to.eql('Tuesday');
     });
 
     it('should render header for Wednesday', function() {
-      expect(this.$('.header .header-cell').eq(4).text().trim()).to.eql('W');
+      expect(this.$('.header .header-cell').eq(4).text().trim()).to.eql('Wednesday');
     });
 
     it('should render header for Thursday', function() {
-      expect(this.$('.header .header-cell').eq(5).text().trim()).to.eql('T');
+      expect(this.$('.header .header-cell').eq(5).text().trim()).to.eql('Thursday');
     });
 
     it('should render header for Friday', function() {
-      expect(this.$('.header .header-cell').eq(6).text().trim()).to.eql('F');
+      expect(this.$('.header .header-cell').eq(6).text().trim()).to.eql('Friday');
     });
 
     it('should render header for Saturday', function() {
-      expect(this.$('.header .header-cell').eq(7).text().trim()).to.eql('S');
+      expect(this.$('.header .header-cell').eq(7).text().trim()).to.eql('Saturday');
     });
 
     it('should render 8 columns', function() {
@@ -129,31 +129,31 @@ describe(test.label, function () {
     });
 
     it('should render header for Sunday', function() {
-      expect(this.$('.header .header-cell').eq(1).text().trim()).to.eql('S');
+      expect(this.$('.header .header-cell').eq(1).text().trim()).to.eql('Sunday');
     });
 
     it('should render header for Monday', function() {
-      expect(this.$('.header .header-cell').eq(2).text().trim()).to.eql('M');
+      expect(this.$('.header .header-cell').eq(2).text().trim()).to.eql('Monday');
     });
 
     it('should render header for Tuesday', function() {
-      expect(this.$('.header .header-cell').eq(3).text().trim()).to.eql('T');
+      expect(this.$('.header .header-cell').eq(3).text().trim()).to.eql('Tuesday');
     });
 
     it('should render header for Wednesday', function() {
-      expect(this.$('.header .header-cell').eq(4).text().trim()).to.eql('W');
+      expect(this.$('.header .header-cell').eq(4).text().trim()).to.eql('Wednesday');
     });
 
     it('should render header for Thursday', function() {
-      expect(this.$('.header .header-cell').eq(5).text().trim()).to.eql('T');
+      expect(this.$('.header .header-cell').eq(5).text().trim()).to.eql('Thursday');
     });
 
     it('should render header for Friday', function() {
-      expect(this.$('.header .header-cell').eq(6).text().trim()).to.eql('F');
+      expect(this.$('.header .header-cell').eq(6).text().trim()).to.eql('Friday');
     });
 
     it('should render header for Saturday', function() {
-      expect(this.$('.header .header-cell').eq(7).text().trim()).to.eql('S');
+      expect(this.$('.header .header-cell').eq(7).text().trim()).to.eql('Saturday');
     });
 
     it('should render 8 columns', function() {

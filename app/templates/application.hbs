@@ -30,31 +30,23 @@
                 {{fa-icon 'calendar'}}TimeTable
               </li>
             {{/link-to}}
-            {{#link-to 'about'}}
-              <li class='list-group-item'>
-                {{fa-icon 'info-circle'}}About
-              </li>
-            {{/link-to}}
           </ul>
         {{else}}
-          <ul class='list-group'>
-            {{#link-to 'about'}}
-              <li class='list-group-item'>
-                {{fa-icon 'info-circle'}}About
-              </li>
-            {{/link-to}}
-          </ul>
-          <div class='need-to-sign-in'>You need to {{#link-to 'sign-in'}}Sign In{{/link-to}} to use Ordino's features.</div>
+          <div class='need-to-sign-in'>You need to {{#link-to 'sign-in'}}Sign In{{/link-to}} to access your saved data.</div>
         {{/if}}
       {{/app-menu}}
       <div class='action-buttons'>
-        {{#if session.isAuthenticated}}
-          {{fa-icon 'home' click=(action 'goToAccountDashboard')}}
-          {{fa-icon 'user' click=(action 'goToAccountDetails')}}
+        {{#if (not session.isAuthenticated)}}
+          <div class='action-button' onClick={{action 'goToIndex'}} role='button'>{{fa-icon 'home'}}Home</div>
+        {{else}}
+          <div class='action-button' onClick={{action 'goToAccountDashboard'}} role='button'>{{fa-icon 'home'}}Home</div>
+          <div class='action-button' onClick={{action 'goToAccountDetails'}} role='button'>{{fa-icon 'user'}}Account</div>
         {{/if}}
         {{#if (not electron)}}
-          {{fa-icon 'download' class='download' click=(action 'toggleShowDownloadModal')}}
+          <div class='action-button' onClick={{action 'toggleShowDownloadModal'}} role='button'>{{fa-icon 'download' class='download'}}Download</div>
         {{/if}}
+        <div class='action-button' onClick={{action 'goToHelp'}} role='button'>{{fa-icon 'question-circle'}}Help</div>
+        <div class='action-button' onClick={{action 'goToAbout'}} role='button'>{{fa-icon 'info-circle'}}About</div>
       </div>
       {{outlet}}
     </div>

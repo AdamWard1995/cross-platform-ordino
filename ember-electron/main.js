@@ -3,6 +3,7 @@ const { app, BrowserWindow } = require('electron');
 const { dirname, join, resolve } = require('path');
 const connect = require('connect'); // connect server
 const serveStatic = require('serve-static'); // serve static files
+const PORT_NUMBER = 4201;
 
 let mainWindow = null;
 let server = null;
@@ -24,10 +25,10 @@ app.on('ready', () => {
 
   if (!server) {
     server = connect()
-      .use(serveStatic(join(__dirname || resolve(dirname('')), '..', 'ember'))).listen(4200);
+      .use(serveStatic(join(__dirname || resolve(dirname('')), '..', 'ember'))).listen(PORT_NUMBER);
   }
 
-  const emberAppLocation = 'http://localhost:4200/';
+  const emberAppLocation = 'http://localhost:' + PORT_NUMBER + '/';
 
   // Load the statically served ember application
   mainWindow.loadURL(emberAppLocation);
