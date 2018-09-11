@@ -18,6 +18,7 @@ addons:
       - xvfb
       - g++-4.8
       - fakeroot
+      - rpmbuild
 
 cache:
   yarn: true
@@ -47,5 +48,6 @@ before_script:
 after_success:
   - cat coverage/lcov.info | coveralls
   - ember build
-  - ember electron:make --out public/assets/installers --platform linux --prune --arch all --app-version 1.0.0
+  - ember electron:make --out public/assets/installers --platform linux --prune --arch ia32 --name Ordino
+  - ember electron:make --out public/assets/installers --platform linux --prune --arch x64 --name Ordino
   - firebase deploy --token "$FIREBASE_TOKEN"
