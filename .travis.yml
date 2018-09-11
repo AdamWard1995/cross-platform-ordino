@@ -17,6 +17,7 @@ addons:
     packages:
       - xvfb
       - g++-4.8
+      - fakeroot
 
 cache:
   yarn: true
