@@ -18,7 +18,7 @@ addons:
       - xvfb
       - g++-4.8
       - fakeroot
-      - rpmbuild
+      - rpm
 
 cache:
   yarn: true
