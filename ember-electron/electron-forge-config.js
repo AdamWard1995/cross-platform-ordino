@@ -16,7 +16,7 @@ module.exports = {
     "icon": "public/icon.ico",
     "overwrite": true,
     "win32metadata": {
-      "CompanyName": "Quadriga",
+      "CompanyName": "Quadriga Software Development Group",
       "ProductName": "Ordino",
       "InternalName": "Ordino",
       "FileDescription": "Ordino, student organization on the go.",

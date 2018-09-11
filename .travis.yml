@@ -46,4 +46,5 @@ before_script:
 after_success:
   - cat coverage/lcov.info | coveralls
   - ember build
+  - ember electron:make --out public/assets/installers --platform linux --prune --arch all --app-version 1.0.0
   - firebase deploy --token "$FIREBASE_TOKEN"
