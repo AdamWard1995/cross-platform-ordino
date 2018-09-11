@@ -31,7 +31,7 @@ module.exports = {
     setupExe: 'Ordino-Windows-Setup.exe',
     setupIcon: 'public/icon.ico',
     loadingGif: 'public/loading.gif',
-    iconUrl: 'https://firebasestorage.googleapis.com/v0/b/ordino-b5acf.appspot.com/o/icon.ico?alt=media&token=a20a6929-d0e5-4684-b2ed-825b67c52eec',
+    iconUrl: 'https://firebasestorage.googleapis.com/v0/b/ordino-b5acf.appspot.com/o/icon.ico?alt=media&token=48c3b1c0-f02a-4f82-aba5-622f9c5b9ea8',
     noMsi: true,
     authors: 'Quadriga Software Development Group',
     title: 'Ordino'
