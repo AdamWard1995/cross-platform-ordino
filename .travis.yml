@@ -48,6 +48,7 @@ before_script:
 after_success:
   - cat coverage/lcov.info | coveralls
   - ember build --environment production
-  - travis_wait 30 ember electron:make --platform linux -prod --arch ia32
-  - travis_wait 30 ember electron:make --platform linux -prod --arch x64
+  - travis_wait 90 ember electron:make --platform linux -prod --arch ia32
+  - travis_wait 90 ember electron:make --platform linux -prod --arch x64
+  - ls -R electron-out/
   - firebase deploy --token "$FIREBASE_TOKEN"
