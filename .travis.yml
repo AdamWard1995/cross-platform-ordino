@@ -28,6 +28,12 @@ cache:
 
 stages:
   - name: after_success
+    # only want to build if master build
+    if: branch = master
+  - name: before_deploy
+    # only want to deploy if master build
+    if: branch = master
+  - name: deploy
     # only want to deploy if master build
     if: branch = master
 
@@ -60,7 +66,7 @@ before_deploy:
 
 deploy:
   provider: releases
-  api_key: $GH_TOKEN
+  api_key: $GH_RELEASE_TOKEN
   file:
     - electron-out/make/cross-platform-ordino_1.0.0_amd64.deb
     - electron-out/make/cross-platform-ordino_1.0.0_i386.deb
