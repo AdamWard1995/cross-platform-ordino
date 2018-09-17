@@ -52,3 +52,18 @@ after_success:
   - travis_wait 90 ember electron:make --platform linux -prod --arch x64
   - ls -R electron-out/
   - firebase deploy --token "$FIREBASE_TOKEN"
+
+before_deploy:
+  - git config --local user.name "Adam Ward (Travis CI)"
+  - git config --local user.email "adam.ward@carleton.ca"
+  - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+
+deploy:
+  provider: releases
+  api_key: $GH_TOKEN
+  file:
+    - electron-out/make/cross-platform-ordino_1.0.0_amd64.deb
+    - electron-out/make/cross-platform-ordino_1.0.0_i386.deb
+    - electron-out/make/cross-platform-ordino-1.0.0.i386.rpm
+    - electron-out/make/cross-platform-ordino-1.0.0.x86_64.rpm
+  skip_cleanup: true
