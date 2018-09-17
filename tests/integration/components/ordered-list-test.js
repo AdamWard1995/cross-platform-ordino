@@ -8,7 +8,7 @@ import hbs from 'htmlbars-inline-precompile';
 import sinon from 'sinon';
 
 const test = integration('ordered-list')
-describe(test.label, function () {
+describe.skip(test.label, function () {
   test.setup();
 
   let sandbox;

@@ -1,3 +1,4 @@
+/* eslint-env node */
 module.exports = {
   "make_targets": {
     "win32": [
