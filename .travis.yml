@@ -3,11 +3,8 @@ language: node_js
 node_js:
   - "6"
 
-os:
-  - linux
-    dist: trusty
-    sudo: required
-  - osx
+sudo: required
+dist: trusty
 
 env:
   - CXX=g++-4.8
@@ -36,13 +33,11 @@ stages:
 
 before_install:
   - npm config set spin false
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc48 --enable-cxx ; fi
 
 install:
   - npm install
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export DISPLAY=':99.0' ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 & ; fi
+  - export DISPLAY=':99.0'
+  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 
 before_script:
   - npm install -g bower
@@ -52,9 +47,7 @@ before_script:
 
 after_success:
   - cat coverage/lcov.info | coveralls
-  - ember build
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; travis_wait 30 ember electron:make --platform linux -prod --arch ia32 ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; travis_wait 30 ember electron:make --platform linux -prod --arch x64 ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; travis_wait 30 ember electron:make --platform osx -prod --arch ia32 ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; travis_wait 30 ember electron:make --platform osx -prod --arch x64 ; fi
+  - ember build --environment production
+  - travis_wait 30 ember electron:make --platform linux -prod --arch ia32
+  - travis_wait 30 ember electron:make --platform linux -prod --arch x64
   - firebase deploy --token "$FIREBASE_TOKEN"
