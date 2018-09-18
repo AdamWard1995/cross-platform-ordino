@@ -53,7 +53,7 @@ before_script:
 
 after_success:
   - cat coverage/lcov.info | coveralls
-  - ember build --environment production
+  - ember build
   - travis_wait 90 ember electron:make --platform linux -prod --arch ia32 --name Ordino
   - travis_wait 90 ember electron:make --platform linux -prod --arch x64 --name Ordino
   - firebase deploy --token "$FIREBASE_TOKEN"

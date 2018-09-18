@@ -32,15 +32,11 @@ describe(test.label, function () {
     });
 
     it('should render Windows compatible versions', function() {
-      expect(this.$('.modal-body .os').eq(0).find('.os-versions').text().trim()).to.eql('Compatible versions: 7, 8, 8.1, and 10')
+      expect(this.$('.modal-body .os').eq(0).find('.os-versions').text().trim()).to.contain('Compatible versions: 7, 8, 8.1, and 10')
     });
 
-    it('should render Windows 32-bit link', function() {
-      expect(this.$('.modal-body .os').eq(0).find('.os-links a').eq(0).text().trim()).to.eql('32-bit')
-    });
-
-    it('should render Windows 64-bit link', function() {
-      expect(this.$('.modal-body .os').eq(0).find('.os-links a').eq(1).text().trim()).to.eql('64-bit')
+    it('should render Linux compatible versions', function() {
+      expect(this.$('.modal-body .os').eq(1).find('.os-versions').text().trim()).to.contain('Compatible versions: Still supported Debian and Red Hat based distributions')
     });
 
     it('should render close button', function() {
