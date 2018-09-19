@@ -8,8 +8,7 @@ module.exports = {
       "zip"
     ],
     "linux": [
-      "deb",
-      "rpm"
+      "deb"
     ]
   },
   "electronPackagerConfig": {
@@ -37,7 +36,16 @@ module.exports = {
     authors: 'Quadriga Software Development Group',
     title: 'Ordino'
   },
-  "electronInstallerDebian": {},
+  electronInstallerDebian: {
+        name: 'Ordino',
+        maintainer: 'Quadriga Software Development Group <quadrigadev@gmail.com>',
+        homepage: 'https://ordino.app/',
+        genericName: 'Ordino',
+        arch: 'amd64',
+        icon: 'public/icon.ico',
+        bin: 'Ordino',
+        productDescription: 'Ordino, student organization on the go.'
+    },
   "electronInstallerRedhat": {},
   "github_repository": {
     "owner": "",
