@@ -61,7 +61,7 @@ after_success:
 before_deploy:
   - git config --local user.name "Adam Ward (Travis CI)"
   - git config --local user.email "adam.ward@carleton.ca"
-  - git tag "$(node -p require('./package.json').version)-$(git log --format=%h -1)"
+  - git tag "$(1.0.0)-$(git log --format=%h -1)"
 
 deploy:
   provider: releases
