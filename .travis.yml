@@ -6,8 +6,24 @@ node_js:
 sudo: required
 dist: trusty
 
-env:
-  - CXX=g++-4.8
+matrix:
+  allow_failures:
+    - os: osx
+  include:
+    - os: linux
+      env:
+        - DISPLAY=:99.0
+        - CC=clang
+        - CXX=clang++
+        - npm_config_clang=1
+        - TARGET_ARCH=x64
+        - OS=LINUX
+    - os: osx
+      osx_image: xcode7.3
+      env:
+        - TARGET_ARCH=x64
+        - OS=DARWIN
+        - DISPLAY=:99.0
 
 addons:
   chrome: stable
@@ -49,13 +65,16 @@ before_script:
   - npm install -g bower
   - npm install -g coveralls
   - npm install -g firebase-tools
+  - npm install -g node-gyp
   - bower install
 
 after_success:
   - cat coverage/lcov.info | coveralls
   - ember build
-  - travis_wait 90 ember electron:make --platform linux -prod --arch ia32 --name Ordino
-  - travis_wait 90 ember electron:make --platform linux -prod --arch x64 --name Ordino
+  - if [ "$OS" = "LINUX" ]; then travis_wait 90 ember electron:make --platform linux -prod --arch ia32 --name Ordino; fi
+  - if [ "$OS" = "LINUX" ]; then travis_wait 90 ember electron:make --platform linux -prod --arch x64 --name Ordino; fi
+  - if [ "$OS" = "DARWIN" ]; then travis_wait 90 ember electron:make --platform darwin -prod --arch ia32 --name Ordino; fi
+  - if [ "$OS" = "DARWIN" ]; then travis_wait 90 ember electron:make --platform darwin -prod --arch x64 --name Ordino; fi
   - firebase deploy --token "$FIREBASE_TOKEN"
 
 before_deploy:

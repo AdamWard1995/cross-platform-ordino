@@ -2,7 +2,7 @@
   "name": "cross-platform-ordino",
   "productName": "Ordino",
   "version": "1.0.0",
-  "description": "Cross-platform Ember.js and Electron.js student organization application",
+  "description": "An all-in-one student organization application",
   "license": "MIT",
   "author": "Quadriga Software Development Group",
   "directories": {
