@@ -75,13 +75,13 @@ after_success:
   - if [ "$OS" = "LINUX" ]; then travis_wait 90 ember electron:make --platform linux -prod --arch x64 --name Ordino; fi
   - if [ "$OS" = "DARWIN" ]; then travis_wait 90 ember electron:make --platform darwin -prod --arch ia32 --name Ordino; fi
   - if [ "$OS" = "DARWIN" ]; then travis_wait 90 ember electron:make --platform darwin -prod --arch x64 --name Ordino; fi
+  - ls electron-out/make
   - firebase deploy --token "$FIREBASE_TOKEN"
 
 before_deploy:
   - git config --local user.name "Adam Ward (Travis CI)"
   - git config --local user.email "adam.ward@carleton.ca"
   - git tag "1.0.0-$(git log --format=%h -1)"
-  - ls electron-out/make
 
 deploy:
   provider: releases
