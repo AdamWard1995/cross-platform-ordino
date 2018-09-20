@@ -68,5 +68,6 @@ deploy:
   provider: releases
   api_key: $GH_RELEASE_TOKEN
   file:
-    - electron-out/make/cross-platform-ordino_1.0.0_amd64.deb
+    - electron-out/make/Ordino_1.0.0_amd64.deb
+    - electron-out/make/Ordino_1.0.0_i386.deb
   skip_cleanup: true
