@@ -69,14 +69,12 @@ before_script:
   - bower install
 
 after_success:
-  - cat coverage/lcov.info | coveralls
-  - ember build
+  - if [ "$OS" = "LINUX" ]; then cat coverage/lcov.info | coveralls; fi
+  - if [ "$OS" = "LINUX" ]; then ember build; fi
+  - if [ "$OS" = "LINUX" ]; then firebase deploy --token "$FIREBASE_TOKEN"; fi
   - if [ "$OS" = "LINUX" ]; then travis_wait 90 ember electron:make --platform linux -prod --arch ia32 --name Ordino; fi
   - if [ "$OS" = "LINUX" ]; then travis_wait 90 ember electron:make --platform linux -prod --arch x64 --name Ordino; fi
-  - if [ "$OS" = "DARWIN" ]; then travis_wait 90 ember electron:make --platform darwin -prod --arch ia32 --name Ordino; fi
   - if [ "$OS" = "DARWIN" ]; then travis_wait 90 ember electron:make --platform darwin -prod --arch x64 --name Ordino; fi
-  - ls electron-out/make
-  - firebase deploy --token "$FIREBASE_TOKEN"
 
 before_deploy:
   - git config --local user.name "Adam Ward (Travis CI)"
@@ -87,6 +85,7 @@ deploy:
   provider: releases
   api_key: $GH_RELEASE_TOKEN
   file:
-    - electron-out/make/Ordino_1.0.0_amd64.deb
     - electron-out/make/Ordino_1.0.0_i386.deb
+    - electron-out/make/Ordino_1.0.0_amd64.deb
+    - electron-out/make/Ordino-darwin-x64-1.0.0.zip
   skip_cleanup: true
