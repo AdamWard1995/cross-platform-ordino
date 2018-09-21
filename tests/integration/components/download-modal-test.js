@@ -36,7 +36,11 @@ describe(test.label, function () {
     });
 
     it('should render Linux compatible versions', function() {
-      expect(this.$('.modal-body .os').eq(1).find('.os-versions').text().trim()).to.contain('Compatible versions: Still supported Debian and Red Hat based distributions')
+      expect(this.$('.modal-body .os').eq(1).find('.os-versions').text().trim()).to.contain('Compatible versions: OS X 10.8 (Mountain Lion) or higher')
+    });
+
+    it('should render Linux compatible versions', function() {
+      expect(this.$('.modal-body .os').eq(2).find('.os-versions').text().trim()).to.contain('Compatible versions: Still supported Debian based distributions')
     });
 
     it('should render close button', function() {

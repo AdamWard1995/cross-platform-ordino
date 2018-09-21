@@ -21,20 +21,27 @@
       </div>
       <div class='os desktop'>
         <div class='os-name'>
+          macOS
+          {{fa-icon 'apple' class='os-icon'}}
+        </div>
+        <div class='os-versions'>
+          Compatible versions: OS X 10.8 (Mountain Lion) or higher
+          <div class='os-links'>
+            <a href='https://github.com/AdamWard1995/cross-platform-ordino/releases/download/{{app-version hideSha=true}}-{{truncate (app-version hideVersion=true) 7 false}}/Ordino-darwin-x64-{{app-version hideSha=true}}.zip'>64-bit</a>
+          </div>
+        </div>
+      </div>
+      <div class='os desktop'>
+        <div class='os-name'>
           Linux
           {{fa-icon 'linux' class='os-icon'}}
         </div>
         <div class='os-versions'>
-          Compatible versions: Still supported Debian and Red Hat based distributions
+          Compatible versions: Still supported Debian based distributions
           <div class='os-links'>
-            .deb: <a href=''>32-bit</a>
+            <a href='https://github.com/AdamWard1995/cross-platform-ordino/releases/download/{{app-version hideSha=true}}-{{truncate (app-version hideVersion=true) 7 false}}/Ordino_{{app-version hideSha=true}}_i386.deb'>32-bit</a>
             |
-            <a href=''>64-bit</a>
-          </div>
-          <div class='os-links'>
-            .rpm: <a href=''>32-bit</a>
-            |
-            <a href=''>64-bit</a>
+            <a href='https://github.com/AdamWard1995/cross-platform-ordino/releases/download/{{app-version hideSha=true}}-{{truncate (app-version hideVersion=true) 7 false}}/Ordino_{{app-version hideSha=true}}_amd64.deb'>64-bit</a>
           </div>
         </div>
       </div>
