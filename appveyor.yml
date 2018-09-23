@@ -19,14 +19,12 @@ platform:
 environment:
   matrix:
     - nodejs_version: "6"
+  GH_RELEASE_TOKEN:
+    secure: rnz5CABEDXlmkRRdnyAaV/PGg3hSDU1/ViJyANF1r3C0d2VKzt3t2oJRHIsxSRBo
 
 cache:
   - node_modules -> package.json
   - '%APPDATA%\npm-cache'
-
-environment:
-  GH_RELEASE_TOKEN:
-    secure: rnz5CABEDXlmkRRdnyAaV/PGg3hSDU1/ViJyANF1r3C0d2VKzt3t2oJRHIsxSRBo
   
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
