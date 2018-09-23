@@ -47,6 +47,6 @@ deploy:
   provider: GitHub
   auth_token:
     secure: $GH_RELEASE_TOKEN
-  artifact: **/*.msi
+  artifact: /.*\.msi/
   draft: false
   prerelease: false
