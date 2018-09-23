@@ -6,6 +6,10 @@ node_js:
 sudo: required
 dist: trusty
 
+branches:
+  except:
+  - /^\d+\.\d+\.\d+-.*/
+
 matrix:
   allow_failures:
     - os: osx

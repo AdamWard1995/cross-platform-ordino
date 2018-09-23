@@ -24,6 +24,10 @@ cache:
   - node_modules -> package.json
   - '%APPDATA%\npm-cache'
 
+environment:
+  GH_RELEASE_TOKEN:
+    secure: rnz5CABEDXlmkRRdnyAaV/PGg3hSDU1/ViJyANF1r3C0d2VKzt3t2oJRHIsxSRBo
+  
 install:
   - ps: Install-Product node $env:nodejs_version $env:platform
   - cmd: IF "%nodejs_version%"=="6" npm install -g npm@6
@@ -50,3 +54,5 @@ deploy:
   artifact: /.*\.msi/
   draft: false
   prerelease: false
+  on:
+      appveyor_repo_tag: true
