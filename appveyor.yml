@@ -10,6 +10,8 @@ init:
 branches:
   only:
   - master
+  
+skip_non_tags: true
 
 platform:
   - x64
@@ -33,12 +35,18 @@ install:
   - npm install --no-optional --no-color --no-progress
   - bower install
 
-test_script:
-  - npm test
-
 build_script:
   - ember build
   - ember electron:package -prod --arch ia32
   - ember electron:package -prod --arch x64
   - ps: AdvancedInstaller.com /build Ordino-32bit.aip
   - ps: AdvancedInstaller.com /build Ordino-64bit.aip
+  
+deploy:
+  release: 1.0.0-$(git log --format=%h -1)
+  provider: GitHub
+  auth_token:
+    secure: $GH_RELEASE_TOKEN
+  artifact: **/*.msi
+  draft: false
+  prerelease: false
