@@ -46,7 +46,7 @@ deploy:
   release: 1.0.0-$(git log --format=%h -1)
   provider: GitHub
   auth_token:
-    secure: $GH_RELEASE_TOKEN
+    secure: $(GH_RELEASE_TOKEN)
   artifact: /.*\.msi/
   draft: false
   prerelease: false
