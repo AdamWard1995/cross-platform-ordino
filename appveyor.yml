@@ -40,5 +40,5 @@ build_script:
   - ember build
   - ember electron:package -prod --arch ia32
   - ember electron:package -prod --arch x64
-  - ps: AdvancedInstaller.com /build Ordino-32.aip
-  - ps: AdvancedInstaller.com /build Ordino-64.aip
+  - ps: AdvancedInstaller.com /build Ordino-32bit.aip
+  - ps: AdvancedInstaller.com /build Ordino-64bit.aip
