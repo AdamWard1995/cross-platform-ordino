@@ -1,0 +1,46 @@
+image: Visual Studio 2015
+
+version: "{build}"
+
+clone_depth: 1
+
+init:
+  - git config --global core.autocrlf true
+
+branches:
+  only:
+  - master
+
+platform:
+  - x64
+
+environment:
+  matrix:
+    - nodejs_version: "6"
+
+cache:
+  - node_modules -> package.json
+  - '%APPDATA%\npm-cache'
+
+install:
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  - cmd: IF "%nodejs_version%"=="6" npm install -g npm@6
+  - ps: Invoke-WebRequest http://www.advancedinstaller.com/downloads/14.3/advinst.msi -OutFile "$env:TEMP\advinst.msi"
+  - ps: msiexec.exe /i "$env:TEMP\advinst.msi" /qn | Out-Null
+  - ps: "C:\Program Files (x86)\Caphyon\Advanced Installer 14.3\bin\x86\AdvancedInstaller.com" /register $env:ADVANCED_INSTALLER_LICENSE_ID
+  - npm config set spin false
+  - npm install -g ember-cli@2.18.2
+  - npm install -g bower
+  - npm install -g node-gyp
+  - npm install --no-optional --no-color --no-progress
+  - bower install
+
+test_script:
+  - npm test
+
+build_script:
+  - ember build
+  - ember electron:package -prod --arch ia32
+  - ember electron:package -prod --arch x64
+  - ps: "C:\Program Files (x86)\Caphyon\Advanced Installer 14.3\bin\x86\AdvancedInstaller.com" /build Ordino-32.aip
+  - ps: "C:\Program Files (x86)\Caphyon\Advanced Installer 14.3\bin\x86\AdvancedInstaller.com" /build Ordino-64.aip
