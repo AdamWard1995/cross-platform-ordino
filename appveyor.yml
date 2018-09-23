@@ -27,7 +27,7 @@ install:
   - cmd: IF "%nodejs_version%"=="6" npm install -g npm@6
   - ps: Invoke-WebRequest http://www.advancedinstaller.com/downloads/14.3/advinst.msi -OutFile "$env:TEMP\advinst.msi"
   - ps: msiexec.exe /i "$env:TEMP\advinst.msi" /qn | Out-Null
-  - ps: 'C:\Program Files (x86)\Caphyon\Advanced Installer 14.3\bin\x86\AdvancedInstaller.com' /register "$env:ADVANCED_INSTALLER_LICENSE_ID"
+  - ps: '"C:\Program Files (x86)\Caphyon\Advanced Installer 14.3\bin\x86\AdvancedInstaller.com" /register "$env:ADVANCED_INSTALLER_LICENSE_ID"'
   - npm config set spin false
   - npm install -g ember-cli@2.18.2
   - npm install -g bower
@@ -42,5 +42,5 @@ build_script:
   - ember build
   - ember electron:package -prod --arch ia32
   - ember electron:package -prod --arch x64
-  - ps: 'C:\Program Files (x86)\Caphyon\Advanced Installer 14.3\bin\x86\AdvancedInstaller.com' /build Ordino-32.aip
-  - ps: 'C:\Program Files (x86)\Caphyon\Advanced Installer 14.3\bin\x86\AdvancedInstaller.com' /build Ordino-64.aip
+  - ps: '"C:\Program Files (x86)\Caphyon\Advanced Installer 14.3\bin\x86\AdvancedInstaller.com" /build Ordino-32.aip'
+  - ps: '"C:\Program Files (x86)\Caphyon\Advanced Installer 14.3\bin\x86\AdvancedInstaller.com" /build Ordino-64.aip'
