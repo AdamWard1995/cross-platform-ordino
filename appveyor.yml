@@ -46,7 +46,7 @@ deploy:
   release: $(APPVEYOR_REPO_TAG_NAME)
   provider: GitHub
   auth_token: $(GH_RELEASE_TOKEN)
-  artifact: /.*.msi/
+  artifact: installers\*.msi
   draft: false
   prerelease: false
   on:
