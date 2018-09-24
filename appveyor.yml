@@ -42,11 +42,13 @@ build_script:
   - ps: AdvancedInstaller.com /build Ordino-32bit.aip
   - ps: AdvancedInstaller.com /build Ordino-64bit.aip
   
+artifacts:
+  - path: installers\*.msi
+
 deploy:
   release: $(APPVEYOR_REPO_TAG_NAME)
   provider: GitHub
   auth_token: $(GH_RELEASE_TOKEN)
-  artifact: installers\Ordino-Windows-Installer-1.0.0-x86_64.msi,installers\Ordino-Windows-Installer-1.0.0-x86.msi
   draft: false
   prerelease: false
   on:
