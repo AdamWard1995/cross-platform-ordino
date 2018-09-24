@@ -46,7 +46,7 @@ deploy:
   release: $(APPVEYOR_REPO_TAG_NAME)
   provider: GitHub
   auth_token: $(GH_RELEASE_TOKEN)
-  artifact: installers\*.msi
+  artifact: installers\Ordino-Windows-Installer-1.0.0-x86_64.msi,installers\Ordino-Windows-Installer-1.0.0-x86.msi
   draft: false
   prerelease: false
   on:
