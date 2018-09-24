@@ -43,10 +43,10 @@ build_script:
   - ps: AdvancedInstaller.com /build Ordino-64bit.aip
   
 deploy:
-  release: 1.0.0-$(git log --format=%h -1)
+  release: $(APPVEYOR_REPO_TAG_NAME)
   provider: GitHub
   auth_token: $(GH_RELEASE_TOKEN)
-  artifact: /.*\.msi/
+  artifact: /.*.msi/
   draft: false
   prerelease: false
   on:
