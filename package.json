@@ -74,7 +74,6 @@
     "emberfire": "^2.0.10",
     "eonasdan-bootstrap-datetimepicker": "~4.17.42",
     "eslint-plugin-ember": "^5.0.0",
-    "gauge": "^2.7.4",
     "loader.js": "^4.2.3",
     "moment": "^2.22.2",
     "npmlog": "^4.1.2",
